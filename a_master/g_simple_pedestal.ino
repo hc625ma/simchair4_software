@@ -48,50 +48,54 @@
     void ministick_to_mouse(uint8_t x, uint8_t y) {
     if (y < Y_CENTER - 3) {
         // UP
-        if (y < Y_CENTER - 110) {
-          Mouse.move(0, -3, 0);
-        }
-        else if (y < Y_CENTER - 90) {
-          Mouse.move(0, -2, 0);
+//        if (y < Y_CENTER - 110) {
+//          Mouse.move(0, -3, 0);
+//        }
+        if (y < Y_CENTER - 115) {
+          Mouse.move(0, -g_ministick_sensitivity, 0);
         }
         else {
           Mouse.move(0, -1, 0);
+          delay(15);
         }
       }
       else if (y > Y_CENTER + 3) {
         // DOWN
-        if (y > Y_CENTER + 110) {
-          Mouse.move(0, 3, 0);
-        }
-        else if (y > Y_CENTER + 90) {
-          Mouse.move(0, 2, 0);
+//        if (y > Y_CENTER + 110) {
+//          Mouse.move(0, 3, 0);
+//        }
+        if (y > Y_CENTER + 115) {
+          Mouse.move(0, g_ministick_sensitivity, 0);
         }
         else {
           Mouse.move(0, 1, 0);
+          delay(15);
         }
       }
       if (x < X_CENTER - 3) { 
         // LEFT
-        if (x < X_CENTER - 110) {
-          Mouse.move(-3, 0, 0);
-        }
-        else if (x < X_CENTER - 90) {
-          Mouse.move(-2, 0, 0);
+//        if (x < X_CENTER - 110) {
+//          Mouse.move(-3, 0, 0);
+//        }
+        if (x < X_CENTER - 115) {
+          Mouse.move(-g_ministick_sensitivity, 0, 0);
         }
         else {
           Mouse.move(-1, 0, 0);
+          delay(15);
         }
       }
       else if (x > X_CENTER + 3) { 
         // RIGHT
-        if (x > X_CENTER + 110) {
-          Mouse.move(+3, 0, 0);
-        }
-        else if (x > X_CENTER + 90) {
-          Mouse.move(2, 0, 0);
+//        if (x > X_CENTER + 110) {
+//          Mouse.move(+3, 0, 0);
+//        }
+        if (x > X_CENTER + 115) {
+          Mouse.move(g_ministick_sensitivity, 0, 0);
         }
         else {
           Mouse.move(1, 0, 0);
+          delay(15);
         }
       }
     }
@@ -100,8 +104,8 @@
       for (byte i = 0; i < 8; i++) {
         bool v = (b >> i) & 1;
         
-        if (v != spdstl_lastButtonState[i + start_pos]) {
-          if (((start_pos + i) !=  MB_LEFT - 1) && ((start_pos + i) !=  MB_RIGHT - 1)) {
+        if (v != g_spdstl_lastButtonState[i + start_pos]) {
+          if (((start_pos + i) !=  MB_LEFT - 1) && ((start_pos + i) !=  MB_RIGHT - 1) && ((start_pos + i) !=  MINISTICK_SENS_SWITCH_BTN - 1)) {
             j_spdstl.setButton(i + start_pos, v);     
           } else if (((start_pos + i) ==  MB_LEFT - 1) && (v == 1)) {
             Mouse.press(MOUSE_LEFT);
@@ -111,18 +115,28 @@
             Mouse.press(MOUSE_RIGHT);
           } else if (((start_pos + i) ==  MB_RIGHT - 1) && (v == 0)) {
             Mouse.release(MOUSE_RIGHT);
+          } else if (((start_pos + i) ==  MINISTICK_SENS_SWITCH_BTN - 1) && (v == 1)) {
+            if (g_ministick_sensitivity == 1) {
+              g_ministick_sensitivity = 5;
+            } else {
+              g_ministick_sensitivity = 1;
+            }
           }
         }
-        spdstl_lastButtonState[i + start_pos] = v;
+        g_spdstl_lastButtonState[i + start_pos] = v;
 
         
       }
     }
 
     void parse_encoder(uint8_t e) {
-      if (e != spdstl_enc_lastVal) {
-        Mouse.move(0,0,spdstl_enc_lastVal - e);
-        spdstl_enc_lastVal = e;
+      if (e != g_spdstl_enc_lastVal) {
+        if (MOUSEWHEEL_DIR == "NOR") {
+          Mouse.move(0,0,g_spdstl_enc_lastVal - e);
+        } else {
+          Mouse.move(0,0,e - g_spdstl_enc_lastVal);
+        }
+        g_spdstl_enc_lastVal = e;
       }
     }
 
