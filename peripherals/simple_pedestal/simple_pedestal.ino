@@ -81,8 +81,8 @@ void loop()
     
  }
   
-  x = analogRead(A6);
-  y = analogRead(A7);
+  x = analogRead(A6) >> 2;
+  y = analogRead(A7) >> 2;
   z = analogRead(A3);
 
   #if defined(CALIBRATE)
@@ -106,15 +106,13 @@ void loop()
 // function that executes whenever data is received from master
 // this function is registered as an event, see setup()
 void requestEvent() {
-  data[0] = (x >> 8) & 0xFF;
-  data[1] = x & 0xFF;
-  data[2] = (y >> 8) & 0xFF;
-  data[3] = y & 0xFF;
-  data[4] = (z >> 8) & 0xFF;
-  data[5] = z & 0xFF;
-  data[6] = b;
-  data[7] = b1;
-  data[8] = n0;
+  data[0] = x;
+  data[1] = y;
+  data[2] = (z >> 8) & 0xFF;
+  data[3] = z & 0xFF;
+  data[4] = b;
+  data[5] = b1;
+  data[6] = encoderPos;
   Wire.write(data,7);
 }
 
