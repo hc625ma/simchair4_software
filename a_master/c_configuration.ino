@@ -23,6 +23,6 @@
   #define MB_RIGHT 0
 
   #define MOUSEWHEEL_DIR "REV" // NOR or REV - adjust so knobs in your sim will turn in the right direction
-  #define MINISTICK_SENS_SWITCH_BTN 1 // 0 to disable
+  #define MINISTICK_SENS_SWITCH_BTN 8 // 0 to disable
 
 // </SIMPLE_PEDESTAL>
