@@ -9,6 +9,15 @@ void setup() {
   #if (defined COMPACT_COLLECTIVE) 
     setup_compact_collective();
   #endif
+  #if (defined CYCLIC_BASE) 
+    setup_cyclic_base();
+  #endif
+  #if (defined B8_GRIP) 
+    setup_b8grip();
+  #endif
+  #if (defined PEDALS) 
+    setup_pedals();
+  #endif
 }
 
 void loop() {
@@ -17,5 +26,14 @@ void loop() {
   #endif
   #if (defined COMPACT_COLLECTIVE) 
     poll_compact_collective();
+  #endif
+  #if (defined CYCLIC_BASE) 
+    poll_cyclic_base();
+  #endif
+  #if (defined B8_GRIP) 
+    poll_b8grip();
+  #endif
+  #if (defined PEDALS) 
+    poll_pedals();
   #endif
 }

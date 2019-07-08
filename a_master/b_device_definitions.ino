@@ -1,12 +1,14 @@
-// On this page, select the hardware you want to be active.
+// On this page, define the hardware you want to be active.
 
 #define DEBUG
 
 //CYCLIC
 
   //BASE
+    #define CYCLIC_BASE
 
-  //GRIP
+  //GRIPS
+    #define B8_GRIP
 
 
 //COLLECTIVE LEVER
@@ -17,5 +19,6 @@
     #define SIMPLE_PEDESTAL
 
 //PEDALS
+  #define PEDALS
 
 
