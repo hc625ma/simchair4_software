@@ -9,7 +9,7 @@
 
   // <FORCE_TRIM>
     #if ((defined PEDALS) || (defined B8_GRIP) || (defined CYCLIC_BASE))
-      bool g_pedals_force_trim_state = 0;
+      byte g_pedals_force_trim_state = 0;
       bool g_controls_freezed = 0;
       byte g_cyclic_sens = 100;
       byte g_rudder_sens = 100;
@@ -41,7 +41,7 @@
   #if (defined SIMPLE_PEDESTAL)
     bool g_spdstl_lastButtonState[17]; // number of buttons + 1
     uint8_t g_spdstl_enc_lastVal = 0;
-    uint8_t g_ministick_sensitivity = 1; // 1 for precise, 2 for fast cursor movement
+    uint8_t g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
   #endif
 // </SPDSTL>
 

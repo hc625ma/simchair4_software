@@ -22,6 +22,8 @@
   // Ministick
   #define X_CENTER 123
   #define Y_CENTER 128
+  #define MINISTICK_SENSITIVITY_LOW 5
+  #define MINISTICK_SENSITIVITY_HIGH 15
 
   // Buttons to act as mouse buttons as seen in joy.cpl, 0 to disable
   #define MB_LEFT 9

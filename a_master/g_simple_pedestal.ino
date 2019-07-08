@@ -116,10 +116,10 @@
           } else if (((start_pos + i) ==  MB_RIGHT - 1) && (v == 0)) {
             Mouse.release(MOUSE_RIGHT);
           } else if (((start_pos + i) ==  MINISTICK_SENS_SWITCH_BTN - 1) && (v == 1)) {
-            if (g_ministick_sensitivity == 1) {
-              g_ministick_sensitivity = 5;
+            if (g_ministick_sensitivity == MINISTICK_SENSITIVITY_LOW) {
+              g_ministick_sensitivity = MINISTICK_SENSITIVITY_HIGH;
             } else {
-              g_ministick_sensitivity = 1;
+              g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
             }
           }
         }
