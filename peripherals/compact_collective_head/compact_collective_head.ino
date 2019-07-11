@@ -1,26 +1,16 @@
-#define SIMPLE_PEDESTAL_I2C_ADDRESS 40 // do not change this!
+#define SIMPLE_PEDESTAL_I2C_ADDRESS 30 // do not change this!
 
 #include <Wire.h>
 
 //#define CALIBRATE
-
-uint16_t x,y,z;
-byte data[4];
+byte data[2];
 
 
-byte pins = 16;
-
-byte encoderPinA = 3;
-byte encoderPinB = 4;
-byte n0;
+byte pins = 13;
 
 uint8_t b = 0b00000000; //digital pins 0 to 7; x ^= (1 << n); - toggles nth bit of x.  all other bits left alone.
 uint8_t b1 = 0b00000000; //digital pins 8 to 15
-
-uint8_t encoderPos = 0;
-uint8_t encoderPinALast = LOW;
-
-
+uint8_t x,y;
 
 void setup()
 {
@@ -30,34 +20,23 @@ void setup()
     Serial.begin(115200);           // start serial for output
   #endif
   
-  for (int i = 0; i <= pins; i++)
+  for (int i = 3; i <= pins; i++)
   {
     pinMode(i, INPUT_PULLUP);
   }
+  // pin 2 powers KY-023 board
+  pinMode(2,OUTPUT);
+  digitalWrite(2,HIGH);
 }
 
 void loop()
 {
-  n0 = !digitalRead(encoderPinA);
-  if ((encoderPinALast == LOW) && (n0 == HIGH)) 
-  {
-    if (!digitalRead(encoderPinB) == LOW) 
-    {
-      encoderPos--;
-    } 
-    else 
-    {
-      encoderPos++;
-    }
-   }
-  encoderPinALast = n0;
-
   for (int i = 0; i <= pins; i++)
   {
     bool pin = !digitalRead(i);
     if (pin == 1)
     {
-     if ((i < 8) && ((i != encoderPinA) && (i != encoderPinB)))
+     if (i < 8)
      {
         b |= (1 << i);       // forces ith bit of b to be 1.  all other bits left alone.
      }
@@ -77,23 +56,14 @@ void loop()
         b1 &= ~(1 << (i - 8));
       }
     }
+    x = analogRead(A0) >> 2;
+    y = analogRead(A1) >> 2;
 
     
  }
   
-  x = analogRead(A6) >> 2;
-  y = analogRead(A7) >> 2;
-  z = analogRead(A3);
 
   #if defined(CALIBRATE)
-    Serial.print (encoderPos);
-    Serial.print(" ");
-    Serial.print(x);
-    Serial.print(" ");
-    Serial.print(y);
-    Serial.print(" ");
-    Serial.print(z);
-    Serial.print(" ");
     printBits(b);
     Serial.print(" ");
     printBits(b1);
@@ -108,12 +78,10 @@ void loop()
 void requestEvent() {
   data[0] = x;
   data[1] = y;
-  data[2] = (z >> 8) & 0xFF;
-  data[3] = z & 0xFF;
-  data[4] = b;
-  data[5] = b1;
-  data[6] = encoderPos;
-  Wire.write(data,7);
+  data[2] = b;
+  data[3] = b1;
+
+  Wire.write(data,4);
 }
 
 void printBits(byte myByte)

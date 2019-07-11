@@ -17,6 +17,7 @@
     #define COMPACT_COLLECTIVE
   //PEDESTAL
     #define SIMPLE_PEDESTAL
+  // HEAD
 
 //PEDALS
   #define PEDALS

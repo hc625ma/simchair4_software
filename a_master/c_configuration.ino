@@ -20,7 +20,7 @@
 // <SIMPLE PEDESTAL>
 
   // Ministick
-  #define X_CENTER 123
+  #define X_CENTER 128
   #define Y_CENTER 128
   #define MINISTICK_SENSITIVITY_LOW 5
   #define MINISTICK_SENSITIVITY_HIGH 15

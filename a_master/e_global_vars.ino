@@ -76,3 +76,9 @@
     int32_t g_rudder_val;
   #endif
 // </PEDALS>
+
+// COMPACT COLLECTIVE
+  #if (defined COMPACT_COLLECTIVE)
+    bool g_ccoll_lastButtonState[17];
+  #endif
+    

@@ -33,7 +33,9 @@
 
 //    Serial.print(x);
 //    Serial.print(" ");
- //   Serial.println(enc);
+//    Serial.print(y);
+//    Serial.print(" ");
+//    Serial.println(enc);
 
       ministick_to_mouse(x,y);
       parse_button_array(ba0,0);

@@ -1,4 +1,4 @@
-int parse_hat_sw (int x, int y, byte dirs)  {
+int parse_hat_sw (int x, int y, byte dirs) {
   int hat_val;
   if (dirs == 8) {
     if (y > 145) {
@@ -42,11 +42,9 @@ int parse_hat_sw (int x, int y, byte dirs)  {
 
 #if ((defined CYCLIC_BASE) || (defined B8_GRIP) || (defined PEDALS))
 
-  int adjust_sensitivity (int val, int param)
-  {
+  int adjust_sensitivity (int val, int param) {
   //  if ((SENS_ADJ_METHOD == "LINEAR") && (param < 100))
-    if (param < 100)
-    {
+    if (param < 100) {
       int percent = param;
       // this will simply limit your controls throw range by the given percent,
       // and map full ADC range for it.
@@ -54,7 +52,6 @@ int parse_hat_sw (int x, int y, byte dirs)  {
       int center = CBASE_ADC_RANGE / 2;
       int adj_range = (CBASE_ADC_RANGE / 100) * percent;
       val = map(val, 0, CBASE_ADC_RANGE, center - (adj_range / 2), center + (adj_range / 2));
-  
     }
   
     return val;
