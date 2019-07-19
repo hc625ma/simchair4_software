@@ -1,5 +1,5 @@
 // THIS FILE CONTAINS MAIN LOOP FUNCTION BODY, TO ADD CUSTOM DEVICES PLACE YOUR OWN FILES AFTER THIS FILE
-// FILES MUST BE CALLED fd[a-z]_<filename>_loop.ino 
+// FILES MUST BE CALLED fd[a-z]_loop_<filename>.ino 
 
 #if (defined SIMPLE_PEDESTAL) 
   poll_simple_pedestal();
@@ -16,4 +16,8 @@
 #if (defined PEDALS) 
   poll_pedals();
 #endif
+#if (defined COLLECTIVE_NOTHR) 
+  poll_coll_nothr();
+#endif
+
 

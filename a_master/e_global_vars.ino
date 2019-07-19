@@ -1,3 +1,6 @@
+// THIS FILE CONTAINS DEFAULT GLOBAL VARS, TO ADD CUSTOM DEVICES PLACE YOUR OWN FILES AFTER THIS FILE
+// FILES MUST BE CALLED e[a-z]_loop_<filename>.ino 
+
 // <GLOBAL>
   int CBASE_ADC_RANGE = 0.5 + pow(2, ADS1115_RESOLUTION);
   int PEDALS_ADC_RANGE = 0.5 + pow(2, ADS1115_RESOLUTION);
@@ -77,8 +80,14 @@
   #endif
 // </PEDALS>
 
-// COMPACT COLLECTIVE
+// <COMPACT COLLECTIVE>
   #if (defined COMPACT_COLLECTIVE)
     bool g_ccoll_lastButtonState[17];
   #endif
-    
+// </COMPACT_COLLECTIVE>
+
+// <COLLECTIVE_NO_THROTTLE>
+  #if (defined COLLECTIVE_NOTHR)
+    bool g_coll_nthr_lastButtonState[8];
+  #endif
+// </COLLECTIVE_NO_THROTTLE>

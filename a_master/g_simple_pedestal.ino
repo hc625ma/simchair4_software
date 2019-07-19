@@ -1,5 +1,5 @@
 #if (defined SIMPLE_PEDESTAL)
-  Joystick_ j_spdstl(0x21, 0x05, 18, 1, false, false, true, false, false, false, false, false, false, false, false);
+  Joystick_ j_spdstl(0x21, 0x05, 18, 0, false, false, true, false, false, false, false, false, false, false, false);
 
   void setup_simple_pedestal() {
     j_spdstl.begin();   
@@ -30,7 +30,9 @@
       ba0 = b5;
       ba1 = b6;
       enc = b7;
-
+      
+//    Serial.print("test");
+//    Serial.print(" ");
 //    Serial.print(x);
 //    Serial.print(" ");
 //    Serial.print(y);

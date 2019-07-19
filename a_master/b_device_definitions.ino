@@ -9,15 +9,24 @@
 
   //GRIPS
     #define B8_GRIP
+    
 
 
 //COLLECTIVE LEVER
 
-  //BODY
-    #define COMPACT_COLLECTIVE
+  // COMBO LEVERS
+    //#define COMPACT_COLLECTIVE
+  // OTHER LEVERS
+
+  // BASE + BODY
+    #define COLLECTIVE_NOTHR
+    //#define COLLECTIVE_STHR
+    //#define COLLECTIVE_DTHR
+  
   //PEDESTAL
     #define SIMPLE_PEDESTAL
   // HEAD
+
 
 //PEDALS
   #define PEDALS

@@ -1,5 +1,5 @@
 // THIS FILE CONTAINS SETUP FUNCTION BODY, TO ADD CUSTOM DEVICES PLACE YOUR OWN FILES AFTER THIS FILE
-// FILES MUST BE CALLED fb[a-z]_<filename>_setup.ino 
+// FILES MUST BE CALLED fb[a-z]_setup_<filename>.ino 
 
 #if defined (DEBUG)
   Serial.begin(115200);
@@ -19,4 +19,7 @@ Wire.begin();
 #endif
 #if (defined PEDALS) 
   setup_pedals();
+#endif
+#if (defined COLLECTIVE_NOTHR) 
+  setup_coll_nothr();
 #endif
