@@ -37,12 +37,24 @@
 //    Serial.print(" ");
 //    Serial.print(y);
 //    Serial.print(" ");
-//    Serial.println(enc);
+//    Serial.print(enc);
+//    Serial.print(" ");
+//    Serial.print(ba0);
+//    Serial.print(" ");
+//    Serial.println(ba1);
 
       ministick_to_mouse(x,y);
-      parse_button_array(ba0,0);
-      parse_button_array(ba1,8);
-      j_spdstl.setZAxis(z);
+      parse_button_array(ba0,0,0);
+      parse_button_array(ba1,8,0);
+      if (ZOOM_STABILIZER_ENABLED) {
+        int16_t zdiff = z - g_spdstl_z_val;
+        if (abs(zdiff) > ZOOM_STEP) {
+          j_spdstl.setZAxis(z);
+          g_spdstl_z_val = z;
+        }
+      } else {
+        j_spdstl.setZAxis(z);
+      }
       parse_encoder(enc);
 
     }
@@ -104,8 +116,11 @@
       }
     }
 
-    void parse_button_array(uint8_t b, uint8_t start_pos) {
-      for (byte i = 0; i < 8; i++) {
+    void parse_button_array(uint8_t b, uint8_t start_pos,uint8_t end_pos) {
+      if (end_pos == 0) {
+        end_pos = 8;
+      }
+      for (byte i = 0; i < end_pos; i++) {
         bool v = (b >> i) & 1;
         
         if (v != g_spdstl_lastButtonState[i + start_pos]) {

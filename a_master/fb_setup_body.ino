@@ -8,6 +8,9 @@ Wire.begin();
 #if (defined SIMPLE_PEDESTAL) 
   setup_simple_pedestal();
 #endif
+#if (defined VRMAXII_PEDESTAL) 
+  setup_vrmax2_pedestal();
+#endif
 #if (defined COMPACT_COLLECTIVE) 
   setup_compact_collective();
 #endif

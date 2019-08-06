@@ -45,8 +45,21 @@
     bool g_spdstl_lastButtonState[17]; // number of buttons + 1
     uint8_t g_spdstl_enc_lastVal = 0;
     uint8_t g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
+    int g_spdstl_z_val = 0;
   #endif
 // </SPDSTL>
+
+// <VRMAXII PEDESTAL>
+  #if (defined VRMAXII_PEDESTAL)
+    bool g_vrm2pdstl_lastButtonState[17]; // number of buttons + 1
+    bool g_vrm2pdstl_rp_lastButtonState[2];
+    uint8_t g_vrm2pdstl_enc_lastVal = 0;
+    uint8_t g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
+    g_struct_vrm2_enc_lastVal g_vrm2_enc_lastVal;
+    int g_vrm2pdstl_z_val = 0;
+   
+  #endif
+// </VRMAXII PEDESTAL>
 
 
 // <CYCLIC_BASE>

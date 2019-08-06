@@ -30,8 +30,28 @@
 // <SIMPLE PEDESTAL>
 
   // Ministick
-  #define X_CENTER 123
-  #define Y_CENTER 128
+  #define X_CENTER 132
+  #define Y_CENTER 124
+  #define MINISTICK_SENSITIVITY_LOW 5
+  #define MINISTICK_SENSITIVITY_HIGH 15
+
+  // Buttons to act as mouse buttons as seen in joy.cpl, 0 to disable
+  #define MB_LEFT 4
+  #define MB_RIGHT 0
+
+  #define MOUSEWHEEL_DIR "REV" // NOR or REV - adjust so knobs in your sim will turn in the right direction
+  #define MINISTICK_SENS_SWITCH_BTN 3 // 0 to disable
+
+  #define ZOOM_STABILIZER_ENABLED 1
+  #define ZOOM_STEP 10
+
+// </SIMPLE_PEDESTAL>
+
+// <VRMAXII PEDESTAL>
+
+  // Ministick
+  #define X_CENTER 132
+  #define Y_CENTER 124
   #define MINISTICK_SENSITIVITY_LOW 5
   #define MINISTICK_SENSITIVITY_HIGH 15
 
@@ -42,7 +62,22 @@
   #define MOUSEWHEEL_DIR "REV" // NOR or REV - adjust so knobs in your sim will turn in the right direction
   #define MINISTICK_SENS_SWITCH_BTN 8 // 0 to disable
 
-// </SIMPLE_PEDESTAL>
+  // look values below in serial output after uncommenting Serial.println(rp_s); under
+  // ga_varmaxii_pedestal tab, only touch this if the device is wired differently
+
+  #define SELECTOR_POS_0_DECIMAL_VAL 9 //leftmost position of the switch
+  #define SELECTOR_POS_1_DECIMAL_VAL 10
+  #define SELECTOR_POS_2_DECIMAL_VAL 12
+  #define SELECTOR_POS_3_DECIMAL_VAL 8
+  #define SELECTOR_POS_4_DECIMAL_VAL 24
+  #define SELECTOR_POS_5_DECIMAL_VAL 40
+  #define SELECTOR_POS_6_DECIMAL_VAL 72
+  #define SELECTOR_POS_7_DECIMAL_VAL 136
+
+  #define ZOOM_SMOOTHING_ENABLED 1
+  #define ZOOM_STEP 10
+
+// </VRMAXII_PEDESTAL>
 
 // <CYCLIC>
 

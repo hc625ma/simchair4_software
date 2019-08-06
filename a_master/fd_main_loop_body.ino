@@ -4,6 +4,9 @@
 #if (defined SIMPLE_PEDESTAL) 
   poll_simple_pedestal();
 #endif
+#if (defined VRMAXII_PEDESTAL) 
+  poll_vrmax2_pedestal();
+#endif
 #if (defined COMPACT_COLLECTIVE) 
   poll_compact_collective();
 #endif

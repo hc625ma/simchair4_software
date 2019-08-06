@@ -15,16 +15,17 @@
 //COLLECTIVE LEVER
 
   // COMBO LEVERS
-    //#define COMPACT_COLLECTIVE
+    #define COMPACT_COLLECTIVE
   // OTHER LEVERS
 
   // BASE + BODY
-    #define COLLECTIVE_NOTHR
+    //#define COLLECTIVE_NOTHR
     //#define COLLECTIVE_STHR
     //#define COLLECTIVE_DTHR
   
   //PEDESTAL
-    #define SIMPLE_PEDESTAL
+    //#define SIMPLE_PEDESTAL
+    #define VRMAXII_PEDESTAL
   // HEAD
 
 
