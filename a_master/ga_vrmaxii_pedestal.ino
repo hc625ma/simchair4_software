@@ -1,5 +1,5 @@
 #if (defined VRMAXII_PEDESTAL)
-  Joystick_ j_vrm2pdstl(0x21, 0x05, 110, 0, false, false, true, false, false, false, false, false, false, false, false);
+  Joystick_ j_vrm2pdstl(0x21, 0x05, 130, 0, false, false, true, false, false, false, false, false, false, false, false);
 
   void setup_vrmax2_pedestal() {
     j_vrm2pdstl.begin();   
@@ -10,6 +10,7 @@
   void poll_vrmax2_pedestal() {
     uint16_t x,y,z;
     uint8_t ba0,ba1,rp_b,enc,rp_s,rp_enc0,rp_enc1,rp_enc2,rp_enc3;
+    uint8_t mod = 0;
   
     Wire.requestFrom(VRMAXII_PEDESTAL_A_I2C_ADDRESS, 8);
     while (Wire.available()) {
@@ -44,9 +45,18 @@
 //    Serial.print(" ");
 //    Serial.println(ba1);
 
+      if (COLLECTIVE_MODE_SWITCH_ENABLED == 1) {
+        if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
+          mod = 0;
+        } else if (g_coll_modesw_pos_decimal == MODESW_POS_LEFT_DECIMAL_VAL) {
+          mod = 10;
+        } else if (g_coll_modesw_pos_decimal == MODESW_POS_RIGHT_DECIMAL_VAL) {
+          mod = 20;
+        }
+      }
       ministick_to_mouse(x,y);
-      parse_button_array(ba0,0,0);
-      parse_button_array(ba1,8,0);
+      parse_button_array(ba0,0,0,mod);
+      parse_button_array(ba1,8,0,mod);
       if (ZOOM_STABILIZER_ENABLED) {
         int16_t zdiff = z - g_vrm2pdstl_z_val;
         if (abs(zdiff) > ZOOM_STEP) {
@@ -141,16 +151,16 @@
       }
     }
 
-    void parse_button_array(uint8_t b, uint8_t start_pos,uint8_t end_pos) {
+    void parse_button_array(uint8_t b, uint8_t start_pos,uint8_t end_pos, uint8_t modifier) {
       if (end_pos == 0) {
         end_pos = 8;
       }
       for (byte i = 0; i < end_pos; i++) {
         bool v = (b >> i) & 1;
         
-        if (v != g_vrm2pdstl_lastButtonState[i + start_pos]) {
+        if (v != g_vrm2pdstl_lastButtonState[i + start_pos + modifier]) {
           if (((start_pos + i) !=  MB_LEFT - 1) && ((start_pos + i) !=  MB_RIGHT - 1) && ((start_pos + i) !=  MINISTICK_SENS_SWITCH_BTN - 1)) {
-            j_vrm2pdstl.setButton(i + start_pos, v);     
+            j_vrm2pdstl.setButton(i + start_pos + modifier, v);     
           } else if (((start_pos + i) ==  MB_LEFT - 1) && (v == 1)) {
             Mouse.press(MOUSE_LEFT);
           } else if (((start_pos + i) ==  MB_LEFT - 1) && (v == 0)) {
@@ -167,7 +177,7 @@
             }
           }
         }
-        g_vrm2pdstl_lastButtonState[i + start_pos] = v;
+        g_vrm2pdstl_lastButtonState[i + start_pos + modifier] = v;
 
         
       }
@@ -187,23 +197,23 @@
     void parse_radio_panel(uint8_t enc, uint8_t val, uint8_t s, uint8_t b) {
       uint8_t mod;
       if (s == SELECTOR_POS_0_DECIMAL_VAL) {
-        mod = 20;
-      } else if (s == SELECTOR_POS_1_DECIMAL_VAL){
-        mod = 30;
-      } else if (s == SELECTOR_POS_2_DECIMAL_VAL){
         mod = 40;
-      } else if (s == SELECTOR_POS_2_DECIMAL_VAL){
+      } else if (s == SELECTOR_POS_1_DECIMAL_VAL){
         mod = 50;
-      } else if (s == SELECTOR_POS_3_DECIMAL_VAL){
+      } else if (s == SELECTOR_POS_2_DECIMAL_VAL){
         mod = 60;
-      } else if (s == SELECTOR_POS_4_DECIMAL_VAL){
+      } else if (s == SELECTOR_POS_2_DECIMAL_VAL){
         mod = 70;
-      } else if (s == SELECTOR_POS_5_DECIMAL_VAL){
+      } else if (s == SELECTOR_POS_3_DECIMAL_VAL){
         mod = 80;
-      } else if (s == SELECTOR_POS_6_DECIMAL_VAL){
+      } else if (s == SELECTOR_POS_4_DECIMAL_VAL){
         mod = 90;
-      } else if (s == SELECTOR_POS_7_DECIMAL_VAL){
+      } else if (s == SELECTOR_POS_5_DECIMAL_VAL){
         mod = 100;
+      } else if (s == SELECTOR_POS_6_DECIMAL_VAL){
+        mod = 110;
+      } else if (s == SELECTOR_POS_7_DECIMAL_VAL){
+        mod = 120;
       }
 
       for (byte i = 0; i < 2; i++) {

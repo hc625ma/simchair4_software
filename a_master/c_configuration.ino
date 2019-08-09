@@ -8,6 +8,16 @@
 
 // <COLLECTIVE LEVERS>
 
+  // <COLLECTIVE_MODE_SWITCH>
+
+    #define COLLECTIVE_MODE_SWITCH_ENABLED 1
+  
+    #define MODESW_POS_LEFT_DECIMAL_VAL 2 //leftmost position of the switch
+    #define MODESW_POS_MIDDLE_DECIMAL_VAL 0
+    #define MODESW_POS_RIGHT_DECIMAL_VAL 1
+    
+  //</COLLECTIVE_MODE_SWITCH>
+
   // <COMPACT COLLECTIVE>
 
     #define COMPACT_COLLECTIVE_MIN 927
@@ -15,6 +25,9 @@
 
     #define COMPACT_COLLECTIVE_THR_MIN 0
     #define COMPACT_COLLECTIVE_THR_MAX 1023
+
+    #define THROTTLE_STABILIZER_ENABLED 1
+    #define THR_STEP 5
     
   // </COMPACT COLLECTIVE>
 
@@ -30,8 +43,8 @@
 // <SIMPLE PEDESTAL>
 
   // Ministick
-  #define X_CENTER 132
-  #define Y_CENTER 124
+  #define X_CENTER 128
+  #define Y_CENTER 128
   #define MINISTICK_SENSITIVITY_LOW 5
   #define MINISTICK_SENSITIVITY_HIGH 15
 
@@ -56,11 +69,11 @@
   #define MINISTICK_SENSITIVITY_HIGH 15
 
   // Buttons to act as mouse buttons as seen in joy.cpl, 0 to disable
-  #define MB_LEFT 9
+  #define MB_LEFT 4
   #define MB_RIGHT 0
 
   #define MOUSEWHEEL_DIR "REV" // NOR or REV - adjust so knobs in your sim will turn in the right direction
-  #define MINISTICK_SENS_SWITCH_BTN 8 // 0 to disable
+  #define MINISTICK_SENS_SWITCH_BTN 3 // 0 to disable
 
   // look values below in serial output after uncommenting Serial.println(rp_s); under
   // ga_varmaxii_pedestal tab, only touch this if the device is wired differently

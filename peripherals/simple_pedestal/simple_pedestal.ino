@@ -52,31 +52,45 @@ void loop()
    }
   encoderPinALast = n0;
 
-  for (int i = 0; i <= pins; i++)
+  for (int i = 5; i <= pins; i++)
   {
     bool pin = !digitalRead(i);
     if (pin == 1)
     {
-     if ((i < 8) && ((i != encoderPinA) && (i != encoderPinB)))
+     if ((i - 5 < 8) && ((i != encoderPinA) && (i != encoderPinB)))
      {
-        b |= (1 << i);       // forces ith bit of b to be 1.  all other bits left alone.
+        b |= (1 << i - 5);       // forces ith bit of b to be 1.  all other bits left alone.
      }
-     else if ( (i >= 8) && (i < 16))
+     else if ( (i - 5 >= 8) && (i - 5 < 15))
      {
-        b1 |= (1 <<  (i - 8));
+        b1 |= (1 <<  (i - 5 - 8));
      }
     }
     else
     {
-      if ( i < 8)
+      if ( i - 5 < 8)
       {
-        b &= ~(1 << i);      // forces ith bit of b to be 0.  all other bits left alone.
+        b &= ~(1 << i - 5);      // forces ith bit of b to be 0.  all other bits left alone.
       }
-      else if ( (i >= 8) && (i < 16))
+      else if ( (i - 5 >= 8) && (i - 5 < 15))
       {
-        b1 &= ~(1 << (i - 8));
+        b1 &= ~(1 << (i - 5 - 8));
       }
     }
+
+    pin = !digitalRead(0);
+    if (pin == 1) {
+       b1 |= (1 << 2);
+    } else {
+      b1 &= ~(1 << 2);
+    }
+    pin = !digitalRead(2);
+    if (pin == 1) {
+       b1 |= (1 << 3);
+    } else {
+      b1 &= ~(1 << 3);
+    }
+    
 
     
  }

@@ -10,6 +10,8 @@
   int g_one_percent_pedals_range = CBASE_ADC_RANGE / 100;
   int g_one_percent_coll_range = COLLECTIVE_ADC_RANGE / 100;
 
+  uint8_t g_coll_modesw_pos_decimal = 0;
+
   // <FORCE_TRIM>
     #if ((defined PEDALS) || (defined B8_GRIP) || (defined CYCLIC_BASE))
       byte g_pedals_force_trim_state = 0;
@@ -42,7 +44,7 @@
 
 // <SPDSTL>
   #if (defined SIMPLE_PEDESTAL)
-    bool g_spdstl_lastButtonState[17]; // number of buttons + 1
+    bool g_spdstl_lastButtonState[33]; // number of buttons + 1
     uint8_t g_spdstl_enc_lastVal = 0;
     uint8_t g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
     int g_spdstl_z_val = 0;
@@ -51,7 +53,7 @@
 
 // <VRMAXII PEDESTAL>
   #if (defined VRMAXII_PEDESTAL)
-    bool g_vrm2pdstl_lastButtonState[17]; // number of buttons + 1
+    bool g_vrm2pdstl_lastButtonState[131]; // number of buttons + 1
     bool g_vrm2pdstl_rp_lastButtonState[2];
     uint8_t g_vrm2pdstl_enc_lastVal = 0;
     uint8_t g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
@@ -95,7 +97,8 @@
 
 // <COMPACT COLLECTIVE>
   #if (defined COMPACT_COLLECTIVE)
-    bool g_ccoll_lastButtonState[17];
+    bool g_ccoll_lastButtonState[36];
+    uint8_t g_ccoll_thr_val;
   #endif
 // </COMPACT_COLLECTIVE>
 

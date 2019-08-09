@@ -1,5 +1,5 @@
 #if (defined SIMPLE_PEDESTAL)
-  Joystick_ j_spdstl(0x21, 0x05, 18, 0, false, false, true, false, false, false, false, false, false, false, false);
+  Joystick_ j_spdstl(0x21, 0x05, 32, 0, false, false, true, false, false, false, false, false, false, false, false);
 
   void setup_simple_pedestal() {
     j_spdstl.begin();   
@@ -10,6 +10,7 @@
   void poll_simple_pedestal() {
     uint16_t x,y,z;
     uint8_t ba0,ba1,enc;
+    uint8_t mod = 0;
   
     Wire.requestFrom(SIMPLE_PEDESTAL_I2C_ADDRESS, 7);
     while (Wire.available())
@@ -43,9 +44,18 @@
 //    Serial.print(" ");
 //    Serial.println(ba1);
 
+      if (COLLECTIVE_MODE_SWITCH_ENABLED == 1) {
+        if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
+          mod = 0;
+        } else if (g_coll_modesw_pos_decimal == MODESW_POS_LEFT_DECIMAL_VAL) {
+          mod = 10;
+        } else if (g_coll_modesw_pos_decimal == MODESW_POS_RIGHT_DECIMAL_VAL) {
+          mod = 20;
+        }
+      }
       ministick_to_mouse(x,y);
-      parse_button_array(ba0,0,0);
-      parse_button_array(ba1,8,0);
+      parse_button_array(ba0,0,0,mod);
+      parse_button_array(ba1,8,0,mod);
       if (ZOOM_STABILIZER_ENABLED) {
         int16_t zdiff = z - g_spdstl_z_val;
         if (abs(zdiff) > ZOOM_STEP) {
@@ -116,16 +126,16 @@
       }
     }
 
-    void parse_button_array(uint8_t b, uint8_t start_pos,uint8_t end_pos) {
+    void parse_button_array(uint8_t b, uint8_t start_pos,uint8_t end_pos, uint8_t modifier) {
       if (end_pos == 0) {
         end_pos = 8;
       }
       for (byte i = 0; i < end_pos; i++) {
         bool v = (b >> i) & 1;
         
-        if (v != g_spdstl_lastButtonState[i + start_pos]) {
+        if (v != g_spdstl_lastButtonState[i + start_pos + modifier]) {
           if (((start_pos + i) !=  MB_LEFT - 1) && ((start_pos + i) !=  MB_RIGHT - 1) && ((start_pos + i) !=  MINISTICK_SENS_SWITCH_BTN - 1)) {
-            j_spdstl.setButton(i + start_pos, v);     
+            j_spdstl.setButton(i + start_pos + modifier, v);     
           } else if (((start_pos + i) ==  MB_LEFT - 1) && (v == 1)) {
             Mouse.press(MOUSE_LEFT);
           } else if (((start_pos + i) ==  MB_LEFT - 1) && (v == 0)) {
@@ -142,7 +152,7 @@
             }
           }
         }
-        g_spdstl_lastButtonState[i + start_pos] = v;
+        g_spdstl_lastButtonState[i + start_pos + modifier] = v;
 
         
       }
