@@ -49,9 +49,9 @@
         if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
           mod = 0;
         } else if (g_coll_modesw_pos_decimal == MODESW_POS_LEFT_DECIMAL_VAL) {
-          mod = 10;
+          mod = 12;
         } else if (g_coll_modesw_pos_decimal == MODESW_POS_RIGHT_DECIMAL_VAL) {
-          mod = 20;
+          mod = 24;
         }
       }
       ministick_to_mouse(x,y);

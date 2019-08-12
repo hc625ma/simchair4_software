@@ -8,15 +8,27 @@
 
 // <COLLECTIVE LEVERS>
 
-  // <COLLECTIVE_MODE_SWITCH>
+  // <COLLECTIVE_GLOBAL>
 
     #define COLLECTIVE_MODE_SWITCH_ENABLED 1
   
-    #define MODESW_POS_LEFT_DECIMAL_VAL 2 //leftmost position of the switch
+    #define MODESW_POS_LEFT_DECIMAL_VAL 2 // leftmost position of the switch
     #define MODESW_POS_MIDDLE_DECIMAL_VAL 0
     #define MODESW_POS_RIGHT_DECIMAL_VAL 1
+
+    #define COLL_IDLE_DETENT_SUPPORT 1 // limit throttle axis with idle stop detent mark value
+
+    #define DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED 1 // will press keyboard buttons when closing and opening throttle, respectively to IDLE REL button
+    #define HUEY_COMPAT_THR_DOWN_KEY KEY_PAGE_DOWN
+    #define HUEY_COMPAT_THR_UP_KEY KEY_PAGE_UP
+    #define DCS_HUEY_COMPAT_MODE_BUTTON_HOLD 50
+
+    #define BUTTON_PRESS_ON_THROTTLE_CUTOFF 1
+
+    #define THROTTLE_STABILIZER_ENABLED 1
+    #define THR_STEP 5
     
-  //</COLLECTIVE_MODE_SWITCH>
+  //</COLLECTIVE_GLOBAL>
 
   // <COMPACT COLLECTIVE>
 
@@ -26,8 +38,12 @@
     #define COMPACT_COLLECTIVE_THR_MIN 0
     #define COMPACT_COLLECTIVE_THR_MAX 1023
 
-    #define THROTTLE_STABILIZER_ENABLED 1
-    #define THR_STEP 5
+    #define COMPACT_COLLECTIVE_IDLE_DETENT_AXIS_VAL 167 // throttle axis value at the detent mark
+    #define COMPACT_COLLECTIVE_IDLE_REL_BTN 5 // IDLE RELEASE joystick button number as seen in joy.cpl, 0 to disable. This button allows moving virtual throttle grip past the detent to close the throttle.
+    #define COMPACT_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
+
+    
+
     
   // </COMPACT COLLECTIVE>
 
