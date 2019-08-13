@@ -18,12 +18,14 @@
 
     #define COLL_IDLE_DETENT_SUPPORT 1 // limit throttle axis with idle stop detent mark value
 
-    #define DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED 1 // will press keyboard buttons when closing and opening throttle, respectively to IDLE REL button
+    #define BUTTON_PRESS_ON_THROTTLE_CUTOFF 1 // ENABLE JOYSTICK / KEYBOARD BUTTON PRESS ON THR CUTOFF - MUST BE ENABLED FOR DCS HUEY COMPAT MODE TO WORK
+
+    #define DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED 1 // will press keyboard buttons when closing and opening throttle, respectively to IDLE REL button, ONLY WORKS WITH COLL MODE SW IN MIDDLE POS
     #define HUEY_COMPAT_THR_DOWN_KEY KEY_PAGE_DOWN
     #define HUEY_COMPAT_THR_UP_KEY KEY_PAGE_UP
-    #define DCS_HUEY_COMPAT_MODE_BUTTON_HOLD 50
+    #define DCS_HUEY_COMPAT_MODE_BUTTON_HOLD 200
 
-    #define BUTTON_PRESS_ON_THROTTLE_CUTOFF 1
+    
 
     #define THROTTLE_STABILIZER_ENABLED 1
     #define THR_STEP 5

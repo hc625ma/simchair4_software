@@ -53,8 +53,8 @@
     
     //Serial.print(z);
     //Serial.print(" ");
-    //Serial.print(throttle);
-    //Serial.print(" ");
+//    Serial.print(throttle);
+//    Serial.print(" ");
     //Serial.print(ba0);
     //Serial.print(" ");
     //Serial.print(ba1);
@@ -64,15 +64,19 @@
 //    Serial.println(y);
     j_ccoll.setZAxis(z);
 
+//    Serial.print(g_idle_rel_btn_pressed);
+//    Serial.print(" ");
+//    Serial.println(g_throttle_latch_pressed);
      // uncomment the next line and turn your throttle to idle stop position to see COMPACT_COLLECTIVE_IDLE_STOP_AXIS_VAL value
     //Serial.println(throttle);
     if (THROTTLE_STABILIZER_ENABLED) {
       int16_t thrdiff = throttle - g_ccoll_thr_val;
       if (abs(thrdiff) > THR_STEP) {
-        apply_advanced_throttle_features(throttle);
         g_ccoll_thr_val = throttle;
+        apply_advanced_throttle_features(throttle);
       }
     } else {
+     g_ccoll_thr_val = throttle;
      apply_advanced_throttle_features(throttle);
     }
     
@@ -107,6 +111,7 @@
           if ((i != COMPACT_COLLECTIVE_IDLE_REL_BTN - 1) && (idle_rel_btn != 1)){
             j_ccoll.setButton(i + start_btn + modifier, v);     
           } else {
+            j_ccoll.setButton(i + start_btn + modifier, v);
             g_idle_rel_btn_pressed = v;
           }
         } else {
@@ -129,48 +134,32 @@
 
   void apply_advanced_throttle_features (uint16_t raw_thr){
     set_thr_latch_state(raw_thr);
+    j_ccoll.setThrottle(raw_thr);
     
-    if (DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) {
-
-      coll_head_idle_stop_compat_dcs (raw_thr,COMPACT_COLLECTIVE_IDLE_DETENT_AXIS_VAL);
-      j_ccoll.setThrottle(raw_thr);
-    } else {
-      j_ccoll.setThrottle(raw_thr);
-    }
     if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
       if ((raw_thr < (COMPACT_COLLECTIVE_THR_MIN + 15)) && (g_throttle_latch_pressed == 1)) {
         if (g_physical_latch_button_state != 1) {
           j_ccoll.setButton(COMPACT_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON - 1, 1);
+          if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL)) {
+            Keyboard.press(HUEY_COMPAT_THR_DOWN_KEY);
+            delay(DCS_HUEY_COMPAT_MODE_BUTTON_HOLD);
+            Keyboard.releaseAll();
+          }
           g_physical_latch_button_state = 1;
         }
       } else {
         if (g_physical_latch_button_state != 0) {
           j_ccoll.setButton(COMPACT_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON - 1, 0);
+          if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL)) {
+            Keyboard.press(HUEY_COMPAT_THR_UP_KEY);
+            delay(DCS_HUEY_COMPAT_MODE_BUTTON_HOLD);
+            Keyboard.releaseAll();
+          }
           g_physical_latch_button_state = 0;
         }
       }
     }   
   }
 
-
-
-  void coll_head_idle_stop_compat_dcs (uint16_t thr,uint16_t idle_detent_val) {
-    
-    int16_t thrdiff = thr - g_ccoll_thr_val;
-    if ((thr < idle_detent_val) && (g_idle_rel_btn_pressed == 1)) {
-      if (abs(thrdiff) > THR_STEP)
-      {
-        Keyboard.press(HUEY_COMPAT_THR_DOWN_KEY);
-        delay(DCS_HUEY_COMPAT_MODE_BUTTON_HOLD);
-        Keyboard.releaseAll();
-      }
-    } else if (g_throttle_latch_pressed == 1) {
-      if (abs(thrdiff) > THR_STEP) {
-        Keyboard.press(HUEY_COMPAT_THR_UP_KEY);
-        delay(DCS_HUEY_COMPAT_MODE_BUTTON_HOLD);
-        Keyboard.releaseAll();
-      }
-    }
-  }
     
 #endif
