@@ -56,9 +56,9 @@
       ministick_to_mouse(x,y);
       parse_button_array(ba0,0,0,mod);
       parse_button_array(ba1,8,0,mod);
-      if (ZOOM_STABILIZER_ENABLED) {
+      if (SIMPLE_PEDESTAL_ZOOM_STABILIZER_ENABLED) {
         int16_t zdiff = z - g_spdstl_z_val;
-        if (abs(zdiff) > ZOOM_STEP) {
+        if (abs(zdiff) > SIMPLE_PEDESTAL_ZOOM_STEP) {
           j_spdstl.setZAxis(z);
           g_spdstl_z_val = z;
         }
@@ -72,12 +72,12 @@
   }
 
     void ministick_to_mouse(uint8_t x, uint8_t y) {
-    if (y < Y_CENTER - 3) {
+    if (y < SIMPLE_PEDESTAL_Y_CENTER - 3) {
         // UP
 //        if (y < Y_CENTER - 110) {
 //          Mouse.move(0, -3, 0);
 //        }
-        if (y < Y_CENTER - 115) {
+        if (y < SIMPLE_PEDESTAL_Y_CENTER - 115) {
           Mouse.move(0, -g_ministick_sensitivity, 0);
         }
         else {
@@ -85,12 +85,12 @@
           delay(15);
         }
       }
-      else if (y > Y_CENTER + 3) {
+      else if (y > SIMPLE_PEDESTAL_Y_CENTER + 3) {
         // DOWN
 //        if (y > Y_CENTER + 110) {
 //          Mouse.move(0, 3, 0);
 //        }
-        if (y > Y_CENTER + 115) {
+        if (y > SIMPLE_PEDESTAL_Y_CENTER + 115) {
           Mouse.move(0, g_ministick_sensitivity, 0);
         }
         else {
@@ -98,12 +98,12 @@
           delay(15);
         }
       }
-      if (x < X_CENTER - 3) { 
+      if (x < SIMPLE_PEDESTAL_X_CENTER - 3) { 
         // LEFT
 //        if (x < X_CENTER - 110) {
 //          Mouse.move(-3, 0, 0);
 //        }
-        if (x < X_CENTER - 115) {
+        if (x < SIMPLE_PEDESTAL_X_CENTER - 115) {
           Mouse.move(-g_ministick_sensitivity, 0, 0);
         }
         else {
@@ -111,12 +111,12 @@
           delay(15);
         }
       }
-      else if (x > X_CENTER + 3) { 
+      else if (x > SIMPLE_PEDESTAL_X_CENTER + 3) { 
         // RIGHT
 //        if (x > X_CENTER + 110) {
 //          Mouse.move(+3, 0, 0);
 //        }
-        if (x > X_CENTER + 115) {
+        if (x > SIMPLE_PEDESTAL_X_CENTER + 115) {
           Mouse.move(g_ministick_sensitivity, 0, 0);
         }
         else {
@@ -134,21 +134,21 @@
         bool v = (b >> i) & 1;
         
         if (v != g_spdstl_lastButtonState[i + start_pos + modifier]) {
-          if (((start_pos + i) !=  MB_LEFT - 1) && ((start_pos + i) !=  MB_RIGHT - 1) && ((start_pos + i) !=  MINISTICK_SENS_SWITCH_BTN - 1)) {
+          if (((start_pos + i) !=  SIMPLE_PEDESTAL_MB_LEFT - 1) && ((start_pos + i) !=  SIMPLE_PEDESTAL_MB_RIGHT - 1) && ((start_pos + i) !=  SIMPLE_PEDESTAL_MINISTICK_SENS_SWITCH_BTN - 1)) {
             j_spdstl.setButton(i + start_pos + modifier, v);     
-          } else if (((start_pos + i) ==  MB_LEFT - 1) && (v == 1)) {
+          } else if (((start_pos + i) ==  SIMPLE_PEDESTAL_MB_LEFT - 1) && (v == 1)) {
             Mouse.press(MOUSE_LEFT);
-          } else if (((start_pos + i) ==  MB_LEFT - 1) && (v == 0)) {
+          } else if (((start_pos + i) ==  SIMPLE_PEDESTAL_MB_LEFT - 1) && (v == 0)) {
             Mouse.release(MOUSE_LEFT);
-          } else if (((start_pos + i) ==  MB_RIGHT - 1) && (v == 1)) {
+          } else if (((start_pos + i) ==  SIMPLE_PEDESTAL_MB_RIGHT - 1) && (v == 1)) {
             Mouse.press(MOUSE_RIGHT);
-          } else if (((start_pos + i) ==  MB_RIGHT - 1) && (v == 0)) {
+          } else if (((start_pos + i) ==  SIMPLE_PEDESTAL_MB_RIGHT - 1) && (v == 0)) {
             Mouse.release(MOUSE_RIGHT);
-          } else if (((start_pos + i) ==  MINISTICK_SENS_SWITCH_BTN - 1) && (v == 1)) {
-            if (g_ministick_sensitivity == MINISTICK_SENSITIVITY_LOW) {
-              g_ministick_sensitivity = MINISTICK_SENSITIVITY_HIGH;
+          } else if (((start_pos + i) ==  SIMPLE_PEDESTAL_MINISTICK_SENS_SWITCH_BTN - 1) && (v == 1)) {
+            if (g_ministick_sensitivity == SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_LOW) {
+              g_ministick_sensitivity = SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_HIGH;
             } else {
-              g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
+              g_ministick_sensitivity = SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_LOW;
             }
           }
         }
@@ -160,7 +160,7 @@
 
     void parse_encoder(uint8_t e) {
       if (e != g_spdstl_enc_lastVal) {
-        if (MOUSEWHEEL_DIR == "NOR") {
+        if (SIMPLE_PEDESTAL_MOUSEWHEEL_DIR == "NOR") {
           Mouse.move(0,0,g_spdstl_enc_lastVal - e);
         } else {
           Mouse.move(0,0,e - g_spdstl_enc_lastVal);

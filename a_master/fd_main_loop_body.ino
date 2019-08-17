@@ -10,6 +10,9 @@
 #if (defined COMPACT_COLLECTIVE) 
   poll_compact_collective();
 #endif
+#if (defined COLLECTIVE_STHR) 
+  poll_single_collective();
+#endif
 #if (defined CYCLIC_BASE) 
   poll_cyclic_base();
 #endif

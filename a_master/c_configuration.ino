@@ -49,6 +49,21 @@
     
   // </COMPACT COLLECTIVE>
 
+  // <SINGLE_COLLECTIVE>
+    #define PHYSICAL_THROTTLE_LATCH 1 // if your collective has a physical idle stop latch, set this to 1, otherwise set it to 0 for advanced throttle related functions to work
+
+    #define SINGLE_COLLECTIVE_MIN 927
+    #define SINGLE_COLLECTIVE_MAX 0
+
+    #define SINGLE_COLLECTIVE_THR_MIN 0
+    #define SINGLE_COLLECTIVE_THR_MAX 1023
+
+    #define SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 167 // throttle axis value at the detent mark
+    
+    #define SINGLE_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
+    
+  // </SINGLE_COLLECTIVE>
+
   // <COLLECTIVE BASE - NO THROTTLE >
   
     #define COLLECTIVE_NOTHR_MIN 1023
@@ -61,38 +76,32 @@
 // <SIMPLE PEDESTAL>
 
   // Ministick
-  #define X_CENTER 128
-  #define Y_CENTER 128
-  #define MINISTICK_SENSITIVITY_LOW 5
-  #define MINISTICK_SENSITIVITY_HIGH 15
+  #define SIMPLE_PEDESTAL_X_CENTER 128
+  #define SIMPLE_PEDESTAL_Y_CENTER 128
+  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_LOW 1//5
+  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_HIGH 3//15
 
   // Buttons to act as mouse buttons as seen in joy.cpl, 0 to disable
-  #define MB_LEFT 4
-  #define MB_RIGHT 0
+  #define SIMPLE_PEDESTAL_MB_LEFT 4
+  #define SIMPLE_PEDESTAL_MB_RIGHT 0
 
-  #define MOUSEWHEEL_DIR "REV" // NOR or REV - adjust so knobs in your sim will turn in the right direction
-  #define MINISTICK_SENS_SWITCH_BTN 3 // 0 to disable
+  #define SIMPLE_PEDESTAL_MOUSEWHEEL_DIR "REV" // NOR or REV - adjust so knobs in your sim will turn in the right direction
+  #define SIMPLE_PEDESTAL_MINISTICK_SENS_SWITCH_BTN 0 // 0 to disable
 
-  #define ZOOM_STABILIZER_ENABLED 1
-  #define ZOOM_STEP 10
+  #define SIMPLE_PEDESTAL_ZOOM_STABILIZER_ENABLED 1
+  #define SIMPLE_PEDESTAL_ZOOM_STEP 10
 
 // </SIMPLE_PEDESTAL>
 
 // <VRMAXII PEDESTAL>
 
   // Ministick
-  #define X_CENTER 132
-  #define Y_CENTER 124
-  #define MINISTICK_SENSITIVITY_LOW 5
-  #define MINISTICK_SENSITIVITY_HIGH 15
+  #define VRMAXII_PEDESTAL_X_CENTER 132
+  #define VRMAXII_PEDESTAL_Y_CENTER 124
+  #define VRMAXII_PEDESTAL_MINISTICK_SENSITIVITY_LOW 5
+  #define VRMAXII_PEDESTAL_MINISTICK_SENSITIVITY_HIGH 15
 
-  // Buttons to act as mouse buttons as seen in joy.cpl, 0 to disable
-  #define MB_LEFT 4
-  #define MB_RIGHT 0
-
-  #define MOUSEWHEEL_DIR "REV" // NOR or REV - adjust so knobs in your sim will turn in the right direction
-  #define MINISTICK_SENS_SWITCH_BTN 3 // 0 to disable
-
+  // Buttons to act as mouse buttons as seen in joy.cp
   // look values below in serial output after uncommenting Serial.println(rp_s); under
   // ga_varmaxii_pedestal tab, only touch this if the device is wired differently
 
@@ -101,12 +110,18 @@
   #define SELECTOR_POS_2_DECIMAL_VAL 12
   #define SELECTOR_POS_3_DECIMAL_VAL 8
   #define SELECTOR_POS_4_DECIMAL_VAL 24
-  #define SELECTOR_POS_5_DECIMAL_VAL 40
+  #define SELECTOR_POS_5_DECIMAL_VAL 40l, 0 to disable
+  #define VRMAXII_PEDESTAL_MB_LEFT 4
+  #define VRMAXII_PEDESTAL_MB_RIGHT 0
+
+  #define VRMAXII_PEDESTAL_MOUSEWHEEL_DIR "REV" // NOR or REV - adjust so knobs in your sim will turn in the right direction
+  #define VRMAXII_PEDESTAL_MINISTICK_SENS_SWITCH_BTN 3 // 0 to disable
+
   #define SELECTOR_POS_6_DECIMAL_VAL 72
   #define SELECTOR_POS_7_DECIMAL_VAL 136
 
-  #define ZOOM_SMOOTHING_ENABLED 1
-  #define ZOOM_STEP 10
+#define VRMAXII_PEDESTAL_ZOOM_STABILIZER_ENABLED 1
+  #define VRMAXII_PEDESTAL_ZOOM_STEP 10
 
 // </VRMAXII_PEDESTAL>
 

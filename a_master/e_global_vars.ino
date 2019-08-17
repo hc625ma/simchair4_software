@@ -46,7 +46,7 @@
   #if (defined SIMPLE_PEDESTAL)
     bool g_spdstl_lastButtonState[33]; // number of buttons + 1
     uint8_t g_spdstl_enc_lastVal = 0;
-    uint8_t g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
+    uint8_t g_ministick_sensitivity = SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_LOW;
     int g_spdstl_z_val = 0;
   #endif
 // </SPDSTL>
@@ -56,7 +56,7 @@
     bool g_vrm2pdstl_lastButtonState[131]; // number of buttons + 1
     bool g_vrm2pdstl_rp_lastButtonState[2];
     uint8_t g_vrm2pdstl_enc_lastVal = 0;
-    uint8_t g_ministick_sensitivity = MINISTICK_SENSITIVITY_LOW;
+    uint8_t g_ministick_sensitivity = VRMAXII_PEDESTAL_MINISTICK_SENSITIVITY_LOW;
     g_struct_vrm2_enc_lastVal g_vrm2_enc_lastVal;
     int g_vrm2pdstl_z_val = 0;
    
@@ -105,6 +105,17 @@
 
   #endif
 // </COMPACT_COLLECTIVE>
+
+// <SINGLE COLLECTIVE>
+  #if (defined COLLECTIVE_STHR)
+    bool g_scoll_lastButtonState[3];
+    uint8_t g_scoll_thr_val;
+    bool g_idle_rel_btn_pressed = 0; // because button and the latch can have different states  
+    bool g_throttle_latch_pressed = 1; // ^^^
+    bool g_physical_latch_button_state = 0; // used for pressing button at 0
+
+  #endif
+// </SINGLE_COLLECTIVE>
 
 // <COLLECTIVE_NO_THROTTLE>
   #if (defined COLLECTIVE_NOTHR)

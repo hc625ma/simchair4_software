@@ -50,25 +50,26 @@
       ba0 = b3;
       ba1 = b4;
     }
-    
-    //Serial.print(z);
-    //Serial.print(" ");
-//    Serial.print(throttle);
+
+// CALIBRATION
+
+//    Serial.print(z);
 //    Serial.print(" ");
-    //Serial.print(ba0);
-    //Serial.print(" ");
-    //Serial.print(ba1);
-    //Serial.print(" ");
+//    Serial.print(throttle); // <- turn your throttle to idle stop position to see COMPACT_COLLECTIVE_IDLE_STOP_AXIS_VAL value
+//    Serial.print(" ");
+//    Serial.print(ba0);
+//    Serial.print(" ");
+//    Serial.print(ba1);
+//    Serial.print(" ");
 //    Serial.print(x);
 //    Serial.print(" ");
-//    Serial.println(y);
+//    Serial.print(y);
+//    Serial.print(" ");
+//    Serial.println(ms); // <- uncomment to see decimal vals for mode switch positions
+
     j_ccoll.setZAxis(z);
 
-//    Serial.print(g_idle_rel_btn_pressed);
-//    Serial.print(" ");
-//    Serial.println(g_throttle_latch_pressed);
-     // uncomment the next line and turn your throttle to idle stop position to see COMPACT_COLLECTIVE_IDLE_STOP_AXIS_VAL value
-    //Serial.println(throttle);
+
     if (THROTTLE_STABILIZER_ENABLED) {
       int16_t thrdiff = throttle - g_ccoll_thr_val;
       if (abs(thrdiff) > THR_STEP) {

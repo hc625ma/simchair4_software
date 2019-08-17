@@ -5,31 +5,31 @@
 //CYCLIC
 
   //BASE
-    #define CYCLIC_BASE
+    //#define CYCLIC_BASE
 
   //GRIPS
-    #define B8_GRIP
+    //#define B8_GRIP
     
 
 
 //COLLECTIVE LEVER
 
   // COMBO LEVERS
-    #define COMPACT_COLLECTIVE
+  //  #define COMPACT_COLLECTIVE
   // OTHER LEVERS
 
   // BASE + BODY
     //#define COLLECTIVE_NOTHR
-    //#define COLLECTIVE_STHR
+    #define COLLECTIVE_STHR
     //#define COLLECTIVE_DTHR
   
   //PEDESTAL
-    //#define SIMPLE_PEDESTAL
-    #define VRMAXII_PEDESTAL
+    #define SIMPLE_PEDESTAL
+    //#define VRMAXII_PEDESTAL
   // HEAD
 
 
 //PEDALS
-  #define PEDALS
+  //#define PEDALS
 
 

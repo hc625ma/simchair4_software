@@ -14,6 +14,9 @@ Wire.begin();
 #if (defined COMPACT_COLLECTIVE) 
   setup_compact_collective();
 #endif
+#if (defined COLLECTIVE_STHR) 
+  setup_single_collective();
+#endif
 #if (defined CYCLIC_BASE) 
   setup_cyclic_base();
 #endif
