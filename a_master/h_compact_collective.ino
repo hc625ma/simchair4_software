@@ -1,5 +1,5 @@
 #if (defined COMPACT_COLLECTIVE)
-  Joystick_ j_ccoll(0x20, 0x05, 35, 1, false, false, true, false, false, false, false, true, false, false, false);
+  Joystick_ j_ccoll(0x20, 0x05, 36, 1, false, false, true, false, false, false, false, true, false, false, false);
 
   void setup_compact_collective() {
     j_ccoll.begin();

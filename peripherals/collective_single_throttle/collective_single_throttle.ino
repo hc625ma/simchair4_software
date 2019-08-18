@@ -27,8 +27,8 @@ void loop() {
   rz = filteredRead(A1,filter_counter_rz);
   // uncomment #define CALIBRATE statement and change 2nd and 3rd values to physical min and max
   // of your lever; change the order of 2 last values to invert an axis
-  //z = map(z,1001,0,0,1023);
-  //rz = map(rz,33,1023,1023,0);
+  z = map(z,1001,0,0,1023);
+  rz = map(rz,99,1023,1023,0);
 
   if ((z > 1023) && (z < 30000)) {
     z = 1023;

@@ -34,7 +34,7 @@
 
   // <COMPACT COLLECTIVE>
 
-    #define COMPACT_COLLECTIVE_MIN 927
+    #define COMPACT_COLLECTIVE_MIN 1023
     #define COMPACT_COLLECTIVE_MAX 0
 
     #define COMPACT_COLLECTIVE_THR_MIN 0
@@ -52,13 +52,13 @@
   // <SINGLE_COLLECTIVE>
     #define PHYSICAL_THROTTLE_LATCH 1 // if your collective has a physical idle stop latch, set this to 1, otherwise set it to 0 for advanced throttle related functions to work
 
-    #define SINGLE_COLLECTIVE_MIN 927
+    #define SINGLE_COLLECTIVE_MIN 1022
     #define SINGLE_COLLECTIVE_MAX 0
 
     #define SINGLE_COLLECTIVE_THR_MIN 0
     #define SINGLE_COLLECTIVE_THR_MAX 1023
 
-    #define SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 167 // throttle axis value at the detent mark
+    #define SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 120 // throttle axis value at the detent mark
     
     #define SINGLE_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
     
@@ -78,8 +78,11 @@
   // Ministick
   #define SIMPLE_PEDESTAL_X_CENTER 128
   #define SIMPLE_PEDESTAL_Y_CENTER 128
-  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_LOW 1//5
-  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_HIGH 3//15
+
+  // next 3 values control mouse pointer speed, adjust depending on how many devices are connected
+  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_LOW 1 // pixels per tick at LOW speed
+  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_HIGH 3 // pixels per tick at HIGH speed
+  #define SIMPLE_PEDESTAL_POINTER_SPEED_MODIFIER 15 // how often ticks happen
 
   // Buttons to act as mouse buttons as seen in joy.cpl, 0 to disable
   #define SIMPLE_PEDESTAL_MB_LEFT 4
@@ -98,8 +101,11 @@
   // Ministick
   #define VRMAXII_PEDESTAL_X_CENTER 132
   #define VRMAXII_PEDESTAL_Y_CENTER 124
-  #define VRMAXII_PEDESTAL_MINISTICK_SENSITIVITY_LOW 5
-  #define VRMAXII_PEDESTAL_MINISTICK_SENSITIVITY_HIGH 15
+
+  // next 3 values control mouse pointer speed
+  #define VRMAXII_PEDESTAL_MINISTICK_SENSITIVITY_LOW 3 // pixels per tick at LOW speed
+  #define VRMAXII_PEDESTAL_MINISTICK_SENSITIVITY_HIGH 8 // pixels per tick at HIGH speed
+  #define VRMAX_PEDESTAL_POINTER_SPEED_MODIFIER 15 // how often ticks happen
 
   // Buttons to act as mouse buttons as seen in joy.cp
   // look values below in serial output after uncommenting Serial.println(rp_s); under
@@ -110,7 +116,7 @@
   #define SELECTOR_POS_2_DECIMAL_VAL 12
   #define SELECTOR_POS_3_DECIMAL_VAL 8
   #define SELECTOR_POS_4_DECIMAL_VAL 24
-  #define SELECTOR_POS_5_DECIMAL_VAL 40l, 0 to disable
+  #define SELECTOR_POS_5_DECIMAL_VAL 40 
   #define VRMAXII_PEDESTAL_MB_LEFT 4
   #define VRMAXII_PEDESTAL_MB_RIGHT 0
 
@@ -120,7 +126,7 @@
   #define SELECTOR_POS_6_DECIMAL_VAL 72
   #define SELECTOR_POS_7_DECIMAL_VAL 136
 
-#define VRMAXII_PEDESTAL_ZOOM_STABILIZER_ENABLED 1
+  #define VRMAXII_PEDESTAL_ZOOM_STABILIZER_ENABLED 1
   #define VRMAXII_PEDESTAL_ZOOM_STEP 10
 
 // </VRMAXII_PEDESTAL>

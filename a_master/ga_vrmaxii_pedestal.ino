@@ -107,7 +107,7 @@
         }
         else {
           Mouse.move(0, -1, 0);
-          delay(15);
+          delay(VRMAX_PEDESTAL_POINTER_SPEED_MODIFIER);
         }
       }
       else if (y > VRMAXII_PEDESTAL_Y_CENTER + 3) {
@@ -120,7 +120,7 @@
         }
         else {
           Mouse.move(0, 1, 0);
-          delay(15);
+          delay(VRMAX_PEDESTAL_POINTER_SPEED_MODIFIER);
         }
       }
       if (x < VRMAXII_PEDESTAL_X_CENTER - 3) { 
@@ -133,7 +133,7 @@
         }
         else {
           Mouse.move(-1, 0, 0);
-          delay(15);
+          delay(VRMAX_PEDESTAL_POINTER_SPEED_MODIFIER);
         }
       }
       else if (x > VRMAXII_PEDESTAL_X_CENTER + 3) { 
@@ -146,7 +146,7 @@
         }
         else {
           Mouse.move(1, 0, 0);
-          delay(15);
+          delay(VRMAX_PEDESTAL_POINTER_SPEED_MODIFIER);
         }
       }
     }
