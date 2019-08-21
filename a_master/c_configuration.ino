@@ -3,6 +3,8 @@
 
 // <GLOBAL>
   #define ADS1115_RESOLUTION 15 //bits, min 12, max 15
+  
+  #define DEVICE_INIT_DELAY 1000
 // </GLOBAL>
 
 
@@ -28,7 +30,7 @@
     
 
     #define THROTTLE_STABILIZER_ENABLED 1
-    #define THR_STEP 5
+    #define THR_STEP 30
     
   //</COLLECTIVE_GLOBAL>
 
