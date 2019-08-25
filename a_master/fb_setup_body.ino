@@ -37,3 +37,9 @@ Wire.begin();
   delay(DEVICE_INIT_DELAY);
   setup_coll_nothr();
 #endif
+#if (defined AB412_COLL_SWITCH_PANEL) 
+  delay(DEVICE_INIT_DELAY);
+  setup_ab412_coll_head();
+#endif
+
+

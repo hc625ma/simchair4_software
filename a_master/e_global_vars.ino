@@ -115,7 +115,16 @@
     bool g_physical_latch_button_state = 0; // used for pressing button at 0
 
   #endif
+
 // </SINGLE_COLLECTIVE>
+
+// </AB412_COLL_HEAD>
+  #if (defined AB412_COLL_SWITCH_PANEL)
+    uint8_t g_ab412h_lpot_val = 0;
+    uint8_t g_ab412h_rpot_val = 0;
+    bool g_ab412h_lastButtonState[60];
+  #endif
+//</AB412_COLL_HEAD>
 
 // <COLLECTIVE_NO_THROTTLE>
   #if (defined COLLECTIVE_NOTHR)

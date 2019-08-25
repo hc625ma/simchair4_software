@@ -82,7 +82,7 @@
     }
     
 
-    int16_t hat_val = parse_hat_sw(x, y, 8);
+    int16_t hat_val = parse_hat_sw(x, y, COMPACT_COLLECTIVE_HAT_DIRECTIONS);
     j_ccoll.setHatSwitch(0, hat_val);
 
     if (COLLECTIVE_MODE_SWITCH_ENABLED == 0) {

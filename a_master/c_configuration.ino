@@ -46,8 +46,7 @@
     #define COMPACT_COLLECTIVE_IDLE_REL_BTN 5 // IDLE RELEASE joystick button number as seen in joy.cpl, 0 to disable. This button allows moving virtual throttle grip past the detent to close the throttle.
     #define COMPACT_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
 
-    
-
+    #define COMPACT_COLLECTIVE_HAT_DIRECTIONS 8
     
   // </COMPACT COLLECTIVE>
 
@@ -72,6 +71,25 @@
     #define COLLECTIVE_NOTHR_MAX 0
 
   // </COLLECTIVE BASE - NO THROTTLE >
+
+  // <COLLECTIVE_HEADS>
+
+    // <AB412_COLL_HEAD>
+      #define AB412_HEAD_LEFT_POT_MIN 0
+      #define AB412_HEAD_LEFT_POT_MAX 255
+      #define AB412_HEAD_RIGHT_POT_MIN 0
+      #define AB412_HEAD_RIGHT_POT_MAX 255
+
+      #define AB412_HEAD_POT_STABILIZER_ENABLED 1
+      #define AB412_HEAD_POT_STABILIZER_STEP 3
+
+      #define AB412_COLL_HEAD_LEFT_HAT_DIRECTIONS 8
+      #define AB412_COLL_HEAD_RIGHT_HAT_DIRECTIONS 4
+
+      #define AB412_HEAD_IDLE_REL_BTN 17
+    // </AB412_COLL_HEAD>
+  
+  //</COLLECTIVE_HEADS>
 
 // </COLLECTIVE LEVERS>
 

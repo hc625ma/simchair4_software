@@ -25,5 +25,8 @@
 #if (defined COLLECTIVE_NOTHR) 
   poll_coll_nothr();
 #endif
+#if (defined AB412_COLL_SWITCH_PANEL) 
+  poll_ab412_coll_head();
+#endif
 
 
