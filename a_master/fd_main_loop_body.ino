@@ -28,5 +28,9 @@
 #if (defined AB412_COLL_SWITCH_PANEL) 
   poll_ab412_coll_head();
 #endif
+#if (defined HELI_QUADRANT) 
+  poll_heli_quadrant();
+#endif
+
 
 

@@ -131,3 +131,11 @@
     bool g_coll_nthr_lastButtonState[8];
   #endif
 // </COLLECTIVE_NO_THROTTLE>
+
+// <HELI QUADRANT>
+  #if (defined HELI_QUADRANT)
+    bool g_hq_lastButtonState[4];
+    uint16_t g_hq_rx_val = 0;
+    uint16_t g_hq_ry_val = 0;
+  #endif
+// </HELI QUADRANT>

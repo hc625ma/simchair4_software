@@ -5,7 +5,7 @@
 //CYCLIC
 
   //BASE
-    #define CYCLIC_BASE
+   // #define CYCLIC_BASE
 
   //GRIPS
     //#define B8_GRIP
@@ -28,6 +28,9 @@
     //#define VRMAXII_PEDESTAL
   // HEAD
     #define AB412_COLL_SWITCH_PANEL
+    
+// THROTTLE QUADRANT
+  #define HELI_QUADRANT
 
 
 //PEDALS

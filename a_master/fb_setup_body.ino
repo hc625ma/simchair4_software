@@ -41,5 +41,9 @@ Wire.begin();
   delay(DEVICE_INIT_DELAY);
   setup_ab412_coll_head();
 #endif
+#if (defined HELI_QUADRANT) 
+  delay(DEVICE_INIT_DELAY);
+  setup_heli_quadrant();
+#endif
 
 
