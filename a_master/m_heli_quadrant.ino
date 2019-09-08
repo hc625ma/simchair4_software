@@ -32,17 +32,25 @@ Joystick_ j_hq(0x50, 0x05, 4, 0, false, false, false, true, true, false, false, 
       int16_t rydiff = ry - g_hq_ry_val;
       if (abs(rxdiff) > HQ_AXIS_STABILIZER_STEP) {
         g_hq_rx_val = rx;
-        j_hq.setRxAxis(rx);
+        if ((rx >= HQ_AXIS1_MIN) && (rx <= HQ_AXIS1_MAX)) {
+          j_hq.setRxAxis(rx);
+        }
       }
       if (abs(rydiff) > HQ_AXIS_STABILIZER_STEP) {
         g_hq_ry_val = ry;
-        j_hq.setRyAxis(ry);
+        if ((ry >= HQ_AXIS2_MIN) && (ry <= HQ_AXIS2_MAX)) {
+          j_hq.setRyAxis(ry);
+        }
       }
     } else {
       g_hq_rx_val = rx;
       g_hq_ry_val = ry;
-      j_hq.setRxAxis(rx);
-      j_hq.setRyAxis(ry);
+      if ((rx >= HQ_AXIS1_MIN) && (rx <= HQ_AXIS1_MAX)) {
+        j_hq.setRxAxis(rx);
+      }
+      if ((ry >= HQ_AXIS2_MIN) && (ry <= HQ_AXIS2_MAX)) {
+        j_hq.setRyAxis(ry);
+      }
     }
     
     
@@ -58,10 +66,14 @@ Joystick_ j_hq(0x50, 0x05, 4, 0, false, false, false, true, true, false, false, 
         j_hq.setButton(1,1);
       }      
     } else {
-      g_hq_lastButtonState[0] = 0;
-      g_hq_lastButtonState[1] = 0;
-      j_hq.setButton(0,0);
-      j_hq.setButton(1,0);
+      if (g_hq_lastButtonState[0] != 0) {
+        g_hq_lastButtonState[0] = 0;
+        j_hq.setButton(0,0);
+      }
+      if (g_hq_lastButtonState[1] != 0) {
+        g_hq_lastButtonState[1] = 0;
+        j_hq.setButton(1,0);
+      }
     }
 
     if (ry < (HQ_AXIS2_DT_MIN + 20)) {
@@ -75,10 +87,18 @@ Joystick_ j_hq(0x50, 0x05, 4, 0, false, false, false, true, true, false, false, 
         j_hq.setButton(3,1);
       }      
     } else {
-      g_hq_lastButtonState[2] = 0;
-      g_hq_lastButtonState[3] = 0;
-      j_hq.setButton(2,0);
-      j_hq.setButton(3,0);
+      if (g_hq_lastButtonState[2] != 0) {
+        g_hq_lastButtonState[2] = 0;
+        j_hq.setButton(2,0);
+      }
+      if (g_hq_lastButtonState[3] != 0) {
+        g_hq_lastButtonState[3] = 0;
+        j_hq.setButton(3,0);
+      }
+//      g_hq_lastButtonState[2] = 0;
+//      g_hq_lastButtonState[3] = 0;
+//      j_hq.setButton(2,0);
+//      j_hq.setButton(3,0);
     }
 
   }  

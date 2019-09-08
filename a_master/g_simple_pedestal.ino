@@ -1,5 +1,5 @@
 #if (defined SIMPLE_PEDESTAL)
-  Joystick_ j_spdstl(0x21, 0x05, 32, 0, false, false, true, false, false, false, false, false, false, false, false);
+  Joystick_ j_spdstl(0x21, 0x05, 36, 0, false, false, true, false, false, false, false, false, false, false, false);
 
   void setup_simple_pedestal() {
     j_spdstl.begin();   
