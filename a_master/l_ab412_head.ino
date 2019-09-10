@@ -79,7 +79,7 @@
 
 
     if (COLLECTIVE_MODE_SWITCH_ENABLED == 0) {
-      parse_button_array_ab412h(g_coll_modesw_pos_decimal,0,0,0,0);
+      parse_button_array_ab412h(g_coll_modesw_pos_decimal,0,0,0,0,0);
     } else {
       //Serial.println(ms); // unsomment to see decimal vals mode switch positions
       if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
@@ -91,14 +91,17 @@
       }
     }
       
-    parse_button_array_ab412h(ba0,0,0,mod,0);
-    parse_button_array_ab412h(ba1,2,0,mod,0);
-    parse_button_array_ab412h(ba2,10,0,mod,1);
-    parse_button_array_ab412h(ba3,18,0,mod,0);
+    parse_button_array_ab412h(ba0,0,2,0,mod,0);
+    parse_button_array_ab412h(ba1,2,0,0,mod,0);
+    parse_button_array_ab412h(ba2,10,0,0,mod,1);
+    parse_button_array_ab412h(ba3,18,0,0,mod,0);
   }
 
-  void parse_button_array_ab412h(uint8_t b, uint8_t start_btn,uint8_t byte_offset,uint8_t modifier,bool idle_rel_btn) {
-    for (byte i = byte_offset; i < 8; i++) {
+  void parse_button_array_ab412h(uint8_t b, uint8_t start_btn, uint8_t end_btn, uint8_t byte_offset,uint8_t modifier,bool idle_rel_btn) {
+    if (end_btn == 0) {
+      end_btn = 8;
+    }
+    for (byte i = byte_offset; i < end_btn; i++) {
       bool v = (b >> i) & 1;
       
       if (v != g_ab412h_lastButtonState[i + start_btn + modifier]) {

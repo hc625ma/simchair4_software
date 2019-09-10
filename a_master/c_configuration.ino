@@ -59,7 +59,7 @@
     #define SINGLE_COLLECTIVE_THR_MIN 0
     #define SINGLE_COLLECTIVE_THR_MAX 1023
 
-    #define SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 120 // throttle axis value at the detent mark
+    #define SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 119 // throttle axis value at the detent mark
     
     #define SINGLE_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
     
@@ -100,8 +100,8 @@
   #define SIMPLE_PEDESTAL_Y_CENTER 128
 
   // next 3 values control mouse pointer speed, adjust depending on how many devices are connected
-  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_LOW 3 // pixels per tick at LOW speed
-  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_HIGH 8 // pixels per tick at HIGH speed
+  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_LOW 2 // pixels per tick at LOW speed
+  #define SIMPLE_PEDESTAL_MINISTICK_SENSITIVITY_HIGH 6 // pixels per tick at HIGH speed
   #define SIMPLE_PEDESTAL_POINTER_SPEED_MODIFIER 15 // how often ticks happen
 
   // Buttons to act as mouse buttons as seen in joy.cpl, 0 to disable
