@@ -46,9 +46,19 @@ Joystick_ j_hq(0x50, 0x05, 4, 0, false, false, false, true, true, false, false, 
       g_hq_rx_val = rx;
       g_hq_ry_val = ry;
       if ((rx >= HQ_AXIS1_MIN) && (rx <= HQ_AXIS1_MAX)) {
+        if ((HQ_AXIS1_MIN - rx ) < HQ_AXIS_STABILIZER_STEP) {
+          rx = HQ_AXIS1_MIN;
+        } else if ((HQ_AXIS1_MAX - rx ) < HQ_AXIS_STABILIZER_STEP) {
+          rx = HQ_AXIS1_MAX;
+        }
         j_hq.setRxAxis(rx);
       }
       if ((ry >= HQ_AXIS2_MIN) && (ry <= HQ_AXIS2_MAX)) {
+        if ((HQ_AXIS2_MIN - ry ) < HQ_AXIS_STABILIZER_STEP) {
+          ry = HQ_AXIS2_MIN;
+        } else if ((HQ_AXIS2_MAX - ry ) < HQ_AXIS_STABILIZER_STEP) {
+          ry = HQ_AXIS2_MAX;
+        }
         j_hq.setRyAxis(ry);
       }
     }
