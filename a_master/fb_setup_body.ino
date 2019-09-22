@@ -21,6 +21,10 @@ Wire.begin();
   delay(DEVICE_INIT_DELAY);
   setup_single_collective();
 #endif
+#if (defined COLLECTIVE_STHR_MKIII) 
+  delay(DEVICE_INIT_DELAY);
+  setup_single_collective_mk3();
+#endif
 #if (defined CYCLIC_BASE) 
   delay(DEVICE_INIT_DELAY);
   setup_cyclic_base();
@@ -40,6 +44,10 @@ Wire.begin();
 #if (defined AB412_COLL_SWITCH_PANEL) 
   delay(DEVICE_INIT_DELAY);
   setup_ab412_coll_head();
+#endif
+#if (defined HUEY_COLL_SWITCH_PANEL) 
+  delay(DEVICE_INIT_DELAY);
+  setup_huey_coll_head();
 #endif
 #if (defined HELI_QUADRANT) 
   delay(DEVICE_INIT_DELAY);

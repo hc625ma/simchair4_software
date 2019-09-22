@@ -13,6 +13,9 @@
 #if (defined COLLECTIVE_STHR) 
   poll_single_collective();
 #endif
+#if (defined COLLECTIVE_STHR_MKIII) 
+  poll_single_collective_mk3();
+#endif
 #if (defined CYCLIC_BASE) 
   poll_cyclic_base();
 #endif
@@ -27,6 +30,9 @@
 #endif
 #if (defined AB412_COLL_SWITCH_PANEL) 
   poll_ab412_coll_head();
+#endif
+#if (defined HUEY_COLL_SWITCH_PANEL) 
+  poll_huey_coll_head();
 #endif
 #if (defined HELI_QUADRANT) 
   poll_heli_quadrant();

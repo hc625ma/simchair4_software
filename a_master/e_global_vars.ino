@@ -10,6 +10,11 @@
   int g_one_percent_pedals_range = CBASE_ADC_RANGE / 100;
   int g_one_percent_coll_range = COLLECTIVE_ADC_RANGE / 100;
 
+  float g_EMA_a = 0.4;      //initialization of EMA alpha
+  int g_EMA_Sx = 0;          //initialization of cyclic x EMA S
+  int g_EMA_Sy = 0;          //initialization of cyclic y EMA S
+  int g_EMA_Sp = 0;          //initialization of pedals EMA S
+
   uint8_t g_coll_modesw_pos_decimal = 0;
 
   // <FORCE_TRIM>
@@ -66,7 +71,6 @@
 
 // <CYCLIC_BASE>
 #if (defined CYCLIC_BASE)
-
   int g_buf_x[g_xy_readings];
   int g_buf_y[g_xy_readings];
   int g_xy_read_index = 0; // the index of the current reading
@@ -107,7 +111,7 @@
 // </COMPACT_COLLECTIVE>
 
 // <SINGLE COLLECTIVE>
-  #if (defined COLLECTIVE_STHR)
+  #if ((defined COLLECTIVE_STHR) || (defined COLLECTIVE_STHR_MKIII))
     bool g_scoll_lastButtonState[3];
     uint8_t g_scoll_thr_val;
     bool g_idle_rel_btn_pressed = 0; // because button and the latch can have different states  
@@ -118,13 +122,19 @@
 
 // </SINGLE_COLLECTIVE>
 
-// </AB412_COLL_HEAD>
+// <AB412_COLL_HEAD>
   #if (defined AB412_COLL_SWITCH_PANEL)
     uint8_t g_ab412h_lpot_val = 0;
     uint8_t g_ab412h_rpot_val = 0;
     bool g_ab412h_lastButtonState[60];
   #endif
 //</AB412_COLL_HEAD>
+
+// <HUEY_COLL_HEAD>
+  #if (defined HUEY_COLL_SWITCH_PANEL)
+    bool g_hh_lastButtonState[30];
+  #endif
+// </HUEY_COLL_HEAD>
 
 // <COLLECTIVE_NO_THROTTLE>
   #if (defined COLLECTIVE_NOTHR)

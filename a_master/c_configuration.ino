@@ -65,6 +65,21 @@
     
   // </SINGLE_COLLECTIVE>
 
+    // <SINGLE_COLLECTIVE_MKIII>
+    #define SCOLL_MKIII_PHYSICAL_THROTTLE_LATCH 0 // if your collective has a physical idle stop latch, set this to 1, otherwise set it to 0 for advanced throttle related functions to work
+
+    #define SINGLE_COLLECTIVE_MKIII_MIN 930
+    #define SINGLE_COLLECTIVE_MKIII_MAX 0
+
+    #define SINGLE_COLLECTIVE_MKIII_THR_MIN 0
+    #define SINGLE_COLLECTIVE_MKIII_THR_MAX 1023
+
+    #define SINGLE_COLLECTIVE_MKIII_IDLE_DETENT_AXIS_VAL 134 // throttle axis value at the detent mark
+    
+    #define SINGLE_COLLECTIVE_MKIII_PHYSICAL_LATCH_MOD_JOY_BUTTON 1 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
+    
+  // </SINGLE_COLLECTIVE_MKIII>
+
   // <COLLECTIVE BASE - NO THROTTLE >
   
     #define COLLECTIVE_NOTHR_MIN 1023
@@ -88,6 +103,13 @@
 
       #define AB412_HEAD_IDLE_REL_BTN 17
     // </AB412_COLL_HEAD>
+
+    // <HUEY_COLL_HEAD>
+
+      #define HUEY_COLL_HEAD_HAT_DIRECTIONS 4
+      #define HUEY_HEAD_IDLE_REL_BTN 12
+
+    // </HUEY_COLL_HEAD>
   
   //</COLLECTIVE_HEADS>
 
@@ -198,7 +220,7 @@
 // <PEDALS>
 
   #define INVERT_RUDDER 0
-  #define RUDDER_FILTERING_ENABLED 0
+  #define RUDDER_FILTERING_ENABLED 1
   #define RUDDER_READINGS 8 // only active when filtering is enabled
   #define CUSTOM_RUDDER_SENS 80 // this value will be used if SENS_SWITCH is disabled
   
