@@ -15,6 +15,8 @@
   int g_EMA_Sy = 0;          //initialization of cyclic y EMA S
   int g_EMA_Sp = 0;          //initialization of pedals EMA S
 
+  bool g_coll_mk3_detected = 0; // for the legacy MKIII mode switch on collective heads to work
+
   uint8_t g_coll_modesw_pos_decimal = 0;
 
   // <FORCE_TRIM>

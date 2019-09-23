@@ -2,6 +2,7 @@
   Joystick_ j_scoll(0x20, 0x05, 1, 1, false, false, true, false, false, false, false, true, false, false, false);
 
   void setup_single_collective_mk3() {
+    g_coll_mk3_detected = 1;
     j_scoll.begin();
     j_scoll.setZAxisRange(SINGLE_COLLECTIVE_MKIII_MIN, SINGLE_COLLECTIVE_MKIII_MAX);
     
@@ -61,18 +62,18 @@
      apply_advanced_throttle_features(throttle);
     }
 
-    if (COLLECTIVE_MODE_SWITCH_ENABLED == 0) {
-      parse_button_array_scoll(ms,0,0);
-    } else {
-      g_coll_modesw_pos_decimal = ms; // share mode switch position with the rest of the hardware
-      if (ms == MODESW_POS_MIDDLE_DECIMAL_VAL) {
-        mod = 0;
-      } else if (ms == MODESW_POS_LEFT_DECIMAL_VAL) {
-        mod = 11;
-      } else if (ms == MODESW_POS_RIGHT_DECIMAL_VAL) {
-        mod = 22;
-      }
-    }
+//    if (COLLECTIVE_MODE_SWITCH_ENABLED == 0) {
+//      parse_button_array_scoll(ms,0,0);
+//    } else {
+//      g_coll_modesw_pos_decimal = ms; // share mode switch position with the rest of the hardware
+//      if (ms == MODESW_POS_MIDDLE_DECIMAL_VAL) {
+//        mod = 0;
+//      } else if (ms == MODESW_POS_LEFT_DECIMAL_VAL) {
+//        mod = 11;
+//      } else if (ms == MODESW_POS_RIGHT_DECIMAL_VAL) {
+//        mod = 22;
+//      }
+//    }
       
   }
 
