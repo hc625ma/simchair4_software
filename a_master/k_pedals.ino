@@ -27,16 +27,7 @@
   
   void poll_pedals() {
     int rudder;
-//    if (RUDDER_FILTERING_ENABLED == 1) {
-//      g_total_rudder = g_total_rudder - g_buf_rudder[g_rudder_read_index];
-//      g_buf_rudder[g_rudder_read_index] = pedals.readADC_SingleEnded(0) >> (15 - ADS1115_RESOLUTION);
-//      g_total_rudder = g_total_rudder + g_buf_rudder[g_rudder_read_index];
-//      g_rudder_read_index = g_rudder_read_index + 1;
-//      if (g_rudder_read_index >= RUDDER_READINGS) {
-//        g_rudder_read_index = 0;
-//      }
-//      rudder = g_total_rudder / RUDDER_READINGS;
-//    } else {
+
       rudder = pedals.readADC_SingleEnded(0) >> (15 - ADS1115_RESOLUTION);
       if (RUDDER_FILTERING_ENABLED == 1) {
         g_EMA_Sp = (g_EMA_a*rudder) + ((1-g_EMA_a)*g_EMA_Sp);    //run the EMA
@@ -44,14 +35,13 @@
 
       }
       //Serial.println(rudder); //uncomment to calibrate pedals
-//    } 
-    if (g_ftcr == 255) {
+    if (g_ftcr == 1) {
       g_rudder_diff = 0;
       if (INVERT_RUDDER == 1) {
         g_physical_pedals_center = PEDALS_ADC_RANGE - g_physical_pedals_center;
       }
     }
-    if (SENS_SWITCH_ENABLED == 1) {
+    if (RATES_POTS_ENABLED == 1) {
       rudder = adjust_sensitivity(rudder, g_rudder_sens);
     } else {
       rudder = adjust_sensitivity(rudder, CUSTOM_RUDDER_SENS);

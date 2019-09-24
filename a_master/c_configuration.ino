@@ -178,8 +178,7 @@
 // <CYCLIC>
 
   // <BASE>
-    
-
+  
     #define FSGIMBAL_INVERT_X 0
     #define FSGIMBAL_INVERT_Y 0
 
@@ -189,18 +188,48 @@
 
     #define PSEUDO_FORCE_TRIM 1
     #define FORCE_TRIM_BUTTON_MODE "HOLD"// "MOMENTARY" or "HOLD" - use "MOMENTARY" for non-centering cyclic
-    #define SENS_SWITCH_ENABLED 1
+    
+    #define RATES_POTS_ENABLED 1
+
+    // CYCLIC/PEDALS RATES
+    // You can adjust sensitivity of your stick and pedals with knobs on the rates control panel.
+    // The table below shows at which pot value +- RATES_TRESHOLD the corresponding value of the 'sens' column will be set.
+    
+    #define RATES_KNOB_RESOLUTION 10 //bits - only change that if you want to use RATES pots as axes - otherwise you will need to adjust the table below
+    #define RATES_TRESHOLD 30 // points
+
+    #define RATES_POT_AXIS_MODE_STABILIZER_ENABLED 1
+    #define RATES_POT_AXIS_MODE_STABILIZER_STEP 5
+
+    // to calibrate rates, Serial.print the stick rate pot values and put them into the table, starting from the bottom-left position.
+    #if (defined CYCLIC_BASE)
+      const t_struct_cbase_rates g_struct_cbase_rates[] =
+      {
+      // val   sens
+        {0,    80},
+        {50,   85},
+        {180,  90},
+        {323,  95},
+        {481,  100},
+        {639,  105},
+        {804,  110},
+        {965,  115},
+        {1023, 120},
+      };
+    #endif
 
   // </BASE>
 
   // <B8 GRIP>
 
-    #define PSEUDO_FORCE_TRIM_BUTTON 1
-    #define SENS_SWITCH_TRIM_RESET 0 // DEPRECATED - USE FTCR INSTEAD - release the trim when you press SENS SWITCH
+    #define PSEUDO_FORCE_TRIM_BUTTON 2
+    #define HAT_SWITCH_TRIM_RESET 1
+    #define HAT_SWITCH_BUTTON 1 // as seen in joy.cpl
+    
     #define B8_POT_MODE "HAT_SW" // HAT_SW or ANALOG
     
-    #define SENS_DEVICE "b8_stick"
-    #define SENS_SWITCH_BUTTON 0 //0 is the first button
+//    #define SENS_DEVICE "b8_stick"
+    
 
     #define B8_HAT_SWITCH_MODE "ATT_TRIM" //"ATT_TRIM","HAT", or "BOTH", it will adjust the position of the trimmed cyclic with hat(Bell 407-style), only use "BOTH" with FORCE_TRIM_BUTTON_MODE "MOMENTARY"
     #define ATT_TRIM_STEP_Y 0.02 //0.05 //IN PERCENTS OF AXIS LENGHT, 0.05 for non-centering cyclic, 0.02 for a spring-loaded one
@@ -209,7 +238,7 @@
     #define INVERT_HAT_TRIM_Y 1
 
     #define PTT_KEYBOARD_PRESS 0 // set to 1 to enable keyboard combination press instead of a joystick button
-    #define PTT_BUTTON 4 //1st button is 0, 4 should be PTT trigger position
+    #define PTT_BUTTON 5 // as seen in joy.cpl
     // this should press CTRL + Q
     #define PTT_KEYBOARD_KEY 'q'
     char PTT_KEYBOARD_KEY_MOD = KEY_LEFT_CTRL;
@@ -225,6 +254,7 @@
   #define RUDDER_FILTERING_ENABLED 1
   #define RUDDER_READINGS 8 // only active when filtering is enabled
   #define CUSTOM_RUDDER_SENS 80 // this value will be used if SENS_SWITCH is disabled
+
   
 // </PEDALS>
 

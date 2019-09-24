@@ -1,5 +1,5 @@
 #if (defined CYCLIC_BASE)
-  Joystick_ j_cyclic(0x30, 0x04, 0, 0, true, true, false, false, false, false, false, false, false, false, false);
+  Joystick_ j_cyclic(0x30, 0x04, 0, 0, true, true, false, true, true, false, false, false, false, false, false);
   Adafruit_ADS1115 cyclic;
   
   void setup_cyclic_base(){
@@ -13,6 +13,8 @@
     j_cyclic.begin();
     j_cyclic.setXAxisRange(0, CBASE_ADC_RANGE);
     j_cyclic.setYAxisRange(0, CBASE_ADC_RANGE);
+    j_cyclic.setRxAxisRange(0, RATE_POTS_ADC_RANGE);
+    j_cyclic.setRyAxisRange(0, RATE_POTS_ADC_RANGE);
     cyclic.begin();
     cyclic.setSPS(ADS1115_DR_64SPS);
     cyclic.setGain(GAIN_ONE);
@@ -31,40 +33,25 @@
   
   void poll_cyclic_base()
   {
-    uint32_t x, y;
-  
-//    if (XY_FILTERING_ENABLED == 1) {
-//      g_total_x = g_total_x - g_buf_x[g_xy_read_index];
-//      g_total_y = g_total_y - g_buf_y[g_xy_read_index];
-//      g_buf_x[g_xy_read_index] = cyclic.readADC_SingleEnded(0) >> (15 - ADS1115_RESOLUTION);
-//      g_buf_y[g_xy_read_index] = cyclic.readADC_SingleEnded(1) >> (15 - ADS1115_RESOLUTION);
-//  
-//      g_total_x = g_total_x + g_buf_x[g_xy_read_index];
-//      g_total_y = g_total_y + g_buf_y[g_xy_read_index];
-//      g_xy_read_index = g_xy_read_index + 1;
-//  
-//      if (g_xy_read_index >= g_xy_readings) {
-//        // ...wrap around to the beginning:
-//        g_xy_read_index = 0;
-//      }
-//      
-//      x = g_total_x / g_xy_readings;
-//      y = g_total_y / g_xy_readings;
-//      g_EMA_Sx = (g_EMA_a*x) + ((1-g_EMA_a)*g_EMA_Sx);    //run the EMA
-//      g_EMA_Sy = (g_EMA_a*y) + ((1-g_EMA_a)*g_EMA_Sy);    //run the EMA
-//      x = g_EMA_Sx;
-//      y = g_EMA_Sy;
-//    } else {
+    uint32_t x, y, rx, ry;
+    
       x = cyclic.readADC_SingleEnded(0) >> (15 - ADS1115_RESOLUTION);
       y = cyclic.readADC_SingleEnded(1) >> (15 - ADS1115_RESOLUTION);
+      rx = cyclic.readADC_SingleEnded(2) >> (15 - RATES_KNOB_RESOLUTION);
+      ry = cyclic.readADC_SingleEnded(3) >> (15 - RATES_KNOB_RESOLUTION);
+
+      g_cyclic_sens = set_rates(rx,g_cyclic_sens);
+      g_rudder_sens = set_rates(ry,g_rudder_sens);
+      
+
       if (XY_FILTERING_ENABLED == 1) {
         g_EMA_Sx = (g_EMA_a*x) + ((1-g_EMA_a)*g_EMA_Sx);    //run the EMA
         g_EMA_Sy = (g_EMA_a*y) + ((1-g_EMA_a)*g_EMA_Sy);    //run the EMA
         x = g_EMA_Sx;
         y = g_EMA_Sy;
       }
-      g_ftcr = cyclic.readADC_SingleEnded(2) >> 5;
-      if (g_ftcr == 255) {
+      //g_ftcr = cyclic.readADC_SingleEnded(2) >> 5;
+      if (g_ftcr == 1) {
         g_x_diff = 0;
         g_y_diff = 0;
         g_cyclic_x_adj = 0;
@@ -84,20 +71,46 @@
         y = CBASE_ADC_RANGE - y;
       }
   
-      // uncomment next 5 lines for cyclic calibration
+      // uncomment the following lines for cyclic calibration
 //      Serial.print(x);
 //      Serial.print(" ");
 //      Serial.print(y);
 //      Serial.print(" ");
+//      Serial.print(rx);
+//      Serial.print(" ");
+//      Serial.print(ry);
+//      Serial.print(" ");
 //      Serial.println(g_ftcr);
-//    }
+
   
-    if (SENS_SWITCH_ENABLED == 1) {
+    if (RATES_POTS_ENABLED == 1) {
       x = adjust_sensitivity(x, g_cyclic_sens);
+//      g_physical_cyclic_center_x = adjust_sensitivity (g_physical_cyclic_center_x, CUSTOM_CYCLIC_SENS);
       y = adjust_sensitivity(y, g_cyclic_sens);
+//      g_physical_cyclic_center_y = adjust_sensitivity (g_physical_cyclic_center_y, CUSTOM_CYCLIC_SENS);              
     } else {
       x = adjust_sensitivity(x, CUSTOM_CYCLIC_SENS);
       y = adjust_sensitivity(y, CUSTOM_CYCLIC_SENS);
+
+      if (RATES_POT_AXIS_MODE_STABILIZER_ENABLED) {
+        int8_t rxdiff = rx - g_cbase_rx_val;
+        int8_t rydiff = ry - g_cbase_ry_val;
+        if (abs(rxdiff) > RATES_POT_AXIS_MODE_STABILIZER_STEP) {
+          g_cbase_rx_val = rx;
+          j_cyclic.setRxAxis(rx);
+        }
+        if (abs(rydiff) > RATES_POT_AXIS_MODE_STABILIZER_STEP) {
+          g_cbase_ry_val = ry;
+          j_cyclic.setRyAxis(ry);
+        }
+        rxdiff = rx - g_cbase_rx_val;
+        rydiff = ry - g_cbase_ry_val;
+      } else {
+        j_cyclic.setRxAxis(rx);
+        j_cyclic.setRyAxis(ry);
+    }
+      
+
     }
   
     if (g_force_trim_on == 0) { // button is not pressed 
@@ -169,6 +182,19 @@
         g_cyclic_force_trim_state = 1;
       }
     }
+  }
+
+  uint8_t set_rates (uint16_t val, uint8_t rate) {
+    // device: 0 - cyclic, 1 - pedals
+    for (byte i = 0; i < 9; i++) {
+      int deviation = val - g_struct_cbase_rates[i].pot_val;
+      deviation = abs(deviation);
+      
+      if (deviation <= RATES_TRESHOLD) {
+        rate = g_struct_cbase_rates[i].sens_val;
+      }
+    }
+    return rate;
   }
 
 

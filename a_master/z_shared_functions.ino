@@ -42,18 +42,13 @@ int parse_hat_sw (int x, int y, byte dirs) {
 
 #if ((defined CYCLIC_BASE) || (defined B8_GRIP) || (defined PEDALS))
 
-  int adjust_sensitivity (int val, int param) {
-  //  if ((SENS_ADJ_METHOD == "LINEAR") && (param < 100))
-    if (param < 100) {
-      int percent = param;
-      // this will simply limit your controls throw range by the given percent,
-      // and map full ADC range for it.
-      // may be a good option for flying helicopters in x-plane
-      int center = CBASE_ADC_RANGE / 2;
-      int adj_range = (CBASE_ADC_RANGE / 100) * percent;
-      val = map(val, 0, CBASE_ADC_RANGE, center - (adj_range / 2), center + (adj_range / 2));
-    }
+  int adjust_sensitivity (long val, int percent) {
+   // Serial.println(percent);
+    int center = CBASE_ADC_RANGE / 2;
+    int adj_range = (CBASE_ADC_RANGE / 100) * percent;
   
+    val = ((val - center) * percent / 100) + center; // here we at first substract ADC_RANGE / 2 to move our value to the range with center at 0, then make our calculations, and adjust it back by adding ADC_RANGE/2
+    val = constrain(val,0,CBASE_ADC_RANGE);  
     return val;
   }
 

@@ -5,11 +5,13 @@
   int CBASE_ADC_RANGE = 0.5 + pow(2, ADS1115_RESOLUTION);
   int PEDALS_ADC_RANGE = 0.5 + pow(2, ADS1115_RESOLUTION);
   int COLLECTIVE_ADC_RANGE = 0.5 + pow(2, 10);
+  int RATE_POTS_ADC_RANGE = 0.5 + pow(2, RATES_KNOB_RESOLUTION);
 
   int g_one_percent_cbase_range = CBASE_ADC_RANGE / 100;
   int g_one_percent_pedals_range = CBASE_ADC_RANGE / 100;
   int g_one_percent_coll_range = COLLECTIVE_ADC_RANGE / 100;
 
+  // CYCLIC/PEDALS FILTER
   float g_EMA_a = 0.4;      //initialization of EMA alpha
   int g_EMA_Sx = 0;          //initialization of cyclic x EMA S
   int g_EMA_Sy = 0;          //initialization of cyclic y EMA S
@@ -43,7 +45,7 @@
       bool g_force_trim_rudder_position_set = 0;
       const int g_xy_readings = 6;
       int g_physical_pedals_center = 0;
-      uint8_t g_ftcr;
+      bool g_ftcr;
     #endif
   // </FORCE_TRIM>
   
@@ -64,7 +66,7 @@
     bool g_vrm2pdstl_rp_lastButtonState[2];
     uint8_t g_vrm2pdstl_enc_lastVal = 0;
     uint8_t g_ministick_sensitivity = VRMAXII_PEDESTAL_MINISTICK_SENSITIVITY_LOW;
-    g_struct_vrm2_enc_lastVal g_vrm2_enc_lastVal;
+    t_struct_vrm2_enc_lastVal g_vrm2_enc_lastVal;
     int g_vrm2pdstl_z_val = 0;
    
   #endif
@@ -81,6 +83,9 @@
   int g_xval_prev;
   int g_diffy;
   int g_diffx;
+  uint8_t g_cbase_rx_val = 0;
+  uint8_t g_cbase_ry_val = 0;
+
 #endif
 // </CYLIC_BASE>
 

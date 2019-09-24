@@ -41,53 +41,29 @@
     for (byte i = 0; i < 6; i++) {
       bool v = (b >> i) & 1;
       if (v != g_b8grip_lastButtonState[i]) {
-        if (((SENS_SWITCH_ENABLED == 1) && (SENS_DEVICE == "B8_GRIP")) || (PTT_KEYBOARD_PRESS == 1) || (PSEUDO_FORCE_TRIM == 1)) {
-          if ((i != SENS_SWITCH_BUTTON) && (i != PTT_BUTTON) && (i != PSEUDO_FORCE_TRIM_BUTTON)) {
+        if ((RATES_POTS_ENABLED == 1) || (PTT_KEYBOARD_PRESS == 1) || (PSEUDO_FORCE_TRIM == 1)) {
+          if ((i != HAT_SWITCH_BUTTON - 1) && (i != PTT_BUTTON - 1) && (i != PSEUDO_FORCE_TRIM_BUTTON - 1)) {
             j_b8grip.setButton(i, v);
           } else {
-            if ((v == 1) && (i != PTT_BUTTON) && (i != PSEUDO_FORCE_TRIM_BUTTON)) {
-              if (g_cyclic_sens == 100) {
-                g_cyclic_sens = CUSTOM_CYCLIC_SENS;
-                g_rudder_sens = CUSTOM_RUDDER_SENS;
-                g_physical_cyclic_center_x = adjust_sensitivity (g_physical_cyclic_center_x, CUSTOM_CYCLIC_SENS);
-                g_physical_cyclic_center_y = adjust_sensitivity (g_physical_cyclic_center_y, CUSTOM_CYCLIC_SENS);
-                if (SENS_SWITCH_TRIM_RESET == 1) {
-                  g_force_trim_on = 0;
-                  g_force_trim_position_set = 0;
-                  g_force_trim_rudder_on = 0;
-                  g_force_trim_rudder_position_set = 0;
+            if (i == HAT_SWITCH_BUTTON - 1) {
+                if (HAT_SWITCH_TRIM_RESET == 1) {
+                  if (v == 1) {
+                    g_ftcr = 1;
+                  } else {
+                    g_ftcr = 0;
+                  }
+                } else {
+                  j_b8grip.setButton(i, v);
                 }
-              } else {
-                g_cyclic_sens = 100;
-                g_rudder_sens = 100;
-                g_physical_cyclic_center_x = adjust_sensitivity(g_physical_cyclic_center_x, 100);
-                g_physical_cyclic_center_y = adjust_sensitivity(g_physical_cyclic_center_y, 100);
-                if (SENS_SWITCH_TRIM_RESET == 1) {
-                  g_x_diff = 0;
-                  g_y_diff = 0;
-                  g_cyclic_x_adj = 0;
-                  g_cyclic_y_adj = 0;
-                  g_force_trim_on = 0;
-                  g_force_trim_position_set = 0;
-                  g_force_trim_rudder_on = 0;
-                  g_force_trim_rudder_position_set = 0;
-  
-                  g_force_trim_x = CBASE_ADC_RANGE / 2;
-                  g_force_trim_y = CBASE_ADC_RANGE / 2 ;
-                  g_force_trim_rudder = PEDALS_ADC_RANGE / 2;
-                  g_cyclic_force_trim_state = 0;
-                  g_pedals_force_trim_state = 0;
-                }
-              }
             }
-            else if ((i == PTT_BUTTON) && (PTT_KEYBOARD_PRESS == 1)) {
+            else if ((i == PTT_BUTTON - 1) && (PTT_KEYBOARD_PRESS == 1)) {
               if (v == 1) {
                 Keyboard.press(PTT_KEYBOARD_KEY_MOD);
                 Keyboard.press(PTT_KEYBOARD_KEY);
               } else {
                 Keyboard.releaseAll();
               }
-            } else if ((i == PSEUDO_FORCE_TRIM_BUTTON) && (PSEUDO_FORCE_TRIM == 1) && (v == 1)) {
+            } else if ((i == PSEUDO_FORCE_TRIM_BUTTON - 1) && (PSEUDO_FORCE_TRIM == 1) && (v == 1)) {
               g_force_trim_on = !g_force_trim_on;
               g_controls_freezed = !g_controls_freezed;
   
