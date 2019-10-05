@@ -40,6 +40,13 @@
       rx = cyclic.readADC_SingleEnded(2) >> (15 - RATES_KNOB_RESOLUTION);
       ry = cyclic.readADC_SingleEnded(3) >> (15 - RATES_KNOB_RESOLUTION);
 
+      if (rx > CBASE_ADC_RANGE) {
+        rx = 0;
+      }
+      if (ry > CBASE_ADC_RANGE) {
+        ry = 0;
+      }
+
       g_cyclic_sens = set_rates(rx,g_cyclic_sens);
       g_rudder_sens = set_rates(ry,g_rudder_sens);
       
