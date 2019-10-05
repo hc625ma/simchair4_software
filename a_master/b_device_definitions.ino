@@ -23,7 +23,8 @@
     //#define COLLECTIVE_STHR
     //#define COLLECTIVE_DTHR
 
-    #define COLLECTIVE_STHR_MKIII
+    //#define COLLECTIVE_STHR_MKIII
+    #define COLLECTIVE_TTHR_MKIII
   
   //PEDESTAL
     //#define SIMPLE_PEDESTAL

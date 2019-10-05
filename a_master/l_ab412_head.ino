@@ -111,6 +111,8 @@
           } else {
             j_ab412h.setButton(i + start_btn + modifier, v);
             g_idle_rel_btn_pressed = v;
+            g_tl_idle_rel_btn_pressed[0] = v;
+            g_tl_idle_rel_btn_pressed[1] = v;
           }
         } else {
           j_ab412h.setButton(i + start_btn + modifier, v);

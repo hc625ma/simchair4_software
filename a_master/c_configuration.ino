@@ -80,6 +80,26 @@
     
   // </SINGLE_COLLECTIVE_MKIII>
 
+
+  // <TWIN_COLLECTIVE_MKIII>
+    #define TCOLL_MKIII_PHYSICAL_THROTTLE_LATCH 0 // if your collective has a physical idle stop latch, set this to 1, otherwise set it to 0 for advanced throttle related functions to work
+
+    #define TWIN_COLLECTIVE_MKIII_MIN 1023
+    #define TWIN_COLLECTIVE_MKIII_MAX 0
+
+    uint16_t TWIN_COLLECTIVE_MKIII_THR_MIN[] = {1023,1023};
+    uint16_t TWIN_COLLECTIVE_MKIII_THR_MAX[] = {0,0};
+
+
+    uint16_t TWIN_COLLECTIVE_MKIII_THR_IDLE_DETENT_AXIS_VAL[] = {976,959}; // throttle axis value at the detent mark
+
+    byte TWIN_COLLECTIVE_MKIII_PHYSICAL_LATCH_MOD_JOY_BUTTON[] = {1,2};
+    
+    //#define SINGLE_COLLECTIVE_MKIII_PHYSICAL_LATCH_MOD_JOY_BUTTON 1 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
+    
+  // </TWIN_COLLECTIVE_MKIII>
+  
+
   // <COLLECTIVE BASE - NO THROTTLE >
   
     #define COLLECTIVE_NOTHR_MIN 1023
@@ -182,14 +202,14 @@
     #define FSGIMBAL_INVERT_X 0
     #define FSGIMBAL_INVERT_Y 0
 
-    #define XY_FILTERING_ENABLED 0
+    #define XY_FILTERING_ENABLED 1
     
     #define CUSTOM_CYCLIC_SENS 80
 
     #define PSEUDO_FORCE_TRIM 1
     #define FORCE_TRIM_BUTTON_MODE "HOLD"// "MOMENTARY" or "HOLD" - use "MOMENTARY" for non-centering cyclic
     
-    #define RATES_POTS_ENABLED 1
+    #define RATES_POTS_ENABLED 0 //set to 0 to use pots as axes
 
     // CYCLIC/PEDALS RATES
     // You can adjust sensitivity of your stick and pedals with knobs on the rates control panel.
