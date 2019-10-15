@@ -51,7 +51,8 @@
 
     if (THROTTLE_STABILIZER_ENABLED) {
       int16_t thrdiff = throttle - g_scoll_thr_val;
-      if (abs(thrdiff) > THR_STEP) {
+      thrdiff = abs(thrdiff);
+      if (thrdiff > THR_STEP) {
         g_scoll_thr_val = throttle;
         apply_advanced_throttle_features(throttle);
       }
@@ -88,28 +89,67 @@
 
   void set_thr_latch_state_scoll(uint16_t raw_thr) {
     if (PHYSICAL_THROTTLE_LATCH == 1) {
-      if (raw_thr > SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) {
-        g_throttle_latch_pressed = 0;
-      } else if (raw_thr < SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) {
-        g_throttle_latch_pressed = 1;
+      if (SINGLE_COLLECTIVE_THR_MIN < 500) { // throttle axis is not inverted
+        if (raw_thr > SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) {
+          g_throttle_latch_pressed = 0;
+        } else if (raw_thr < SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) {
+          g_throttle_latch_pressed = 1;
+        }
+      } else {// throttle axis is inverted
+        if (raw_thr < SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) {
+          g_throttle_latch_pressed = 0;
+        } else if (raw_thr > SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) {
+          g_throttle_latch_pressed = 1;
+        }
       }
     } else {
       if (g_idle_rel_btn_pressed == 1) {
         g_throttle_latch_pressed = 1;
       }
-      if ((raw_thr > SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) && (g_idle_rel_btn_pressed == 0)) {
-        g_throttle_latch_pressed = 0;
+      if (SINGLE_COLLECTIVE_THR_MIN < 500) { // throttle axis is not inverted
+        if ((raw_thr > SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) && (g_idle_rel_btn_pressed == 0)) {
+          g_throttle_latch_pressed = 0;
+        }
+      } else { // throttle axis is inverted
+        if ((raw_thr < SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL) && (g_idle_rel_btn_pressed == 0)) {
+          g_throttle_latch_pressed = 0;
+        }
       }
     } 
   }
+//
+//void set_thr_latch_state_tcoll(uint16_t raw_thr, bool thr_num) {
+//    
+//      if (g_tl_idle_rel_btn_pressed[thr_num] == 1) {
+//        g_tl_throttle_latch_pressed[thr_num] = 1;
+//      }
+//      if (TWIN_COLLECTIVE_MKIII_THR_MIN[thr_num] < 500) { // throttle axis is not inverted
+//        if ((raw_thr > TWIN_COLLECTIVE_MKIII_THR_IDLE_DETENT_AXIS_VAL[thr_num]) && (g_tl_idle_rel_btn_pressed[thr_num] == 0)) {
+//          g_tl_throttle_latch_pressed[thr_num] = 0;
+//          if ((raw_thr > TWIN_COLLECTIVE_MKIII_THR_IDLE_DETENT_AXIS_VAL[thr_num]) && (g_tl_idle_rel_btn_pressed[thr_num] == 0)) {
+//            g_tl_throttle_latch_pressed[thr_num] = 0;
+//          }
+//        }    
+//      } else { // throttle axis is inverted
+//        if ((raw_thr < TWIN_COLLECTIVE_MKIII_THR_IDLE_DETENT_AXIS_VAL[thr_num]) && (g_tl_idle_rel_btn_pressed[thr_num] == 0)) {
+//          g_tl_throttle_latch_pressed[thr_num] = 0;
+//          if ((raw_thr < TWIN_COLLECTIVE_MKIII_THR_IDLE_DETENT_AXIS_VAL[thr_num]) && (g_tl_idle_rel_btn_pressed[thr_num] == 0)) {
+//            g_tl_throttle_latch_pressed[thr_num] = 0;
+//          }
+//        }    
+//      }  
+//  }
+
 
   void apply_advanced_throttle_features (uint16_t raw_thr){
     set_thr_latch_state_scoll(raw_thr);
     j_scoll.setThrottle(raw_thr);
+
+    
     
     if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
       //if ((raw_thr < (SINGLE_COLLECTIVE_THR_MIN + THR_STEP + 2)) && (g_throttle_latch_pressed == 1)) {
-      uint16_t diff = SINGLE_COLLECTIVE_MKIII_THR_MIN - raw_thr;
+      uint16_t diff = SINGLE_COLLECTIVE_THR_MIN - raw_thr;
       diff = abs(diff);
       if ((diff < (THR_STEP + 2)) && (g_throttle_latch_pressed == 1)) {
         if (g_physical_latch_button_state != 1) {

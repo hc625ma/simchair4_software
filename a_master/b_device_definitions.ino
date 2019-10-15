@@ -20,18 +20,19 @@
 
   // BASE + BODY
     //#define COLLECTIVE_NOTHR
-    //#define COLLECTIVE_STHR
+    #define COLLECTIVE_STHR
     //#define COLLECTIVE_DTHR
 
     //#define COLLECTIVE_STHR_MKIII
-    #define COLLECTIVE_TTHR_MKIII
+    //#define COLLECTIVE_TTHR_MKIII
   
   //PEDESTAL
     //#define SIMPLE_PEDESTAL
     //#define VRMAXII_PEDESTAL
   // HEAD
     //#define AB412_COLL_SWITCH_PANEL
-    #define HUEY_COLL_SWITCH_PANEL
+    //#define HUEY_COLL_SWITCH_PANEL
+    #define B206_COLL_SWITCH_PANEL
 // THROTTLE QUADRANT
  // #define HELI_QUADRANT
 

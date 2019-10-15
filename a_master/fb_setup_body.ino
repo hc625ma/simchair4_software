@@ -53,6 +53,10 @@ Wire.begin();
   delay(DEVICE_INIT_DELAY);
   setup_huey_coll_head();
 #endif
+#if (defined B206_COLL_SWITCH_PANEL) 
+  delay(DEVICE_INIT_DELAY);
+  setup_b206_coll_head();
+#endif
 #if (defined HELI_QUADRANT) 
   delay(DEVICE_INIT_DELAY);
   setup_heli_quadrant();

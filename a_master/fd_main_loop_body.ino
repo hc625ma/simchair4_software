@@ -37,6 +37,9 @@
 #if (defined HUEY_COLL_SWITCH_PANEL) 
   poll_huey_coll_head();
 #endif
+#if (defined B206_COLL_SWITCH_PANEL) 
+  poll_b206_coll_head();
+#endif
 #if (defined HELI_QUADRANT) 
   poll_heli_quadrant();
 #endif

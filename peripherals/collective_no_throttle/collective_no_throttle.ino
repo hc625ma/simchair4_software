@@ -13,7 +13,7 @@
 
 #include <Wire.h>
 
-//#define CALIBRATE
+#define CALIBRATE
 
 uint16_t z,rz;
 uint8_t b = 0b00000000;

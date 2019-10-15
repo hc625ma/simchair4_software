@@ -114,7 +114,7 @@
 // <COMPACT COLLECTIVE>
   #if (defined COMPACT_COLLECTIVE)
     bool g_ccoll_lastButtonState[36];
-    uint8_t g_ccoll_thr_val;
+    uint16_t g_ccoll_thr_val;
     bool g_idle_rel_btn_pressed = 0; // because button and the latch can have different states  
     bool g_throttle_latch_pressed = 1; // ^^^
     bool g_physical_latch_button_state = 0; // used for pressing button at 0
@@ -125,7 +125,7 @@
 // <SINGLE COLLECTIVE>
   #if ((defined COLLECTIVE_STHR) || (defined COLLECTIVE_STHR_MKIII))
     bool g_scoll_lastButtonState[3];
-    uint8_t g_scoll_thr_val;
+    uint16_t g_scoll_thr_val;
       
     bool g_throttle_latch_pressed = 1; // because button and the latch can have different states  
     bool g_physical_latch_button_state = 0; // used for pressing button at 0
@@ -137,7 +137,7 @@
 // <TWIN COLLECTIVE>
   #if ((defined COLLECTIVE_TTHR) || (defined COLLECTIVE_TTHR_MKIII))
     bool g_tcoll_lastButtonState[3];
-    uint8_t g_tcoll_thr_val[2];
+    uint16_t g_tcoll_thr_val[2];
     
     bool g_tl_throttle_latch_pressed[2] = {0,0}; // ^^^
    bool g_tl_physical_latch_button_state[2] = {0,0}; // used for pressing button at 0
@@ -159,6 +159,12 @@
     bool g_hh_lastButtonState[30];
   #endif
 // </HUEY_COLL_HEAD>
+
+// <B206_COLL_HEAD>
+  #if (defined B206_COLL_SWITCH_PANEL)
+    bool g_b206h_lastButtonState[20];
+  #endif
+// </B206_COLL_HEAD>
 
 // <COLLECTIVE_NO_THROTTLE>
   #if (defined COLLECTIVE_NOTHR)
