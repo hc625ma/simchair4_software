@@ -16,11 +16,12 @@
 
   // COMBO LEVERS
      //#define COMPACT_COLLECTIVE
+     #define SIMPLE_COLLECTIVE
   // OTHER LEVERS
 
   // BASE + BODY
     //#define COLLECTIVE_NOTHR
-    #define COLLECTIVE_STHR
+    //#define COLLECTIVE_STHR
     //#define COLLECTIVE_DTHR
 
     //#define COLLECTIVE_STHR_MKIII
@@ -32,12 +33,12 @@
   // HEAD
     //#define AB412_COLL_SWITCH_PANEL
     //#define HUEY_COLL_SWITCH_PANEL
-    #define B206_COLL_SWITCH_PANEL
+    //#define B206_COLL_SWITCH_PANEL
 // THROTTLE QUADRANT
  // #define HELI_QUADRANT
 
 
 //PEDALS
-  #define PEDALS
+  //#define PEDALS
 
 

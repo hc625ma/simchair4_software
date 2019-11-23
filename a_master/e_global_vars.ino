@@ -134,6 +134,18 @@
 
 // </SINGLE_COLLECTIVE>
 
+// <SIMPLE COLLECTIVE>
+  #if (defined SIMPLE_COLLECTIVE)
+    bool g_scoll_lastButtonState[20];
+    uint16_t g_scoll_thr_val;
+      
+    bool g_throttle_latch_pressed = 1; // because button and the latch can have different states  
+    bool g_physical_latch_button_state = 0; // used for pressing button at 0
+
+  #endif
+
+// </SIMPLE_COLLECTIVE>
+
 // <TWIN COLLECTIVE>
   #if ((defined COLLECTIVE_TTHR) || (defined COLLECTIVE_TTHR_MKIII))
     bool g_tcoll_lastButtonState[3];
@@ -144,7 +156,7 @@
 
   #endif
 
-// </SINGLE_COLLECTIVE>
+// </TWIN_COLLECTIVE>
 
 // <AB412_COLL_HEAD>
   #if (defined AB412_COLL_SWITCH_PANEL)

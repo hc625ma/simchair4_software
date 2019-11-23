@@ -21,6 +21,10 @@ Wire.begin();
   delay(DEVICE_INIT_DELAY);
   setup_single_collective();
 #endif
+#if (defined SIMPLE_COLLECTIVE) 
+  delay(DEVICE_INIT_DELAY);
+  setup_simple_collective();
+#endif
 #if (defined COLLECTIVE_STHR_MKIII) 
   delay(DEVICE_INIT_DELAY);
   setup_single_collective_mk3();

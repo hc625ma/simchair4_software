@@ -13,6 +13,9 @@
 #if (defined COLLECTIVE_STHR) 
   poll_single_collective();
 #endif
+#if (defined SIMPLE_COLLECTIVE) 
+  poll_simple_collective();
+#endif
 #if (defined COLLECTIVE_STHR_MKIII) 
   poll_single_collective_mk3();
 #endif

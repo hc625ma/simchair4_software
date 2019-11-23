@@ -59,11 +59,26 @@
     #define SINGLE_COLLECTIVE_THR_MIN 30
     #define SINGLE_COLLECTIVE_THR_MAX 1023
 
-    #define SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 342 // throttle axis value at the detent mark
+    #define SINGLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 338 // throttle axis value at the detent mark
     
     #define SINGLE_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
     
   // </SINGLE_COLLECTIVE>
+
+  // <SIMPLE_COLLECTIVE>
+
+    #define SIMPLE_COLLECTIVE_MIN 1022
+    #define SIMPLE_COLLECTIVE_MAX 0
+
+    #define SIMPLE_COLLECTIVE_THR_MIN 0
+    #define SIMPLE_COLLECTIVE_THR_MAX 1023
+
+    #define SIMPLE_COLLECTIVE_IDLE_REL_BTN 5 // IDLE RELEASE joystick button number as seen in joy.cpl, 0 to disable. This button allows moving virtual throttle grip past the detent to close the throttle.
+    #define SIMPLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 286 // throttle axis value at the detent mark
+    
+    #define SIMPLE_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
+    
+  // </SIMPLE_COLLECTIVE>
 
     // <SINGLE_COLLECTIVE_MKIII>
     #define SCOLL_MKIII_PHYSICAL_THROTTLE_LATCH 0 // if your collective has a physical idle stop latch, set this to 1, otherwise set it to 0 for advanced throttle related functions to work
@@ -202,7 +217,7 @@
     #define FSGIMBAL_INVERT_X 0
     #define FSGIMBAL_INVERT_Y 0
 
-    #define XY_FILTERING_ENABLED 1
+    #define XY_FILTERING_ENABLED 0
     
     #define CUSTOM_CYCLIC_SENS 80
 
@@ -271,7 +286,7 @@
 // <PEDALS>
 
   #define INVERT_RUDDER 0
-  #define RUDDER_FILTERING_ENABLED 1
+  #define RUDDER_FILTERING_ENABLED 0
   #define RUDDER_READINGS 8 // only active when filtering is enabled
   #define CUSTOM_RUDDER_SENS 80 // this value will be used if SENS_SWITCH is disabled
 
