@@ -39,6 +39,6 @@
 
 
 //PEDALS
-  //#define PEDALS
+  #define PEDALS
 
 

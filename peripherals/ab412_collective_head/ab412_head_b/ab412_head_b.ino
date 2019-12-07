@@ -51,7 +51,6 @@ void loop()
   r1 = analogRead(A6) >> 2;
   r2 = analogRead(A7) >> 2;
 
-
   uint8_t buf = 0b00000000; // fill the buffer first so all our button values will update simultaneously and wont be affected by interrupts
   for (int i = 0; i < sizeof(pins); i++)
   {

@@ -140,10 +140,11 @@
     
     
     if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
-      uint16_t diff = SIMPLE_COLLECTIVE_THR_MIN - raw_thr;
-      if (diff > 60000) {
-        diff = 0;
-      }
+      int32_t diff = SIMPLE_COLLECTIVE_THR_MIN - raw_thr;
+      diff = abs(diff);
+//      if (diff > 60000) {
+//        diff = 0;
+//      }
       if ((diff < (THR_STEP + 10)) && (g_throttle_latch_pressed == 1)) {
         if (g_physical_latch_button_state != 1) {
           j_scoll.setButton(SIMPLE_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON - 1, 1);
