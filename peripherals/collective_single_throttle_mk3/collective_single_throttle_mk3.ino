@@ -1,14 +1,3 @@
-// Wire Slave Receiver
-// by Nicholas Zambetti <http://www.zambetti.com>
-
-// Demonstrates use of the Wire library
-// Receives data as an I2C/TWI slave device
-// Refer to the "Wire Master Writer" example for use with this
-
-// Created 29 March 2006
-
-// This example code is in the public domain.
-
 #define SINGLE_COLLECTIVE_I2C_ADDRESS 12 // do not change this!
 
 #include <Wire.h>
@@ -35,14 +24,14 @@ void setup()
 void loop()
 {
   z = filteredRead(A0,filter_counter_z);
-  rz = 0;//filteredRead(A1,filter_counter_rz);
+  rz = filteredRead(A1,filter_counter_rz);
   // we have 200 degree turn instead of 300, so a little adjustment is necessary
   // uncomment #define CALIBRATE statement and change 2nd and 3rd values to physical min and max
   // of your lever
 
 
   z = map(z,0,999,1023,0);
-  //rz = map(rz,10,1016,1023,0);
+  rz = map(rz,10,1016,1023,0);
 
   if ((z > 1023) && (z < 30000))
   {

@@ -221,7 +221,7 @@
     
     #define CUSTOM_CYCLIC_SENS 80
 
-    #define PSEUDO_FORCE_TRIM 1
+    #define PSEUDO_FORCE_TRIM 0
     #define FORCE_TRIM_BUTTON_MODE "HOLD"// "MOMENTARY" or "HOLD" - use "MOMENTARY" for non-centering cyclic
     
     #define RATES_POTS_ENABLED 1 //set to 0 to use RATES knobs as axes
@@ -257,8 +257,8 @@
 
   // <B8 GRIP>
 
-    #define PSEUDO_FORCE_TRIM_BUTTON 2
-    #define HAT_SWITCH_TRIM_RESET 1
+    #define PSEUDO_FORCE_TRIM_BUTTON 0 //2
+    #define HAT_SWITCH_TRIM_RESET 0 //1
     #define HAT_SWITCH_BUTTON 1 // as seen in joy.cpl
     
     #define B8_POT_MODE "HAT_SW" // HAT_SW or ANALOG
@@ -266,7 +266,7 @@
 //    #define SENS_DEVICE "b8_stick"
     
 
-    #define B8_HAT_SWITCH_MODE "ATT_TRIM" //"ATT_TRIM","HAT", or "BOTH", it will adjust the position of the trimmed cyclic with hat(Bell 407-style), only use "BOTH" with FORCE_TRIM_BUTTON_MODE "MOMENTARY"
+    #define B8_HAT_SWITCH_MODE "HAT" //"ATT_TRIM","HAT", or "BOTH", it will adjust the position of the trimmed cyclic with hat(Bell 407-style), only use "BOTH" with FORCE_TRIM_BUTTON_MODE "MOMENTARY"
     #define ATT_TRIM_STEP_Y 0.02 //0.05 //IN PERCENTS OF AXIS LENGHT, 0.05 for non-centering cyclic, 0.02 for a spring-loaded one
     #define ATT_TRIM_STEP_X 0.02 //0.05 //IN PERCENTS OF AXIS LENGHT
     #define INVERT_HAT_TRIM_X 0

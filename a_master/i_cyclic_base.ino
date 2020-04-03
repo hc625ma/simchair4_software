@@ -1,5 +1,5 @@
 #if (defined CYCLIC_BASE)
-  Joystick_ j_cyclic(0x30, 0x04, 0, 0, true, true, false, true, true, false, false, false, false, false, false);
+  Joystick_ j_cyclic(0x30, 0x04, 0, 0, true, true, false, false, false, false, false, false, false, false, false);
   Adafruit_ADS1115 cyclic;
   
   void setup_cyclic_base(){
