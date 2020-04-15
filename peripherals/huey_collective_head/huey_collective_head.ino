@@ -12,7 +12,7 @@
 uint8_t x,y;
 uint8_t b = 0b00000000; //digital pins 0 to 7; x ^= (1 << n); - toggles nth bit of x.  all other bits left alone.
 uint8_t b1 = 0b00000000; //digital pins 8 to 15
-byte pins = 13;
+byte pins = 12;
 
 
 

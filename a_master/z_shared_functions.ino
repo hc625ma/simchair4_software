@@ -1,43 +1,51 @@
 int parse_hat_sw (int x, int y, byte dirs) {
-  int hat_val;
-  if (dirs == 8) {
-    if (y > 145) {
-      if (x > 145) {
-        hat_val = 45;
-      } else if (x < 105) {
-        hat_val = 315;
-      } else {
-        hat_val = 0;
-      }
-    } else if (y < 105) {
-      if (x > 160) {
-        hat_val = 135;
-      } else if (x < 105) {
-        hat_val = 225;
-      } else {
-        hat_val = 180;
-      }
-    } else if (x > 145) {
-      hat_val = 90;
-    } else if (x < 105) {
-      hat_val = 270;
-    } else {
-      hat_val = JOYSTICK_HATSWITCH_RELEASE;
+  if(dirs == 8) {
+    if(x < PC10_HATSW_VAL && y > PC90_HATSW_VAL ) {
+      //top-left
+      return 315;
+    } else if (x < PC10_HATSW_VAL && y > PC25_HATSW_VAL && y < PC75_HATSW_VAL ) {
+      //left
+      return 270;
+    } else if (x < PC10_HATSW_VAL && y < PC10_HATSW_VAL ) {
+      //bottom-left
+      return 225;
+    } else if (x > PC25_HATSW_VAL && x < PC75_HATSW_VAL && y > PC90_HATSW_VAL) {
+      //top
+      return 0;
+    } else if (x > PC25_HATSW_VAL && x < PC75_HATSW_VAL && y < PC10_HATSW_VAL ) {
+      //bottom
+      return 180;
+    } else if (x > PC90_HATSW_VAL && y > PC90_HATSW_VAL ) {
+      //top-right
+      return 45;
+    } else if (x > PC90_HATSW_VAL && y > PC25_HATSW_VAL && y < PC75_HATSW_VAL ) {
+      //right
+      return 90;
+    } else if (x > PC90_HATSW_VAL && y < PC10_HATSW_VAL ) {
+      //bottom-right
+      return 135;
+    } else {//if ( x > 90 && x < 150 && y > 90 && y < 150 ) { // or use as else...
+      //center 
+      return JOYSTICK_HATSWITCH_RELEASE;
     }
-  } else {
-    if (y > 145) {
-      hat_val = 0;
-    } else if (y < 105) {
-       hat_val = 180;
-    } else if (x > 145) {
-      hat_val = 90;
-    } else if (x < 105) {
-      hat_val = 270;
-    } else {
-      hat_val = JOYSTICK_HATSWITCH_RELEASE;
+  } else { // dir 4
+    if (x > PC25_HATSW_VAL && x < PC75_HATSW_VAL && y > PC90_HATSW_VAL) {
+      //top
+      return 0;
+    } else if (x < PC10_HATSW_VAL && y > PC25_HATSW_VAL && y < PC75_HATSW_VAL ) {
+      //left
+      return 270;
+    } else if (x > PC25_HATSW_VAL && x < PC75_HATSW_VAL && y < PC10_HATSW_VAL ) {
+      //bottom
+      return 180;
+    } else if (x > PC90_HATSW_VAL && y > PC25_HATSW_VAL && y < PC75_HATSW_VAL ) {
+      //right
+      return 90;
+    } else {//if ( x > 256 && x < 768 && y > 256 && y < 768 ) { // or use as else...
+      //center 
+      return JOYSTICK_HATSWITCH_RELEASE;
     }
   }
-  return hat_val;
 }
 
 #if ((defined CYCLIC_BASE) || (defined B8_GRIP) || (defined PEDALS))

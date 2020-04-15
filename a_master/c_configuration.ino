@@ -3,6 +3,12 @@
 
 // <GLOBAL>
   #define ADS1115_RESOLUTION 15 //bits, min 12, max 15
+
+  //adjust your KY-023 board based hat switches values here
+  #define PC10_HATSW_VAL 20  // 10% of hat axis
+  #define PC25_HATSW_VAL 64  // 25% of hat axis
+  #define PC75_HATSW_VAL 190 // 75% of hat axis
+  #define PC90_HATSW_VAL 220 // 90% of hat axis
   
   #define DEVICE_INIT_DELAY 1000
 // </GLOBAL>
@@ -221,7 +227,7 @@
     
     #define CUSTOM_CYCLIC_SENS 80
 
-    #define PSEUDO_FORCE_TRIM 0
+    #define PSEUDO_FORCE_TRIM 1
     #define FORCE_TRIM_BUTTON_MODE "HOLD"// "MOMENTARY" or "HOLD" - use "MOMENTARY" for non-centering cyclic
     
     #define RATES_POTS_ENABLED 1 //set to 0 to use RATES knobs as axes
@@ -257,11 +263,11 @@
 
   // <B8 GRIP>
 
-    #define PSEUDO_FORCE_TRIM_BUTTON 0 //2
-    #define HAT_SWITCH_TRIM_RESET 0 //1
+    #define PSEUDO_FORCE_TRIM_BUTTON 2
+    #define HAT_SWITCH_TRIM_RESET 1
     #define HAT_SWITCH_BUTTON 1 // as seen in joy.cpl
     
-    #define B8_POT_MODE "HAT_SW" // HAT_SW or ANALOG
+    //#define B8_POT_MODE "HAT_SW" // HAT_SW or ANALOG, WILL BE REMOVED, NO USE IN KY023 IN ANALOG MODE
     
 //    #define SENS_DEVICE "b8_stick"
     

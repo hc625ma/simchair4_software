@@ -1,5 +1,5 @@
 #if (defined B8_GRIP)
-  Joystick_ j_b8grip(0x31, 0x05, 6, 1, true, true, false, false, false, false, false, false, false, false, false);
+  Joystick_ j_b8grip(0x31, 0x05, 6, 1, false, false, false, false, false, false, false, false, false, false, false);
 
   void setup_b8grip() {
     j_b8grip.begin();
@@ -19,10 +19,10 @@
       rx = b1;
       ry = b2;
     }
-    if (B8_POT_MODE == "ANALOG") {
-      j_b8grip.setXAxis(rx);
-      j_b8grip.setYAxis(ry);
-    } else {
+//    if (B8_POT_MODE == "ANALOG") {
+//      j_b8grip.setXAxis(rx);
+//      j_b8grip.setYAxis(ry);
+//    } else {
       if (B8_HAT_SWITCH_MODE == "HAT") {
         int16_t hat_val = parse_hat_sw(rx, ry, 8);
         j_b8grip.setHatSwitch(0, hat_val);
@@ -37,7 +37,7 @@
       } else {
         int16_t hat_val = parse_hat_trim(rx, ry, INVERT_HAT_TRIM_X, INVERT_HAT_TRIM_Y);
       }
-    }
+    //}
     for (byte i = 0; i < 6; i++) {
       bool v = (b >> i) & 1;
       if (v != g_b8grip_lastButtonState[i]) {

@@ -33,7 +33,7 @@
 //    Serial.print(ba0);
 //    Serial.print(" ");
 //    Serial.println(ba1);
-    
+
     int16_t hat0_val = parse_hat_sw(x, y, HUEY_COLL_HEAD_HAT_DIRECTIONS);
 
 
