@@ -1,5 +1,13 @@
 #if (defined AB412_COLL_SWITCH_PANEL)
-  Joystick_ j_ab412h(0x13, 0x05, 57, 2, false, false, false, true, true, false, false, false, false, false, false);
+  Joystick_ j_ab412h(0x13, 0x05, 59, 2, false, false, false, true, true, false, false, false, false, false, false);
+
+  t_struct_coll_head_attr g_struct_coll_head_attr;
+
+//  typedef struct __attribute__((__packed__)) {
+//    uint8_t btn_idle_stop;
+//    uint8_t btn_modesw;
+//    uint8_t switches_w_middle_btn[]; 
+//  } t_struct_coll_head_attr;
 
   void setup_ab412_coll_head() {
     j_ab412h.begin();
@@ -9,6 +17,14 @@
     if (DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) {
       Keyboard.begin();
     }
+    // now we fill the universal collective head structure
+    g_struct_coll_head_attr.btn_idle_stop = AB412_HEAD_IDLE_REL_BTN;
+    g_struct_coll_head_attr.btn_modesw = AB412_HEAD_MODESWITCH_BTN;
+    g_struct_coll_head_attr.switches_w_middle_btn = AB412_HEAD_SWITCHES_WITH_MIDDLE_BTN;
+//    byte sp_sw_arr_size = sizeof(AB412_HEAD_SWITCHES_WITH_MIDDLE_BTN);
+//    for (byte i = 0; i<sp_sw_arr_size;i++) {
+//      g_struct_ab412_coll_head_attr.switches_w_middle_btn[i] = AB412_HEAD_SWITCHES_WITH_MIDDLE_BTN[i];
+//    }
   }
   
   void poll_ab412_coll_head() {
@@ -77,11 +93,33 @@
     j_ab412h.setHatSwitch(0, hat0_val);
     j_ab412h.setHatSwitch(1, hat1_val);
 
+    bool ab412_btn_state[20]; // we create an array for button values we receive from the head; array size equals physical buttons number + 1
+    memset(ab412_btn_state,0,sizeof(ab412_btn_state)); // fill it with 0s as it has random values on creation
+    byte sp_sw_arr_size = sizeof(g_struct_coll_head_attr.switches_w_middle_btn);
+    bool ab412_special_btn_state[sizeof(g_struct_coll_head_attr.switches_w_middle_btn)]; // another array for special buttons
+    memset(ab412_special_btn_state,0,sizeof(ab412_special_btn_state)); // fill it with 0s as it has random values on creation
+    
+    parse_btn_bytes (ab412_btn_state,ba0,0,2,0); //and then fill it with meaningful values from our bytes
+    parse_btn_bytes (ab412_btn_state,ba1,2,0,0);
+    parse_btn_bytes (ab412_btn_state,ba2,10,0,0);
+    parse_btn_bytes (ab412_btn_state,ba3,18,0,0);
 
-    if (COLLECTIVE_MODE_SWITCH_ENABLED == 0) {
-      parse_button_array_ab412h(g_coll_modesw_pos_decimal,0,0,0,0,0);
-    } else {
-      //Serial.println(ms); // unsomment to see decimal vals mode switch positions
+//    BUTTON ARRAY TEST - ALL BUTTON PRESSES SHOULD BE SEEN HERE
+//    for (byte i=0;i<sizeof(ab412_btn_state);i++) {
+//      
+//      Serial.print(i);
+//      Serial.print("_");
+//      Serial.print(ab412_btn_state[i]);
+//      Serial.print(" ");
+//    }
+//    Serial.println("");
+    
+
+
+    if (COLLECTIVE_MODE_SWITCH_ENABLED == 1) {
+      if ((g_coll_mk3_detected == 1) && (g_struct_coll_head_attr.btn_modesw != 0)) {
+        extract_modesw_val(ab412_btn_state);
+      }
       if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
         mod = 0;
       } else if (g_coll_modesw_pos_decimal == MODESW_POS_LEFT_DECIMAL_VAL) {
@@ -90,76 +128,16 @@
         mod = 38;
       }
     }
-      
-    parse_button_array_ab412h(ba0,0,2,0,mod,0);
-    parse_button_array_ab412h(ba1,2,0,0,mod,0);
-    parse_button_array_ab412h(ba2,10,0,0,mod,1);
-    parse_button_array_ab412h(ba3,18,0,0,mod,0);
-  }
 
-  void parse_button_array_ab412h(uint8_t b, uint8_t start_btn, uint8_t end_btn, uint8_t byte_offset,uint8_t modifier,bool idle_rel_btn) {
-    if (end_btn == 0) {
-      end_btn = 8;
-    }
-    for (byte i = byte_offset; i < end_btn; i++) {
-      bool v = (b >> i) & 1;
-      
-      if (v != g_ab412h_lastButtonState[i + start_btn + modifier]) {
-        if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
-          if ((i != AB412_HEAD_IDLE_REL_BTN - 1) && (idle_rel_btn != 1)){
-            j_ab412h.setButton(i + start_btn + modifier, v);     
-          } else {
-            j_ab412h.setButton(i + start_btn + modifier, v);
-            g_idle_rel_btn_pressed = v;
-            g_tl_idle_rel_btn_pressed[0] = v;
-            g_tl_idle_rel_btn_pressed[1] = v;
-          }
-        } else {
-          j_ab412h.setButton(i + start_btn + modifier, v);
-        }
-      }
-      g_ab412h_lastButtonState[i + start_btn + modifier] = v;
-    }
-  }
-
-
-//  void set_thr_latch_state(uint16_t raw_thr) {
-//    if (g_idle_rel_btn_pressed == 1) {
-//      g_throttle_latch_pressed = 1;
-//    }
-//    if ((raw_thr > COMPACT_COLLECTIVE_IDLE_DETENT_AXIS_VAL + 100) && (g_idle_rel_btn_pressed == 0)) {
-//      g_throttle_latch_pressed = 0;
-//    }
-//  }
-//
-//  void apply_advanced_throttle_features (uint16_t raw_thr){
-//    set_thr_latch_state(raw_thr);
-//    j_ccoll.setThrottle(raw_thr);
-//    
-//    if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
-//      if ((raw_thr < (COMPACT_COLLECTIVE_THR_MIN + 15)) && (g_throttle_latch_pressed == 1)) {
-//        if (g_physical_latch_button_state != 1) {
-//          j_ccoll.setButton(COMPACT_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON - 1, 1);
-//          if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL)) {
-//            Keyboard.press(HUEY_COMPAT_THR_DOWN_KEY);
-//            delay(DCS_HUEY_COMPAT_MODE_BUTTON_HOLD);
-//            Keyboard.releaseAll();
-//          }
-//          g_physical_latch_button_state = 1;
-//        }
-//      } else {
-//        if (g_physical_latch_button_state != 0) {
-//          j_ccoll.setButton(COMPACT_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON - 1, 0);
-//          if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL)) {
-//            Keyboard.press(HUEY_COMPAT_THR_UP_KEY);
-//            delay(DCS_HUEY_COMPAT_MODE_BUTTON_HOLD);
-//            Keyboard.releaseAll();
-//          }
-//          g_physical_latch_button_state = 0;
-//        }
-//      }
-//    }   
-//  }
-
+    // parameters: phys. btn curr state array,phys. btn array size,special btn curr state array, global head btn state arr, mode switch modifier, special btn offset, joystick object
+    // parse_btn_array(bool *pb_arr, uint8_t pb_arr_size, bool *sb_arr, bool *b_state_arr, uint8_t modifier, uint8_t sbtn_offset, class Joystick_ &joy)
     
+    parse_btn_array(ab412_btn_state,20,ab412_special_btn_state,g_ab412h_lastButtonState,mod,58,j_ab412h);
+    
+    
+      
+  }
+
+  
+
 #endif

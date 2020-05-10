@@ -131,6 +131,7 @@
   // <COLLECTIVE_HEADS>
 
     // <AB412_COLL_HEAD>
+
       #define AB412_HEAD_LEFT_POT_MIN 0
       #define AB412_HEAD_LEFT_POT_MAX 255
       #define AB412_HEAD_RIGHT_POT_MIN 0
@@ -143,6 +144,10 @@
       #define AB412_COLL_HEAD_RIGHT_HAT_DIRECTIONS 4
 
       #define AB412_HEAD_IDLE_REL_BTN 17
+
+      uint8_t AB412_HEAD_SWITCHES_WITH_MIDDLE_BTN[] = {9,11};
+      
+      #define AB412_HEAD_MODESWITCH_BTN 18 // as seen in joy.cpl, smaller btn number or 0 to disable
     // </AB412_COLL_HEAD>
 
     // <HUEY_COLL_HEAD>

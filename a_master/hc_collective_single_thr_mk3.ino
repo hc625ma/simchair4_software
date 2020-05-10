@@ -60,21 +60,7 @@
     } else {
      g_scoll_thr_val = throttle;
      apply_advanced_throttle_features(throttle);
-    }
-
-//    if (COLLECTIVE_MODE_SWITCH_ENABLED == 0) {
-//      parse_button_array_scoll(ms,0,0);
-//    } else {
-//      g_coll_modesw_pos_decimal = ms; // share mode switch position with the rest of the hardware
-//      if (ms == MODESW_POS_MIDDLE_DECIMAL_VAL) {
-//        mod = 0;
-//      } else if (ms == MODESW_POS_LEFT_DECIMAL_VAL) {
-//        mod = 11;
-//      } else if (ms == MODESW_POS_RIGHT_DECIMAL_VAL) {
-//        mod = 22;
-//      }
-//    }
-      
+    }      
   }
 
   void parse_button_array_scoll(uint8_t b, uint8_t start_btn,uint8_t byte_offset) {
@@ -109,13 +95,20 @@
     set_thr_latch_state_scoll(raw_thr);
     j_scoll.setThrottle(raw_thr);
     
+    
     if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
       //if ((raw_thr < (SINGLE_COLLECTIVE_MKIII_THR_MIN + THR_STEP + 2)) && (g_throttle_latch_pressed == 1)) {
-      int32_t diff = SINGLE_COLLECTIVE_MKIII_THR_MIN - raw_thr;
-      diff = abs(diff);
-//      if (diff > 60000) {
-//        diff = 0;
-//      }
+      uint16_t diff;
+      if (raw_thr > SINGLE_COLLECTIVE_MKIII_THR_MIN) {
+        diff = raw_thr - SINGLE_COLLECTIVE_MKIII_THR_MIN;
+      } else {
+        diff = SINGLE_COLLECTIVE_MKIII_THR_MIN - raw_thr;
+      }
+      
+//      Serial.print(diff);
+//      Serial.print(" ");
+//      Serial.println(raw_thr);
+      
       if ((diff < (THR_STEP + 10)) && (g_throttle_latch_pressed == 1)) {
         if (g_physical_latch_button_state != 1) {
           j_scoll.setButton(SINGLE_COLLECTIVE_MKIII_PHYSICAL_LATCH_MOD_JOY_BUTTON - 1, 1);

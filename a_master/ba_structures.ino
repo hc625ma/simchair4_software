@@ -17,3 +17,11 @@
   } t_struct_cbase_rates;
   
 #endif
+
+typedef struct __attribute__((__packed__)) {
+    uint8_t btn_idle_stop;
+    uint8_t btn_modesw;
+    uint8_t *switches_w_middle_btn; 
+  } t_struct_coll_head_attr;
+
+

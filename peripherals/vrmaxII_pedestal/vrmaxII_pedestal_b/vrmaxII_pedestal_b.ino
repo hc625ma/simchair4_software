@@ -1,6 +1,6 @@
 #include <Wire.h>
 
-//#define DEBUG // uncomment to test - set serial baud rate to 115200
+#define DEBUG // uncomment to test - set serial baud rate to 115200
 
 byte data[5];
 
@@ -129,9 +129,7 @@ void loop()
 
 // DEBUG
 #if defined(DEBUG)
-    printBits(b);
-    Serial.print(" ");
-    printBits(b1);
+    printBits(s);
     Serial.print(" ");
     Serial.print (encoder0Pos);
     Serial.print(" ");
