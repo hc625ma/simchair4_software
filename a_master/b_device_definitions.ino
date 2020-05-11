@@ -5,10 +5,10 @@
 //CYCLIC
 
   //BASE
-    #define CYCLIC_BASE
+    //#define CYCLIC_BASE
 
   //GRIPS
-    #define B8_GRIP
+   // #define B8_GRIP
     
 
 
@@ -16,7 +16,7 @@
 
   // COMBO LEVERS
      //#define COMPACT_COLLECTIVE
-    // #define SIMPLE_COLLECTIVE
+     //#define SIMPLE_COLLECTIVE
   // OTHER LEVERS
 
   // BASE + BODY
@@ -39,6 +39,6 @@
 
 
 //PEDALS
-  #define PEDALS
+ // #define PEDALS
 
 
