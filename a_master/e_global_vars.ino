@@ -51,6 +51,7 @@
 
   //<COLLECTIVE THR LATCH>
     bool g_idle_rel_btn_pressed = 0; // because button and the latch can have different states
+    bool g_idle_rel_btn_pressed_new[2] = {0,0};
     bool g_tl_idle_rel_btn_pressed[2] = {0,0}; // because button and the latch can have different states  
   //</COLLECTIVE_THR_LATCH>
   
@@ -115,7 +116,7 @@
   #if (defined COMPACT_COLLECTIVE)
     bool g_ccoll_lastButtonState[36];
     uint16_t g_ccoll_thr_val;
-    bool g_idle_rel_btn_pressed = 0; // because button and the latch can have different states  
+//    bool g_idle_rel_btn_pressed = 0; // because button and the latch can have different states  
     bool g_throttle_latch_pressed = 1; // ^^^
     bool g_physical_latch_button_state = 0; // used for pressing button at 0
 

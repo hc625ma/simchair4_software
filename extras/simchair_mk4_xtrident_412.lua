@@ -13,7 +13,7 @@ if ( AIRCRAFT_FILENAME == "Bell412.acf" ) then
 
 
 	create_command("Simchair MKIV/412/idle_stop_1", "idle_stop_1", "ab412_idle_stop_1 = 1", "","")
-	create_command("Simchair MKIV/412/idle_stop_disengage", "idle_stop_disengage", "b412_idle_stop_diseng()", "","")
+	create_command("Simchair MKIV/412/idle_stop_disengage", "idle_stop_disengage", "ab412_idle_stop_diseng()", "","")
 	create_command("Simchair MKIV/412/idle_stop_2", "idle_stop_2", "ab412_idle_stop_2 = 1","","")
 	create_command("Simchair MKIV/412/start_eng_1", "start_eng_1", "ab412_engine_start = -1","","")
 	create_command("Simchair MKIV/412/start_eng_2", "start_eng_2", "ab412_engine_start = 1","","")

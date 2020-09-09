@@ -91,6 +91,7 @@
           } else {
             j_hh.setButton(i + start_btn + modifier, v);
             g_idle_rel_btn_pressed = v;
+            g_idle_rel_btn_pressed_new[0]=v;
             g_tl_idle_rel_btn_pressed[0] = v;
             g_tl_idle_rel_btn_pressed[1] = v;
           }

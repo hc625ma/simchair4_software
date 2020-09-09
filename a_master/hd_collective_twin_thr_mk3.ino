@@ -125,13 +125,14 @@
     
     
     if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
-      int32_t diff = TWIN_COLLECTIVE_MKIII_THR_MIN[thr_num] - raw_thr;
-      diff = abs(diff);
-//      if (diff > 60000) {
-//        diff = 0;
-//      }
-      //if ((raw_thr < (TWIN_COLLECTIVE_MKIII_THR0_MIN + THR_STEP + 2)) && (g_tl_throttle_latch_pressed[thr_num] == 1)) {
-      if ((diff < (THR_STEP + 2)) && (g_tl_throttle_latch_pressed[thr_num] == 1)) {
+      uint16_t diff;
+      if (raw_thr > TWIN_COLLECTIVE_MKIII_THR_MIN[thr_num]) {
+        diff = raw_thr - TWIN_COLLECTIVE_MKIII_THR_MIN[thr_num];
+      } else {
+        diff = TWIN_COLLECTIVE_MKIII_THR_MIN[thr_num] - raw_thr;
+      }
+      
+      if ((diff < (THR_STEP + 10)) && (g_tl_throttle_latch_pressed[thr_num] == 1)) {
         if (g_tl_physical_latch_button_state[thr_num] != 1) {
           j_tcoll.setButton(TWIN_COLLECTIVE_MKIII_PHYSICAL_LATCH_MOD_JOY_BUTTON[thr_num] - 1, 1);
           if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) && (thr_num == 1)) {

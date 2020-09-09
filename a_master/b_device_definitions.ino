@@ -5,10 +5,10 @@
 //CYCLIC
 
   //BASE
-    #define CYCLIC_BASE
+    //#define CYCLIC_BASE
 
   //GRIPS
-    #define B8_GRIP
+   // #define B8_GRIP
     
 
 
@@ -16,7 +16,7 @@
 
   // COMBO LEVERS
      //#define COMPACT_COLLECTIVE
-    // #define SIMPLE_COLLECTIVE
+     //#define SIMPLE_COLLECTIVE
   // OTHER LEVERS
 
   // BASE + BODY
@@ -31,14 +31,14 @@
     //#define SIMPLE_PEDESTAL
     //#define VRMAXII_PEDESTAL
   // HEAD
-    #define AB412_COLL_SWITCH_PANEL
-    //#define HUEY_COLL_SWITCH_PANEL
+    //#define AB412_COLL_SWITCH_PANEL
+    #define HUEY_COLL_SWITCH_PANEL
     //#define B206_COLL_SWITCH_PANEL
 // THROTTLE QUADRANT
  // #define HELI_QUADRANT
 
 
 //PEDALS
-  #define PEDALS
+ // #define PEDALS
 
 

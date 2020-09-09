@@ -138,7 +138,14 @@
     j_ccoll.setThrottle(raw_thr);
     
     if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
-      if ((raw_thr < (COMPACT_COLLECTIVE_THR_MIN + THR_STEP + 10)) && (g_throttle_latch_pressed == 1)) {
+      uint16_t diff;
+      if (raw_thr > COMPACT_COLLECTIVE_THR_MIN) {
+        diff = raw_thr - COMPACT_COLLECTIVE_THR_MIN;
+      } else {
+        diff = COMPACT_COLLECTIVE_THR_MIN - raw_thr;
+      }
+      if ((diff < (THR_STEP + 10)) && (g_throttle_latch_pressed == 1)) {
+      //if ((raw_thr < (COMPACT_COLLECTIVE_THR_MIN + THR_STEP + 10)) && (g_throttle_latch_pressed == 1)) {
         if (g_physical_latch_button_state != 1) {
           j_ccoll.setButton(COMPACT_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON - 1, 1);
           if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL)) {
