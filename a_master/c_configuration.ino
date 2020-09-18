@@ -31,7 +31,7 @@
     #define DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED 1 // will press keyboard buttons when closing and opening throttle, respectively to IDLE REL button, ONLY WORKS WITH COLL MODE SW IN MIDDLE POS
     #define HUEY_COMPAT_THR_DOWN_KEY KEY_PAGE_DOWN
     #define HUEY_COMPAT_THR_UP_KEY KEY_PAGE_UP
-    #define DCS_HUEY_COMPAT_MODE_BUTTON_HOLD 200
+    #define DCS_HUEY_COMPAT_MODE_BUTTON_HOLD 1000
 
     
 
@@ -225,17 +225,17 @@
 
   // <BASE>
   
-    #define FSGIMBAL_INVERT_X 0
+    #define FSGIMBAL_INVERT_X 1
     #define FSGIMBAL_INVERT_Y 0
 
     #define XY_FILTERING_ENABLED 0
     
-    #define CUSTOM_CYCLIC_SENS 80
+    #define CUSTOM_CYCLIC_SENS 90
 
     #define PSEUDO_FORCE_TRIM 1
     #define FORCE_TRIM_BUTTON_MODE "HOLD"// "MOMENTARY" or "HOLD" - use "MOMENTARY" for non-centering cyclic
     
-    #define RATES_POTS_ENABLED 1 //set to 0 to use RATES knobs as axes
+    #define RATES_POTS_ENABLED 0 //set to 0 to use RATES knobs as axes
 
     // CYCLIC/PEDALS RATES
     // You can adjust sensitivity of your stick and pedals with knobs on the rates control panel.
@@ -277,7 +277,7 @@
 //    #define SENS_DEVICE "b8_stick"
     
 
-    #define B8_HAT_SWITCH_MODE "HAT" //"ATT_TRIM","HAT", or "BOTH", it will adjust the position of the trimmed cyclic with hat(Bell 407-style), only use "BOTH" with FORCE_TRIM_BUTTON_MODE "MOMENTARY"
+    #define B8_HAT_SWITCH_MODE "FORCE_TRIM" //"ATT_TRIM","HAT", or "BOTH", it will adjust the position of the trimmed cyclic with hat(Bell 407-style), only use "BOTH" with FORCE_TRIM_BUTTON_MODE "MOMENTARY"
     #define ATT_TRIM_STEP_Y 0.02 //0.05 //IN PERCENTS OF AXIS LENGHT, 0.05 for non-centering cyclic, 0.02 for a spring-loaded one
     #define ATT_TRIM_STEP_X 0.02 //0.05 //IN PERCENTS OF AXIS LENGHT
     #define INVERT_HAT_TRIM_X 0
@@ -320,4 +320,3 @@
   #define HQ_AXIS2_MAX 700
 
 // </HELI QUADRANT>
-

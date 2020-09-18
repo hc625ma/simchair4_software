@@ -289,14 +289,14 @@ void coll_head_extract_modesw_val( bool *arr) {
         joy.setRxAxisRange(g_struct_coll_attr.idle_detent_axis_val[0], g_struct_coll_attr.thr_max[0]);
         joy.setRyAxisRange(g_struct_coll_attr.idle_detent_axis_val[1], g_struct_coll_attr.thr_max[1]);
       } else {
-        joy.setThrottleRange(g_struct_coll_attr.idle_detent_axis_val[0], g_struct_coll_attr.thr_max);
+        joy.setThrottleRange(g_struct_coll_attr.idle_detent_axis_val[0], g_struct_coll_attr.thr_max[0]);
       }
     } else {
       if (g_struct_coll_attr.throttles == 2) {
         joy.setRxAxisRange(g_struct_coll_attr.thr_min[0], g_struct_coll_attr.thr_max[0]);
         joy.setRyAxisRange(g_struct_coll_attr.thr_min[1], g_struct_coll_attr.thr_max[1]);
       } else {
-        joy.setThrottleRange(g_struct_coll_attr.thr_min, g_struct_coll_attr.thr_max);
+        joy.setThrottleRange(g_struct_coll_attr.thr_min[0], g_struct_coll_attr.thr_max[0]);
       }
     }
     if (DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) {
