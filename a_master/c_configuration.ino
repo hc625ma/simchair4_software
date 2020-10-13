@@ -87,6 +87,7 @@
   // </SIMPLE_COLLECTIVE>
 
     // <SINGLE_COLLECTIVE_MKIII>
+    
     #define SCOLL_MKIII_PHYSICAL_THROTTLE_LATCH 0 // if your collective has a physical idle stop latch, set this to 1, otherwise set it to 0 for advanced throttle related functions to work
 
     #define SINGLE_COLLECTIVE_MKIII_MIN 930
@@ -100,6 +101,24 @@
     #define SINGLE_COLLECTIVE_MKIII_PHYSICAL_LATCH_MOD_JOY_BUTTON 1 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
     
   // </SINGLE_COLLECTIVE_MKIII>
+
+  // <TWIN_COLLECTIVE>
+
+    #define TWIN_COLLECTIVE_MIN 930
+    #define TWIN_COLLECTIVE_MAX 0
+
+    #define TWIN_COLLECTIVE_THR1_MIN 0
+    #define TWIN_COLLECTIVE_THR1_MAX 1023
+    #define TWIN_COLLECTIVE_THR2_MIN 0
+    #define TWIN_COLLECTIVE_THR2_MAX 1023
+
+    #define TWIN_COLLECTIVE_IDLE_DETENT1_AXIS_VAL 134 // throttle1 axis value at the detent mark
+    #define TWIN_COLLECTIVE_IDLE_DETENT2_AXIS_VAL 134 // throttle2 axis value at the detent mark
+    
+    #define TWIN_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON1 2 // this button will be pressed on throttle cutoff, if IDLE REL button for THR1 was pressed
+    #define TWIN_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON2 3 // this button will be pressed on throttle cutoff, if IDLE REL button for THR2 was pressed
+    
+  // </TWIN_COLLECTIVE>
 
 
   // <TWIN_COLLECTIVE_MKIII>

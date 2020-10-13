@@ -22,7 +22,7 @@
   // BASE + BODY
     //#define COLLECTIVE_NOTHR
     //#define COLLECTIVE_STHR
-    //#define COLLECTIVE_DTHR
+    //#define COLLECTIVE_TTHR
 
     #define COLLECTIVE_STHR_MKIII
     //#define COLLECTIVE_TTHR_MKIII
