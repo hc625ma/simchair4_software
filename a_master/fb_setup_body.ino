@@ -29,6 +29,10 @@ Wire.begin();
   delay(DEVICE_INIT_DELAY);
   setup_single_collective_mk3();
 #endif
+#if (defined COLLECTIVE_TTHR) 
+  delay(DEVICE_INIT_DELAY);
+  setup_twin_collective();
+#endif
 #if (defined COLLECTIVE_TTHR_MKIII) 
   delay(DEVICE_INIT_DELAY);
   setup_twin_collective_mk3();
@@ -65,5 +69,3 @@ Wire.begin();
   delay(DEVICE_INIT_DELAY);
   setup_heli_quadrant();
 #endif
-
-

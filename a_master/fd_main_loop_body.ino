@@ -22,6 +22,9 @@
 #if (defined COLLECTIVE_TTHR_MKIII) 
   poll_twin_collective_mk3();
 #endif
+#if (defined COLLECTIVE_TTHR) 
+  poll_twin_collective();
+#endif
 #if (defined CYCLIC_BASE) 
   poll_cyclic_base();
 #endif
@@ -46,6 +49,3 @@
 #if (defined HELI_QUADRANT) 
   poll_heli_quadrant();
 #endif
-
-
-
