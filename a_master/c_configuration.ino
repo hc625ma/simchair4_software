@@ -13,6 +13,9 @@
   #define DEVICE_INIT_DELAY 1000
 // </GLOBAL>
 
+// <MASTER USB-UART>
+  unsigned long g_uart_baud = 57600;
+// </MASTER USB_UART>
 
 // <COLLECTIVE LEVERS>
 

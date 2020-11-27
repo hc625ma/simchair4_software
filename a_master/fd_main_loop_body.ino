@@ -1,6 +1,20 @@
 // THIS FILE CONTAINS MAIN LOOP FUNCTION BODY, TO ADD CUSTOM DEVICES PLACE YOUR OWN FILES AFTER THIS FILE
 // FILES MUST BE CALLED fd[a-z]_loop_<filename>.ino 
 
+if (g_operating_mode == 1) {
+  // if the operating mode switch was set to "PRGM"
+    while (1) {
+      run_uart();
+      g_operating_mode = !digitalRead(2);
+      if (g_operating_mode == 0) {
+         // reset the board when we flip the switch back to "FLY" position
+         wdt_enable(WDTO_15MS);
+         delay(1000);
+      }
+    }
+}
+  
+  
 #if (defined SIMPLE_PEDESTAL) 
   poll_simple_pedestal();
 #endif

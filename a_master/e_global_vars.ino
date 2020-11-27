@@ -2,6 +2,7 @@
 // FILES MUST BE CALLED e[a-z]_loop_<filename>.ino 
 
 // <GLOBAL>
+  bool g_operating_mode = 0; //0 - FLY mode, 1 - PRGM mode
   int CBASE_ADC_RANGE = 0.5 + pow(2, ADS1115_RESOLUTION);
   int PEDALS_ADC_RANGE = 0.5 + pow(2, ADS1115_RESOLUTION);
   int COLLECTIVE_ADC_RANGE = 0.5 + pow(2, 10);
@@ -54,6 +55,14 @@
     bool g_idle_rel_btn_pressed_new[2] = {0,0};
     bool g_tl_idle_rel_btn_pressed[2] = {0,0}; // because button and the latch can have different states  
   //</COLLECTIVE_THR_LATCH>
+
+  //<MASTER_UART>
+    #define HWSERIAL Serial1
+    unsigned long baud = 57600;
+    const int g_uart_reset_pin = 4;
+    const int g_uart_led_pin = 13; 
+    bool g_started_as_uart = 0;
+  //</MASTER_UART>
   
 // </GLOBAL>
 

@@ -4,3 +4,5 @@
 #include <Keyboard.h>
 #include <avr/pgmspace.h>
 #include <Mouse.h>
+#include <avr/wdt.h>
+#include <avr/io.h>
