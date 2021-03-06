@@ -19,6 +19,7 @@
     g_struct_coll_attr.thr_min[0] = SINGLE_COLLECTIVE_MKIII_THR_MIN;
     g_struct_coll_attr.idle_detent_axis_val[0] = SINGLE_COLLECTIVE_MKIII_IDLE_DETENT_AXIS_VAL;
     g_struct_coll_attr.phys_thr_latch_joy_btn[0] = SINGLE_COLLECTIVE_MKIII_PHYSICAL_LATCH_MOD_JOY_BUTTON;
+    g_struct_coll_attr.phys_thr_latch = SCOLL_MKIII_PHYSICAL_THROTTLE_LATCH;
     g_struct_coll_attr.lastButtonState[3]; // modesw as 2 buttons, idle rel button
 
     //INITIALIZE JOYSTICK

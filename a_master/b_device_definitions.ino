@@ -35,7 +35,7 @@
     #define HUEY_COLL_SWITCH_PANEL
     //#define B206_COLL_SWITCH_PANEL
 // THROTTLE QUADRANT
- // #define HELI_QUADRANT
+  //#define HELI_QUADRANT
 
 
 //PEDALS

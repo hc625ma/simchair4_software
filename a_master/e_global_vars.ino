@@ -172,13 +172,13 @@
   #if (defined AB412_COLL_SWITCH_PANEL)
     uint8_t g_ab412h_lpot_val = 0;
     uint8_t g_ab412h_rpot_val = 0;
-    bool g_ab412h_lastButtonState[60];
+    bool g_ab412h_lastButtonState[85];
   #endif
 //</AB412_COLL_HEAD>
 
 // <HUEY_COLL_HEAD>
   #if (defined HUEY_COLL_SWITCH_PANEL)
-    bool g_hh_lastButtonState[30];
+    bool g_hh_lastButtonState[48];
   #endif
 // </HUEY_COLL_HEAD>
 

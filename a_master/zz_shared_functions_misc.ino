@@ -1,4 +1,43 @@
-
+int hat_to_btns (int hat_val) {
+  uint8_t b = 0b00000000;
+  switch (hat_val) {
+  case 315:
+    b |= (1 << 0);
+    return b;
+    break;
+  case 270:
+    b |= (1 << 1);
+    return b;
+    break;
+  case 225:
+    b |= (1 << 2);
+    return b;
+    break;
+  case 180:
+    b |= (1 << 3);
+    return(b);
+    break;
+  case 45:
+    b |= (1 << 4);
+    return(b);
+    break;
+  case 90:
+    b |= (1 << 5);
+    return(b);
+    break;
+  case 135:
+    b |= (1 << 6);
+    return(b);
+    break;
+  case 0:
+    b |= (1 << 7);
+    return(b);
+    break;
+  default:
+    return(b);
+    break;
+  }
+}
 
 int parse_hat_sw (int x, int y, byte dirs) {
   if(dirs == 8) {

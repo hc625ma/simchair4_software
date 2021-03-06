@@ -1,5 +1,5 @@
 #if (defined HUEY_COLL_SWITCH_PANEL)
-  Joystick_ j_hh(0x17, 0x05, 40, 1, false, false, false, false, false, false, false, false, false, false, false);
+  Joystick_ j_hh(0x17, 0x05, 48, 2, false, false, false, false, false, false, false, false, false, false, false);
 
   void setup_huey_coll_head() {
     j_hh.begin();    
@@ -9,8 +9,9 @@
   }
   
   void poll_huey_coll_head() {
-    uint8_t x, y, ba0, ba1;
+    uint8_t x, y, ba0, ba1,hb;
     uint8_t mod = 0;
+    uint8_t hs = 0;
       
       Wire.requestFrom(HUEY_HEAD_I2C_ADDRESS, 4);
       while (Wire.available()) {
@@ -34,10 +35,10 @@
 //    Serial.print(" ");
 //    Serial.println(ba1);
 
-    int16_t hat0_val = parse_hat_sw(x, y, HUEY_COLL_HEAD_HAT_DIRECTIONS);
+    
 
 
-    j_hh.setHatSwitch(0, hat0_val);
+    
 
 
 
@@ -47,15 +48,41 @@
       }
       if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
         mod = 0;
+        hs = 0;
       } else if (g_coll_modesw_pos_decimal == MODESW_POS_LEFT_DECIMAL_VAL) {
         mod = 13;
+        if (HUEY_COLL_HEAD_HAT_RESPECTS_MODE_SWITCH) {    
+          hs = 1;
+        }
       } else if (g_coll_modesw_pos_decimal == MODESW_POS_RIGHT_DECIMAL_VAL) {
         mod = 27;
+        if (HUEY_COLL_HEAD_HAT_RESPECTS_MODE_SWITCH) {
+          hs = 2;
+        }
       }
     }
-     
+
+
+    int16_t hat_val = parse_hat_sw(x, y, HUEY_COLL_HEAD_HAT_DIRECTIONS);
+
+    if (hs <2) {
+      j_hh.setHatSwitch(hs, hat_val);
+    } else if (hs == 2) {
+      hb = hat_to_btns(hat_val);
+      parse_button_array_hh(hb,40,0,0,0,0);
+    }
+    
     parse_button_array_hh(ba0,0,0,0,mod,0);
-    parse_button_array_hh(ba1,8,0,0,mod,1);
+    parse_button_array_hh(ba1,8,5,0,mod,1);
+  }
+
+  void printBits(byte myByte){
+   for(byte mask = 0x80; mask; mask >>= 1){
+     if(mask  & myByte)
+         Serial.print('1');
+     else
+         Serial.print('0');
+   }
   }
 
   uint8_t extract_modesw_val(uint8_t b) {
@@ -87,7 +114,14 @@
       if (v != g_hh_lastButtonState[i + start_btn + modifier]) {
         if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
           if ((i != HUEY_HEAD_IDLE_REL_BTN - 1) && (idle_rel_btn != 1)){
-            j_hh.setButton(i + start_btn + modifier, v);     
+            j_hh.setButton(i + start_btn + modifier, v); 
+            //      Serial.print("HS "); 
+//      Serial.print(i); 
+//      Serial.print(" sb "); 
+//      Serial.print(start_btn);
+//      Serial.print(" v "); 
+//      Serial.print(v);
+//      Serial.println("");   
           } else {
             j_hh.setButton(i + start_btn + modifier, v);
             g_idle_rel_btn_pressed = v;

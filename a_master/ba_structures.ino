@@ -41,6 +41,5 @@ typedef struct __attribute__((__packed__)) {
   uint16_t thr_buf[2];
   bool phys_thr_latch_btn_state[2] = {0,0};
   bool thr_latch_pressed[2] = {1,1};
+   bool phys_thr_latch = 0;
 } t_struct_coll_attr;
-
-

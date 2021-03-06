@@ -100,7 +100,7 @@
       } else {
         diff = g_struct_coll_attr.thr_min[thr_num] - raw_thr;
       }
-      if ((diff < (THR_STEP + 10)) && (g_struct_coll_attr.thr_latch_pressed[thr_num] == 1)) {
+      if ((diff < (THR_STEP + 10)) && ((g_struct_coll_attr.thr_latch_pressed[thr_num] == 1) || (g_struct_coll_attr.phys_thr_latch == 1))) {
         if (g_struct_coll_attr.phys_thr_latch_btn_state[thr_num] != 1) {
           joy.setButton(g_struct_coll_attr.phys_thr_latch_joy_btn[thr_num] - 1, 1);
           if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL)) {

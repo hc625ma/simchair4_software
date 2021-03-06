@@ -1,5 +1,5 @@
 #if (defined AB412_COLL_SWITCH_PANEL)
-  Joystick_ j_ab412h(0x13, 0x05, 59, 2, false, false, false, true, true, false, false, false, false, false, false);
+  Joystick_ j_ab412h(0x13, 0x05, 82, 2, false, false, false, true, true, false, false, false, false, false, false);
 
   t_struct_coll_head_attr g_struct_coll_head_attr;
 
@@ -32,6 +32,7 @@
   uint8_t lp = 0;
   uint8_t rp = 0;
   uint8_t mod = 0;
+  uint8_t hs_mode,h1b,h0b = 0;
 
   generic_poll_i2c_device (AB412_HEAD_CONTROLLER_A_I2C_ADDRESS,poll_res_a,3);
   generic_poll_i2c_device (AB412_HEAD_CONTROLLER_B_I2C_ADDRESS,poll_res_b,7);
@@ -61,14 +62,10 @@
       j_ab412h.setRxAxis(lp);
       j_ab412h.setRyAxis(rp);
     }
+
     
-    int16_t hat0_val = parse_hat_sw(x, y, AB412_COLL_HEAD_LEFT_HAT_DIRECTIONS);
-    int16_t hat1_val = parse_hat_sw(rx, ry, AB412_COLL_HEAD_RIGHT_HAT_DIRECTIONS);
-
-    j_ab412h.setHatSwitch(0, hat0_val);
-    j_ab412h.setHatSwitch(1, hat1_val);
-
-    bool ab412_btn_state[20]; // we create an array for button values we receive from the head; array size equals physical buttons number + 1
+    
+    bool ab412_btn_state[45]; // we create an array for button values we receive from the head; array size equals physical buttons number + 1
     memset(ab412_btn_state,0,sizeof(ab412_btn_state)); // fill it with 0s as it has random values on creation
     byte sp_sw_arr_size = sizeof(g_struct_coll_head_attr.switches_w_middle_btn);
     bool ab412_special_btn_state[sizeof(g_struct_coll_head_attr.switches_w_middle_btn)]; // another array for special buttons
@@ -97,17 +94,42 @@
       }
       if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
         mod = 0;
+        hs_mode = 0;
       } else if (g_coll_modesw_pos_decimal == MODESW_POS_LEFT_DECIMAL_VAL) {
         mod = 19;
+        hs_mode = 1;
       } else if (g_coll_modesw_pos_decimal == MODESW_POS_RIGHT_DECIMAL_VAL) {
         mod = 38;
+        hs_mode = 2;
       }
+    }
+
+    int16_t hat0_val = parse_hat_sw(x, y, AB412_COLL_HEAD_LEFT_HAT_DIRECTIONS);
+    int16_t hat1_val = parse_hat_sw(rx, ry, AB412_COLL_HEAD_RIGHT_HAT_DIRECTIONS);
+
+    if (mod == 0) {
+      j_ab412h.setHatSwitch(0, hat0_val);
+      j_ab412h.setHatSwitch(1, hat1_val);
+    } else {
+      if (AB412_COLL_HEAD_LEFT_HAT_RESPECTS_MODE_SWITCH) {
+        h0b = hat_to_btns(hat0_val);
+        parse_btn_bytes (ab412_btn_state,h0b,26,0,0);
+      } else {
+        j_ab412h.setHatSwitch(0, hat0_val);
+      }
+      if (AB412_COLL_HEAD_RIGHT_HAT_RESPECTS_MODE_SWITCH) {
+        h1b = hat_to_btns(hat1_val);
+        parse_btn_bytes (ab412_btn_state,h1b,34,0,0);
+      } else {
+        j_ab412h.setHatSwitch(1, hat1_val);
+      }      
     }
 
     // parameters: phys. btn curr state array,phys. btn array size,special btn curr state array, global head btn state arr, mode switch modifier, special btn offset, joystick object
     // parse_btn_array(bool *pb_arr, uint8_t pb_arr_size, bool *sb_arr, bool *b_state_arr, uint8_t modifier, uint8_t sbtn_offset, class Joystick_ &joy)
     
-    coll_head_parse_btn_array(ab412_btn_state,20,ab412_special_btn_state,g_ab412h_lastButtonState,mod,58,j_ab412h);
+    //coll_head_parse_btn_array(ab412_btn_state,20,ab412_special_btn_state,g_ab412h_lastButtonState,mod,58,j_ab412h);
+     coll_head_parse_btn_array(ab412_btn_state,sizeof(ab412_btn_state),ab412_special_btn_state,g_ab412h_lastButtonState,mod,81,j_ab412h);
     
     
       
