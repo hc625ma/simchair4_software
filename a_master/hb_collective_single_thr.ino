@@ -151,7 +151,7 @@
     if (BUTTON_PRESS_ON_THROTTLE_CUTOFF == 1) {
       uint16_t diff;
       if (raw_thr > SINGLE_COLLECTIVE_THR_MIN) {
-        diff = raw_thr - SINGLE_COLLECTIVE_MKIII_THR_MIN;
+        diff = raw_thr - SINGLE_COLLECTIVE_THR_MIN;
       } else {
         diff = SINGLE_COLLECTIVE_THR_MIN - raw_thr;
       }

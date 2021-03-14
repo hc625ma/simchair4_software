@@ -26,6 +26,12 @@
 
     #define COLLECTIVE_STHR_MKIII
     //#define COLLECTIVE_TTHR_MKIII
+
+  //EVO LEVERS
+    //#define COLLECTIVE_STHR_EVO
+
+  // USB EVO LEVERS
+    //#define COLLECTIVE_STHR_EVO_USB
   
   //PEDESTAL
     //#define SIMPLE_PEDESTAL

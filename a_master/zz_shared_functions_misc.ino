@@ -177,6 +177,15 @@ void coll_head_extract_modesw_val( bool *arr) {
 
 // GENERIC SHARED FUNCTIONS
 
+void printBits(byte myByte){
+  for(byte mask = 0x80; mask; mask >>= 1){
+    if(mask  & myByte)
+      Serial.print('1');
+    else
+      Serial.print('0');
+  }
+}
+
 uint16_t generic_read_16bit_axis_from_bytes (uint8_t b1, uint8_t b2) {
   uint16_t axis_val = 0;
   axis_val = b1;
@@ -189,6 +198,19 @@ void generic_check_16_bit_axis_val (uint16_t &axis) {
     axis = 0;
   }
 }
+
+uint16_t filteredRead (uint16_t input,uint8_t filter_counter)
+{
+  uint32_t filter = 0;
+  for (uint8_t i=0;i<filter_counter;i++)
+  {
+    filter+= analogRead(input);
+    delay(1);
+  }
+
+  uint16_t val = filter/filter_counter;
+  return val;
+}   
 
 void generic_poll_i2c_device (uint8_t addr, uint8_t *bytes, uint8_t bytes_num) {
   Wire.requestFrom(addr, bytes_num);

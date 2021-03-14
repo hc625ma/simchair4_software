@@ -32,13 +32,13 @@ typedef struct __attribute__((__packed__)) {
   uint16_t lvr_min;
   uint16_t thr_max[2] = {1023,1023};
   uint16_t thr_min[2] = {0,0};
-  uint16_t idle_detent_axis_val[2];
+  uint16_t idle_detent_axis_val[2] = {0,0};
   bool btn_press_on_thr_cutoff;
   bool dcs_huey_compat_mode;
   uint8_t phys_thr_latch_joy_btn[2];
   uint8_t base_version;
-  uint8_t *lastButtonState;
-  uint16_t thr_buf[2];
+  bool lastButtonState[10];
+  uint16_t thr_buf[2] = {0,0};
   bool phys_thr_latch_btn_state[2] = {0,0};
   bool thr_latch_pressed[2] = {1,1};
    bool phys_thr_latch = 0;

@@ -63,3 +63,6 @@ if (g_operating_mode == 1) {
 #if (defined HELI_QUADRANT) 
   poll_heli_quadrant();
 #endif
+#if (defined COLLECTIVE_STHR_EVO_USB) 
+  poll_single_collective_evo_usb();
+#endif

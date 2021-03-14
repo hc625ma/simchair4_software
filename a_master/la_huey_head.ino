@@ -76,14 +76,14 @@
     parse_button_array_hh(ba1,8,5,0,mod,1);
   }
 
-  void printBits(byte myByte){
-   for(byte mask = 0x80; mask; mask >>= 1){
-     if(mask  & myByte)
-         Serial.print('1');
-     else
-         Serial.print('0');
-   }
-  }
+//  void printBits(byte myByte){
+//   for(byte mask = 0x80; mask; mask >>= 1){
+//     if(mask  & myByte)
+//         Serial.print('1');
+//     else
+//         Serial.print('0');
+//   }
+//  }
 
   uint8_t extract_modesw_val(uint8_t b) {
     bool v = (b >> (HUEY_HEAD_MODESWITCH_BTN - 1)) & 1;

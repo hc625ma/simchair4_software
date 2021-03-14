@@ -21,6 +21,11 @@
   bool g_coll_mk3_detected = 0; // for the legacy MKIII mode switch on collective heads to work
 
   uint8_t g_coll_modesw_pos_decimal = 0;
+  uint8_t g_coll_modesw_thr_pos_decimal = 0;
+
+  bool g_coll_evo_thr_direct_control[2] = {0,0};
+  uint16_t g_coll_evo_thr_buf[] = {0,0};
+  int16_t g_coll_evo_diff[2] = {0,0};
 
   // <FORCE_TRIM>
     #if ((defined PEDALS) || (defined B8_GRIP) || (defined CYCLIC_BASE))
@@ -144,6 +149,27 @@
 
 // </SINGLE_COLLECTIVE>
 
+// <SINGLE COLLECTIVE_EVO_USB>
+  #if ((defined COLLECTIVE_STHR_EVO_USB))
+    bool g_scoll_lastButtonState[3];
+    uint16_t g_scoll_thr_val;
+      
+    bool g_throttle_latch_pressed = 1; // because button and the latch can have different states  
+    bool g_physical_latch_button_state = 0; // used for pressing button at 0
+    
+    uint8_t g_coll_evo_usb_filter_counter_z = SINGLE_COLLECTIVE_EVO_USB_FILTER_COUNTER_COLL_AXIS;
+    uint8_t g_coll_evo_usb_filter_counter_thr[] = {SINGLE_COLLECTIVE_EVO_USB_FILTER_COUNTER_THR_AXIS,};
+
+    uint8_t g_coll_evo_usb_init_counter = 0;
+    
+
+    #define COLL_EVO_USB_PHYS_THR1_MIN 0
+    #define COLL_EVO_USB_PHYS_THR1_MAX 0
+    #define COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN 0
+  #endif
+
+// </SINGLE_COLLECTIVE_EVO_USB>
+
 // <SIMPLE COLLECTIVE>
   #if (defined SIMPLE_COLLECTIVE)
     bool g_scoll_lastButtonState[20];
@@ -151,6 +177,7 @@
       
     bool g_throttle_latch_pressed = 1; // because button and the latch can have different states  
     bool g_physical_latch_button_state = 0; // used for pressing button at 0
+   
 
   #endif
 

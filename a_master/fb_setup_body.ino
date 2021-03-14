@@ -80,4 +80,8 @@ if (g_operating_mode == 1) {
     delay(DEVICE_INIT_DELAY);
     setup_heli_quadrant();
   #endif
+  #if (defined COLLECTIVE_STHR_EVO_USB) 
+    delay(DEVICE_INIT_DELAY);
+    setup_single_collective_evo_usb();
+  #endif
 }
