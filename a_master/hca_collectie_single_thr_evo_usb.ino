@@ -67,7 +67,7 @@
       Serial.println(" ");
     #endif
   
-    coll_lever_evo_process_poll_results(lvr,thr,ms,ms_thr,j_scoll);  //PROCESS VALUES WE GOT FROM THE LEVER (SEE SHARE FUNCTIONS TAB)
+    coll_lever_evo_process_poll_results(lvr,thr,ms,ms_thr,j_scoll);  //PROCESS VALUES WE GOT FROM THE LEVER (SEE SHARED FUNCTIONS TAB)
   }  
 
 

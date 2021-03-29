@@ -60,6 +60,9 @@ if (g_operating_mode == 1) {
 #if (defined B206_COLL_SWITCH_PANEL) 
   poll_b206_coll_head();
 #endif
+#if (defined B407_COLL_SWITCH_PANEL) 
+  poll_b407_coll_head();
+#endif
 #if (defined HELI_QUADRANT) 
   poll_heli_quadrant();
 #endif

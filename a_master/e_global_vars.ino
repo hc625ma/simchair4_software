@@ -215,6 +215,21 @@
   #endif
 // </B206_COLL_HEAD>
 
+// <B407_COLL_HEAD>
+  #if (defined B407_COLL_SWITCH_PANEL)
+    bool g_b407h_lastButtonState[36];
+    #define B407H_HAT_LEFT 16
+    #define B407H_HAT_LEFT_UP 17
+    #define B407H_HAT_LEFT_DOWN 24
+    #define B407H_HAT_RIGHT 4
+    #define B407H_HAT_RIGHT_UP 5
+    #define B407H_HAT_RIGHT_DOWN 12
+    #define B407H_HAT_UP 1
+    #define B407H_HAT_DOWN 8
+    #define B407H_HAT_CLICK 2
+  #endif
+// </B206_COLL_HEAD>
+
 // <COLLECTIVE_NO_THROTTLE>
   #if (defined COLLECTIVE_NOTHR)
     bool g_coll_nthr_lastButtonState[8];

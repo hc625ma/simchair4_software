@@ -210,6 +210,12 @@
       #define HUEY_HEAD_MODESWITCH_BTN 4 // use lower joy button number of the switch here
 
     // </HUEY_COLL_HEAD>
+
+    // <B407_COLL_HEAD>
+
+    #define B407_COLL_HEAD_HAT_RESPECTS_MODE_SWITCH 1
+
+    // </B407_COLL_HEAD>
   
   //</COLLECTIVE_HEADS>
 

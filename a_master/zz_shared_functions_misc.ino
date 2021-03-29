@@ -186,6 +186,18 @@ void printBits(byte myByte){
   }
 }
 
+void printBits16(unsigned int iIn)  {
+  //                       0b1234567812345678
+  for (unsigned int mask = 0b1000000000000000; mask; mask >>= 1) {
+    if (mask & iIn) {
+      Serial.print('1');
+    }
+    else {
+      Serial.print('0');
+    }
+  }
+}
+
 uint16_t generic_read_16bit_axis_from_bytes (uint8_t b1, uint8_t b2) {
   uint16_t axis_val = 0;
   axis_val = b1;

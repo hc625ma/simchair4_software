@@ -2,13 +2,15 @@
 // FILES MUST BE CALLED fb[a-z]_setup_<filename>.ino 
 
 // USB-UART function 
-delay(DEVICE_INIT_DELAY);
-MCUSR = 0;
-wdt_disable();
-pinMode(2, INPUT_PULLUP);
-//pinMode(4,INPUT);
-//digitalWrite(7,HIGH);
-g_operating_mode = !digitalRead(2);
+#if (!defined COLLECTIVE_STHR_EVO_USB)
+  delay(DEVICE_INIT_DELAY);
+  MCUSR = 0;
+  wdt_disable();
+  pinMode(2, INPUT_PULLUP);
+  //pinMode(4,INPUT);
+  //digitalWrite(7,HIGH);
+  g_operating_mode = !digitalRead(2);
+#endif
 if (g_operating_mode == 1) {
   setup_uart();
 } else {
@@ -75,6 +77,10 @@ if (g_operating_mode == 1) {
   #if (defined B206_COLL_SWITCH_PANEL) 
     delay(DEVICE_INIT_DELAY);
     setup_b206_coll_head();
+  #endif
+  #if (defined B407_COLL_SWITCH_PANEL) 
+    delay(DEVICE_INIT_DELAY);
+    setup_b407_coll_head();
   #endif
   #if (defined HELI_QUADRANT) 
     delay(DEVICE_INIT_DELAY);
