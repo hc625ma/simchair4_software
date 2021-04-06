@@ -17,6 +17,10 @@
   // COMBO LEVERS
      //#define COMPACT_COLLECTIVE
      //#define SIMPLE_COLLECTIVE
+
+  // USB EVO COMBO LEVERS   
+     //#define SIMPLE_COLLECTIVE_SE_USB
+     
   // OTHER LEVERS
 
   // BASE + BODY
@@ -31,7 +35,7 @@
     //#define COLLECTIVE_STHR_EVO
 
   // USB EVO LEVERS
-    #define COLLECTIVE_STHR_EVO_USB
+    //#define COLLECTIVE_STHR_EVO_USB
   
   //PEDESTAL
     //#define SIMPLE_PEDESTAL
@@ -39,7 +43,7 @@
   // HEAD
     //#define AB412_COLL_SWITCH_PANEL
     //#define HUEY_COLL_SWITCH_PANEL
-    #define B407_COLL_SWITCH_PANEL
+    //#define B407_COLL_SWITCH_PANEL
 // THROTTLE QUADRANT
   //#define HELI_QUADRANT
 

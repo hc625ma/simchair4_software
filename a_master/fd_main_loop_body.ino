@@ -1,6 +1,7 @@
 // THIS FILE CONTAINS MAIN LOOP FUNCTION BODY, TO ADD CUSTOM DEVICES PLACE YOUR OWN FILES AFTER THIS FILE
 // FILES MUST BE CALLED fd[a-z]_loop_<filename>.ino 
 
+#if ((!defined COLLECTIVE_STHR_EVO_USB) && (!defined COLLECTIVE_SIMPLE_SE))
 if (g_operating_mode == 1) {
   // if the operating mode switch was set to "PRGM"
     while (1) {
@@ -13,7 +14,7 @@ if (g_operating_mode == 1) {
       }
     }
 }
-  
+#endif
   
 #if (defined SIMPLE_PEDESTAL) 
   poll_simple_pedestal();
@@ -68,4 +69,7 @@ if (g_operating_mode == 1) {
 #endif
 #if (defined COLLECTIVE_STHR_EVO_USB) 
   poll_single_collective_evo_usb();
+#endif
+#if (defined SIMPLE_COLLECTIVE_SE_USB) 
+  poll_simple_collective_se_usb();
 #endif

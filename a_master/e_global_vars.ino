@@ -18,6 +18,9 @@
   int g_EMA_Sy = 0;          //initialization of cyclic y EMA S
   int g_EMA_Sp = 0;          //initialization of pedals EMA S
 
+  uint8_t g_coll_evo_usb_filter_counter_z = COLLECTIVE_EVO_USB_FILTER_COUNTER_COLL_AXIS;
+  uint8_t g_coll_evo_usb_filter_counter_thr[] = {COLLECTIVE_EVO_USB_FILTER_COUNTER_THR_AXIS,COLLECTIVE_EVO_USB_FILTER_COUNTER_THR_AXIS};
+
   bool g_coll_mk3_detected = 0; // for the legacy MKIII mode switch on collective heads to work
 
   uint8_t g_coll_modesw_pos_decimal = 0;
@@ -157,8 +160,8 @@
     bool g_throttle_latch_pressed = 1; // because button and the latch can have different states  
     bool g_physical_latch_button_state = 0; // used for pressing button at 0
     
-    uint8_t g_coll_evo_usb_filter_counter_z = SINGLE_COLLECTIVE_EVO_USB_FILTER_COUNTER_COLL_AXIS;
-    uint8_t g_coll_evo_usb_filter_counter_thr[] = {SINGLE_COLLECTIVE_EVO_USB_FILTER_COUNTER_THR_AXIS,};
+    //g_coll_evo_usb_filter_counter_z = SINGLE_COLLECTIVE_EVO_USB_FILTER_COUNTER_COLL_AXIS;
+    //g_coll_evo_usb_filter_counter_thr[] = {SINGLE_COLLECTIVE_EVO_USB_FILTER_COUNTER_THR_AXIS,};
 
     uint8_t g_coll_evo_usb_init_counter = 0;
     
@@ -228,7 +231,28 @@
     #define B407H_HAT_DOWN 8
     #define B407H_HAT_CLICK 2
   #endif
-// </B206_COLL_HEAD>
+// </407_COLL_HEAD>
+
+// <SIMPLE_COLLECTIVE_SE>
+  #if ((defined SIMPLE_COLLECTIVE_SE_USB) || (defined SIMPLE_COLLECTIVE_SE))
+    bool g_scoll_se_lastButtonState[18];
+    #define SCOLL_SE_HAT_LEFT 4
+    #define SCOLL_SE_HAT_LEFT_UP 5
+    #define SCOLL_SE_HAT_LEFT_DOWN 12
+    #define SCOLL_SE_HAT_RIGHT 16
+    #define SCOLL_SE_HAT_RIGHT_UP 17
+    #define SCOLL_SE_HAT_RIGHT_DOWN 24
+    #define SCOLL_SE_HAT_UP 1
+    #define SCOLL_SE_HAT_DOWN 8
+    #define SCOLL_SE_HAT_CLICK 2
+
+    //uint8_t g_coll_evo_usb_filter_counter_z = SIMPLE_COLLECTIVE_SE_USB_FILTER_COUNTER_COLL_AXIS;
+    //uint8_t g_coll_evo_usb_filter_counter_thr[] = {SIMPLE_COLLECTIVE_SE_USB_FILTER_COUNTER_THR_AXIS,};
+    #define COLL_EVO_USB_PHYS_THR1_MIN 0
+    #define COLL_EVO_USB_PHYS_THR1_MAX 0
+    #define COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN 0
+  #endif
+// </SIMPLE_COLLECTIVE_SE>
 
 // <COLLECTIVE_NO_THROTTLE>
   #if (defined COLLECTIVE_NOTHR)

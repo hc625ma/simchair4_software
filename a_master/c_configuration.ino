@@ -22,7 +22,7 @@
   // <COLLECTIVE_GLOBAL>
 
     #define COLLECTIVE_MODE_SWITCH_ENABLED 1
-    #define COLLECTIVE_EVO_MODE_SWITCH_THR_ENABLED 0
+    #define COLLECTIVE_EVO_MODE_SWITCH_THR_ENABLED 1
   
     #define MODESW_POS_LEFT_DECIMAL_VAL 2 // leftmost position of the switch
     #define MODESW_POS_MIDDLE_DECIMAL_VAL 0
@@ -31,6 +31,9 @@
     #define MODESW_THR_POS_UP_DECIMAL_VAL 2 // leftmost position of the switch
     #define MODESW_THR_POS_MIDDLE_DECIMAL_VAL 0
     #define MODESW_THR_POS_DOWN_DECIMAL_VAL 1
+
+    #define COLLECTIVE_EVO_USB_FILTER_COUNTER_COLL_AXIS 6
+    #define COLLECTIVE_EVO_USB_FILTER_COUNTER_THR_AXIS 6
 
     #define COLL_IDLE_DETENT_SUPPORT 1 // limit throttle axis with idle stop detent mark value
 
@@ -90,10 +93,6 @@
 
     #define SINGLE_COLLECTIVE_EVO_USB_IDLE_DETENT_AXIS_VAL 183 // throttle axis value at the detent mark
 
-    #define SINGLE_COLLECTIVE_EVO_USB_FILTER_COUNTER_COLL_AXIS 6
-    #define SINGLE_COLLECTIVE_EVO_USB_FILTER_COUNTER_THR_AXIS 6
-
-    
     #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_1 5 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
     #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_2 6
     
@@ -113,6 +112,23 @@
     #define SIMPLE_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
     
   // </SIMPLE_COLLECTIVE>
+
+  // <SIMPLE_COLLECTIVE_SE_USB>
+    #define  SIMPLE_COLLECTIVE_SE_PHYSICAL_THROTTLE_LATCH 0
+
+    #define SIMPLE_COLLECTIVE_SE_USB_MIN 1023
+    #define SIMPLE_COLLECTIVE_SE_USB_MAX 0
+
+    #define SIMPLE_COLLECTIVE_SE_USB_THR_MIN 0
+    #define SIMPLE_COLLECTIVE_SE_USB_THR_MAX 576
+
+    #define SIMPLE_COLLECTIVE_SE_USB_IDLE_DETENT_AXIS_VAL 100 // throttle axis value at the detent mark
+    #define SIMPLE_COLLECTIVE_SE_USB_IDLE_REL_BTN 7
+    
+    #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_1 5 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
+    #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_2 6
+    
+  // </SIMPLE_COLLECTIVE_SE_>
 
     // <SINGLE_COLLECTIVE_MKIII>
     

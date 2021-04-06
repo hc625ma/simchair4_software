@@ -1,4 +1,4 @@
-#if ((defined COLLECTIVE_STHR_MKIII) || (defined COLLECTIVE_TTHR) || (defined COLLECTIVE_STHR_EVO_USB))
+#if ((defined COLLECTIVE_STHR_MKIII) || (defined COLLECTIVE_TTHR) || (defined COLLECTIVE_STHR_EVO_USB) || (defined SIMPLE_COLLECTIVE_SE_USB))
 
   void coll_lever_process_poll_results (uint16_t &lvr, uint16_t *thr, uint8_t &ms, class Joystick_ &joy) {
 
@@ -224,7 +224,7 @@
   }
 #endif
 
-#if (defined COLLECTIVE_STHR_EVO_USB)
+#if ((defined COLLECTIVE_STHR_EVO_USB) || (defined SIMPLE_COLLECTIVE_SE_USB))
 
   void coll_lever_evo_usb_poll (uint16_t &lvr,uint16_t *thr, uint8_t &ms, uint8_t &ms_thr) {
     //ms = 0;
@@ -338,9 +338,17 @@
 //    throttle = map(thr0,149,703,559,0);
     if (COLL_EVO_USB_ENABLE_MAP_FUNCTION == 1) {
       z = map(z,COLL_EVO_USB_PHYS_Z_MAX,COLL_EVO_USB_PHYS_Z_MIN,0,1023);
-      thr0 = map(thr0, COLL_EVO_USB_PHYS_THR0_MIN,COLL_EVO_USB_PHYS_THR0_MAX,COLL_EVO_USB_PHYS_THR0_MAX_MINUS_PHYS_THR0_MIN,0);
+      if (COLL_EVO_USB_PHYS_THR0_MIN < COLL_EVO_USB_PHYS_THR0_MAX) {
+        thr0 = map(thr0, COLL_EVO_USB_PHYS_THR0_MIN,COLL_EVO_USB_PHYS_THR0_MAX,COLL_EVO_USB_PHYS_THR0_MAX_MINUS_PHYS_THR0_MIN,0);
+      } else {
+        thr0 = map(thr0, COLL_EVO_USB_PHYS_THR0_MAX,COLL_EVO_USB_PHYS_THR0_MIN,COLL_EVO_USB_PHYS_THR0_MAX_MINUS_PHYS_THR0_MIN,0);
+      }
       if (g_struct_coll_attr.throttles == 2) {
-        thr1 = map(thr1,COLL_EVO_USB_PHYS_THR1_MIN,COLL_EVO_USB_PHYS_THR1_MAX,COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN,0);
+        if (COLL_EVO_USB_PHYS_THR0_MIN < COLL_EVO_USB_PHYS_THR0_MAX) {
+          thr1 = map(thr1,COLL_EVO_USB_PHYS_THR1_MIN,COLL_EVO_USB_PHYS_THR1_MAX,COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN,0);
+        } else {
+          thr1 = map(thr1,COLL_EVO_USB_PHYS_THR1_MAX,COLL_EVO_USB_PHYS_THR1_MIN,COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN,0);
+        }
       }
     }
     
