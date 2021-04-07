@@ -32,8 +32,9 @@
     }
     coll_lever_apply_throttle_stabilizer(thr);
     coll_lever_apply_advanced_throttle_features(thr[0],0,joy);
-    if (g_struct_coll_attr.throttles == 2) {
+    if (g_struct_coll_attr.throttles >= 2) {
       coll_lever_apply_advanced_throttle_features(thr[1],1,joy);
+      coll_lever_apply_advanced_throttle_features(thr[2],2,joy);
     }
   }
 
@@ -48,17 +49,23 @@
   }
 
   void coll_lever_apply_throttle_stabilizer (uint16_t *thr) {
-    int16_t thrdiff[g_struct_coll_attr.throttles];
+    //int16_t thrdiff[g_struct_coll_attr.throttles];
+    int16_t thrdiff[3];
     if (THROTTLE_STABILIZER_ENABLED) {  
-      if(g_struct_coll_attr.throttles == 2) {
+      if(g_struct_coll_attr.throttles >= 2) {
         thrdiff[0] = thr[0] - g_struct_coll_attr.thr_buf[0];
         thrdiff[1] = thr[1] - g_struct_coll_attr.thr_buf[1];
+        thrdiff[2] = thr[2] - g_struct_coll_attr.thr_buf[2];
         if (abs(thrdiff[0]) > THR_STEP) {
           g_struct_coll_attr.thr_buf[0] = thr[0];
           //apply_advanced_throttle_features(throttle0,0);
         }
         if (abs(thrdiff[1]) > THR_STEP) {
           g_struct_coll_attr.thr_buf[1] = thr[1];
+          //apply_advanced_throttle_features(throttle1,1);
+        }
+        if (abs(thrdiff[2]) > THR_STEP) {
+          g_struct_coll_attr.thr_buf[2] = thr[2];
           //apply_advanced_throttle_features(throttle1,1);
         }
       } else {
@@ -69,9 +76,10 @@
         }
       } 
     } else {
-      if(g_struct_coll_attr.throttles == 2) {
+      if(g_struct_coll_attr.throttles >= 2) {
         g_struct_coll_attr.thr_buf[0] = thr[0];
         g_struct_coll_attr.thr_buf[1] = thr[1];
+        g_struct_coll_attr.thr_buf[2] = thr[2];
       } else {
         g_struct_coll_attr.thr_buf[0] = thr[0]; // FIXME THIS SEEMS TO BE UNNEEDED
       }
@@ -113,16 +121,19 @@
     }
   }
 
-  void coll_lever_apply_advanced_throttle_features (uint16_t raw_thr, bool thr_num, class Joystick_ &joy){
+  void coll_lever_apply_advanced_throttle_features (uint16_t raw_thr, uint8_t thr_num, class Joystick_ &joy){
     coll_lever_set_thr_latch_state(raw_thr, thr_num);
-    if (g_struct_coll_attr.throttles == 2) {
+    if (g_struct_coll_attr.throttles >= 2) {
       if (thr_num == 0) {
         //joy.setRxAxis(raw_thr);
         joy.setThrottle(raw_thr);
-      } else {
+      } else if (thr_num == 1) {
         //joy.setRyAxis(raw_thr);
         joy.setRzAxis(raw_thr);
-      }
+      } else if (thr_num == 2) {
+        //joy.setRxAxis(raw_thr);
+        joy.setRxAxis(raw_thr);
+      } 
     } else {
       joy.setThrottle(raw_thr);
     }
@@ -133,11 +144,12 @@
       } else {
         diff = g_struct_coll_attr.thr_min[thr_num] - raw_thr;
       }
+      //Serial.println(g_struct_coll_attr.thr_latch_pressed[2]);
       if ((diff < (THR_STEP + 10)) && ((g_struct_coll_attr.thr_latch_pressed[thr_num] == 1) || (g_struct_coll_attr.phys_thr_latch == 1))) {
         if (g_struct_coll_attr.phys_thr_latch_btn_state[thr_num] != 1) {
           
           joy.setButton(g_struct_coll_attr.phys_thr_latch_joy_btn[thr_num] - 1, 1);
-          if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL)) {
+          if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) && (thr_num == 0)) {
             Keyboard.press(HUEY_COMPAT_THR_DOWN_KEY);
             delay(DCS_HUEY_COMPAT_MODE_BUTTON_HOLD);
             Keyboard.releaseAll();
@@ -147,7 +159,7 @@
       } else {
         if (g_struct_coll_attr.phys_thr_latch_btn_state[thr_num] != 0) {
           joy.setButton(g_struct_coll_attr.phys_thr_latch_joy_btn[thr_num] - 1, 0);
-          if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL)) {
+          if ((DCS_HUEY_IDLE_STOP_COMPAT_MODE_ENABLED == 1) && (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) && (thr_num == 0)) {
             Keyboard.press(HUEY_COMPAT_THR_UP_KEY);
             delay(DCS_HUEY_COMPAT_MODE_BUTTON_HOLD);
             Keyboard.releaseAll();
@@ -158,7 +170,8 @@
     }   
   }  
 
- void coll_lever_set_thr_latch_state(uint16_t raw_thr, bool thr_num) {
+ void coll_lever_set_thr_latch_state(uint16_t raw_thr, uint8_t thr_num) {
+  //Serial.println(thr_num);
     if (g_idle_rel_btn_pressed_new[thr_num] == 1) {
       g_struct_coll_attr.thr_latch_pressed[thr_num] = 1;
     }
@@ -187,30 +200,36 @@
     joy.setZAxisRange(g_struct_coll_attr.lvr_min, g_struct_coll_attr.lvr_max);
         
     if (COLL_IDLE_DETENT_SUPPORT) {
-      if (g_struct_coll_attr.throttles == 2) {
+      if (g_struct_coll_attr.throttles >= 2) {
 //        joy.setRxAxisRange(g_struct_coll_attr.idle_detent_axis_val[0], g_struct_coll_attr.thr_max[0]);
 //        joy.setRyAxisRange(g_struct_coll_attr.idle_detent_axis_val[1], g_struct_coll_attr.thr_max[1]);
           joy.setThrottleRange(g_struct_coll_attr.idle_detent_axis_val[0], g_struct_coll_attr.thr_max[0]);
           joy.setRzAxisRange(g_struct_coll_attr.idle_detent_axis_val[1], g_struct_coll_attr.thr_max[1]);
+          joy.setRxAxisRange(g_struct_coll_attr.idle_detent_axis_val[2], g_struct_coll_attr.thr_max[2]);
           joy.setThrottle(g_struct_coll_attr.idle_detent_axis_val[0]);
           joy.setRzAxis(g_struct_coll_attr.idle_detent_axis_val[1]);
+          joy.setRxAxis(g_struct_coll_attr.idle_detent_axis_val[2]);
           g_coll_evo_thr_buf[0] = g_struct_coll_attr.idle_detent_axis_val[0];
           g_coll_evo_thr_buf[1] = g_struct_coll_attr.idle_detent_axis_val[1];
+          g_coll_evo_thr_buf[2] = g_struct_coll_attr.idle_detent_axis_val[2];
       } else {
         joy.setThrottleRange(g_struct_coll_attr.idle_detent_axis_val[0], g_struct_coll_attr.thr_max[0]);
         g_struct_coll_attr.thr_buf[0] = g_struct_coll_attr.idle_detent_axis_val[0];
         joy.setThrottle(g_struct_coll_attr.idle_detent_axis_val[0]);
       }
     } else {
-      if (g_struct_coll_attr.throttles == 2) {
+      if (g_struct_coll_attr.throttles >= 2) {
         //joy.setRxAxisRange(g_struct_coll_attr.thr_min[0], g_struct_coll_attr.thr_max[0]);
         //joy.setRyAxisRange(g_struct_coll_attr.thr_min[1], g_struct_coll_attr.thr_max[1]);
         joy.setThrottleRange(g_struct_coll_attr.thr_min[0], g_struct_coll_attr.thr_max[0]);
         joy.setRzAxisRange(g_struct_coll_attr.thr_min[1], g_struct_coll_attr.thr_max[1]);
+        joy.setRxAxisRange(g_struct_coll_attr.thr_min[2], g_struct_coll_attr.thr_max[2]);
         g_struct_coll_attr.thr_buf[0] = g_struct_coll_attr.thr_min[0];
         g_struct_coll_attr.thr_buf[1] = g_struct_coll_attr.thr_min[1];
+        g_struct_coll_attr.thr_buf[2] = g_struct_coll_attr.thr_min[2];
         joy.setThrottle(g_struct_coll_attr.thr_min[0]);
         joy.setRzAxis(g_struct_coll_attr.thr_min[1]);
+        joy.setRxAxis(g_struct_coll_attr.thr_min[2]);
       } else {
         joy.setThrottleRange(g_struct_coll_attr.thr_min[0], g_struct_coll_attr.thr_max[0]);
         g_struct_coll_attr.thr_buf[0] = g_struct_coll_attr.thr_min[0];
@@ -230,7 +249,7 @@
     //ms = 0;
     //ms_thr = 0;
     uint8_t i2c_bytes[g_struct_coll_attr.i2c_bytes];
-    uint16_t raw_thr0,raw_thr1;
+    uint16_t raw_thr0,raw_thr1,raw_thr2;
     
     coll_evo_usb_fill_i2c_bytes_arr(i2c_bytes); 
     lvr = generic_read_16bit_axis_from_bytes(i2c_bytes[0],i2c_bytes[1]);
@@ -238,6 +257,7 @@
     if ((COLLECTIVE_EVO_MODE_SWITCH_THR_ENABLED == 1)) {
       //g_struct_coll_attr.throttles = 2;
       if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_UP_DECIMAL_VAL) {
+        g_coll_evo_thr_direct_control[2] = 0;
         if ((g_coll_evo_thr_direct_control[0] == 0)) {// && (g_coll_evo_usb_init_counter > 0)) {
           raw_thr0 = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
           g_coll_evo_diff[0] = raw_thr0 - g_coll_evo_thr_buf[0];
@@ -265,11 +285,42 @@
           g_coll_evo_thr_buf[0] = thr[0];
         }
         generic_check_16_bit_axis_val(thr[0]);
+        
       } else if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_MIDDLE_DECIMAL_VAL) {
         g_coll_evo_thr_direct_control[0] = 0;
         g_coll_evo_thr_direct_control[1] = 0;
+
+        if ((g_coll_evo_thr_direct_control[2] == 0)) {// && (g_coll_evo_usb_init_counter > 0)) {
+          raw_thr2 = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
+          g_coll_evo_diff[2] = raw_thr2 - g_coll_evo_thr_buf[2];
+          g_coll_evo_diff[2] = abs(g_coll_evo_diff[2]);
+//          Serial.print("diff ");
+//          Serial.print(g_coll_evo_diff[0]);
+//          Serial.print(" raw ");
+//          Serial.print(raw_thr0);
+//          Serial.print(" buf ");
+//          Serial.print(g_struct_coll_attr.thr_buf[0]);
+//          Serial.print(" dc ");
+//          Serial.print(g_coll_evo_thr_direct_control[0]);
+//          Serial.print(" THR_STEP ");
+//          Serial.print(THR_STEP);
+//          Serial.println();
+          if (g_coll_evo_diff[2] < (THR_STEP)) {
+            thr[2] = raw_thr2;
+            g_coll_evo_thr_buf[2] = thr[2];
+            g_coll_evo_thr_direct_control[2] = 1;
+          } else {
+            thr[2] = g_coll_evo_thr_buf[2];
+          }
+        } else {
+          thr[2] = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
+          g_coll_evo_thr_buf[2] = thr[2];
+        }
+        generic_check_16_bit_axis_val(thr[2]);
+        
         //Serial.println("DC OFF");
       } else if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_DOWN_DECIMAL_VAL) { 
+        g_coll_evo_thr_direct_control[2] = 0;
         if ((g_coll_evo_thr_direct_control[1] == 0)) { // && (g_coll_evo_usb_init_counter > 0)) {   
           raw_thr1 = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
           g_coll_evo_diff[1] = raw_thr1 - g_coll_evo_thr_buf[1];
@@ -300,7 +351,7 @@
         generic_check_16_bit_axis_val(thr[1]);
       }
     } else  {
-      if (g_struct_coll_attr.throttles == 2) {
+      if (g_struct_coll_attr.throttles >= 2) {
         thr[0] = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
         thr[1] = generic_read_16bit_axis_from_bytes(i2c_bytes[4],i2c_bytes[5]);
         generic_check_16_bit_axis_val(thr[0]);
@@ -328,7 +379,7 @@
     uint8_t ms_thr = 0;
     z = filteredRead(A0,g_coll_evo_usb_filter_counter_z);
     thr0 = filteredRead(A1,g_coll_evo_usb_filter_counter_thr[0]);
-    if (g_struct_coll_attr.throttles == 2) {
+    if (g_struct_coll_attr.throttles >= 2) {
       thr1 = filteredRead(A2,g_coll_evo_usb_filter_counter_thr[1]);
     }
     ms = coll_evo_usb_read_modeswitch(4);
@@ -343,11 +394,11 @@
       } else {
         thr0 = map(thr0, COLL_EVO_USB_PHYS_THR0_MAX,COLL_EVO_USB_PHYS_THR0_MIN,COLL_EVO_USB_PHYS_THR0_MAX_MINUS_PHYS_THR0_MIN,0);
       }
-      if (g_struct_coll_attr.throttles == 2) {
+      if (g_struct_coll_attr.throttles >= 2) {
         if (COLL_EVO_USB_PHYS_THR0_MIN < COLL_EVO_USB_PHYS_THR0_MAX) {
           thr1 = map(thr1,COLL_EVO_USB_PHYS_THR1_MIN,COLL_EVO_USB_PHYS_THR1_MAX,COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN,0);
         } else {
-          thr1 = map(thr1,COLL_EVO_USB_PHYS_THR1_MAX,COLL_EVO_USB_PHYS_THR1_MIN,COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN,0);
+          thr1 = map(thr1,COLL_EVO_USB_PHYS_THR1_MAX,COLL_EVO_USB_PHYS_THR1_MIN,COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN,0);        
         }
       }
     }
@@ -356,7 +407,7 @@
     bytes[1] = (byte) (z);
     bytes[2] = (byte) (thr0 >> 8);
     bytes[3] = (byte) (thr0);
-    if (g_struct_coll_attr.throttles == 2) {
+    if (g_struct_coll_attr.throttles >= 2) {
       bytes[4] = (byte) (thr1 >> 8);
       bytes[5] = (byte) (thr1);
       bytes[6] = ms;

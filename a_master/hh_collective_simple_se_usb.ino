@@ -1,6 +1,6 @@
 #if (defined SIMPLE_COLLECTIVE_SE_USB)
   //CREATE JOYSTICK OBJECT AND GLOBAL COLLECTIVE STRUCT
-  Joystick_ j_scoll(0x20, 0x05, 17, 2, false, false, true, false, false, true, false, true, false, false, false);
+  Joystick_ j_scoll(0x20, 0x05, 18, 2, false, false, true, true, false, true, false, true, false, false, false);
   t_struct_coll_attr g_struct_coll_attr;
 
   //UNCOMMENT THE NEXT LINE TO SET UP CONFIGURATION VALUES
@@ -21,16 +21,20 @@
     g_struct_coll_attr.i2c_bytes = 7; // we will read them locally but still need that here for compatibility
     g_struct_coll_attr.base_version = 5;
     g_struct_coll_attr.throttles = 1;
-    g_struct_coll_attr.lvr_max = SINGLE_COLLECTIVE_EVO_USB_MAX;
-    g_struct_coll_attr.lvr_min = SINGLE_COLLECTIVE_EVO_USB_MIN;
-    g_struct_coll_attr.thr_max[0] = SINGLE_COLLECTIVE_EVO_USB_THR_MAX;
-    g_struct_coll_attr.thr_min[0] = SINGLE_COLLECTIVE_EVO_USB_THR_MIN;
-    g_struct_coll_attr.thr_max[1] = SINGLE_COLLECTIVE_EVO_USB_THR_MAX;
-    g_struct_coll_attr.thr_min[1] = SINGLE_COLLECTIVE_EVO_USB_THR_MIN;
-    g_struct_coll_attr.idle_detent_axis_val[0] = SINGLE_COLLECTIVE_EVO_USB_IDLE_DETENT_AXIS_VAL;
-    g_struct_coll_attr.idle_detent_axis_val[1] = SINGLE_COLLECTIVE_EVO_USB_IDLE_DETENT_AXIS_VAL;
-    g_struct_coll_attr.phys_thr_latch_joy_btn[0] = SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_1;
-    g_struct_coll_attr.phys_thr_latch_joy_btn[1] = SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_2;
+    g_struct_coll_attr.lvr_max = SIMPLE_COLLECTIVE_SE_USB_MAX;
+    g_struct_coll_attr.lvr_min = SIMPLE_COLLECTIVE_SE_USB_MIN;
+    g_struct_coll_attr.thr_max[0] = SIMPLE_COLLECTIVE_SE_USB_THR_MAX;
+    g_struct_coll_attr.thr_min[0] = SIMPLE_COLLECTIVE_SE_USB_THR_MIN;
+    g_struct_coll_attr.thr_max[1] = SIMPLE_COLLECTIVE_SE_USB_THR_MAX;
+    g_struct_coll_attr.thr_min[1] = SIMPLE_COLLECTIVE_SE_USB_THR_MIN;
+    g_struct_coll_attr.thr_max[2] = SIMPLE_COLLECTIVE_SE_USB_THR_MAX;
+    g_struct_coll_attr.thr_min[2] = SIMPLE_COLLECTIVE_SE_USB_THR_MIN;
+    g_struct_coll_attr.idle_detent_axis_val[0] = SIMPLE_COLLECTIVE_SE_USB_IDLE_DETENT_AXIS_VAL;
+    g_struct_coll_attr.idle_detent_axis_val[1] = SIMPLE_COLLECTIVE_SE_USB_IDLE_DETENT_AXIS_VAL;
+    g_struct_coll_attr.idle_detent_axis_val[2] = SIMPLE_COLLECTIVE_SE_USB_IDLE_DETENT_AXIS_VAL;
+    g_struct_coll_attr.phys_thr_latch_joy_btn[0] = SIMPLE_COLLECTIVE_SE_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_1;
+    g_struct_coll_attr.phys_thr_latch_joy_btn[1] = SIMPLE_COLLECTIVE_SE_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_2;
+    g_struct_coll_attr.phys_thr_latch_joy_btn[2] = SIMPLE_COLLECTIVE_SE_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_3;
     g_struct_coll_attr.phys_thr_latch =  0;
     g_struct_coll_attr.lastButtonState[10]; // modesw as 2 buttons, idle rel button
 
@@ -56,7 +60,7 @@
  
   void poll_simple_collective_se_usb() {
     uint16_t lvr;    // LEVER VALUE
-    uint16_t thr[1]; // THROTTLE VALUES ARE ALWAYS STORED IN AN ARRAY FOR UNIFICATION, SINGLE THR IS AN ARRAY OF 1 ELEMENT
+    uint16_t thr[3]; // THROTTLE VALUES ARE ALWAYS STORED IN AN ARRAY FOR UNIFICATION
     uint8_t ms = 0;  // MODE SWITCH VALUE
     uint8_t ms_thr = 0;  // MODE SWITCH THROTTLE VALUE
     uint8_t hb = 0;
@@ -95,9 +99,13 @@
       Serial.print(" ");
       Serial.print(lvr);
       Serial.print(" ");
-      Serial.print("Throttle:");
+      Serial.print("Throttles:");
       Serial.print(" ");
       Serial.print(thr[0]);
+      Serial.print(" ");
+      Serial.print(thr[1]);
+      Serial.print(" ");
+      Serial.print(thr[2]);
       Serial.print(" ");
       Serial.print(ms);
       Serial.print(" ");
@@ -170,20 +178,22 @@ void parse_button_array_sc_se(uint8_t hb, uint8_t modifier) {
     } else if (h == SCOLL_SE_HAT_DOWN) {
       return 180;
     } else if (h == SCOLL_SE_HAT_CLICK) {
-      j_scoll.setButton(6 + hs,1);
+      j_scoll.setButton(7 + hs,1);
       if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
         g_idle_rel_btn_pressed = 1;
         g_idle_rel_btn_pressed_new[0]=1;
         g_idle_rel_btn_pressed_new[1]=1;
+        g_idle_rel_btn_pressed_new[2]=1;
         g_tl_idle_rel_btn_pressed[0] = 1;
         g_tl_idle_rel_btn_pressed[1] = 1;
       }
     } else {
-      j_scoll.setButton(6 + hs,0);
+      j_scoll.setButton(7 + hs,0);
       g_idle_rel_btn_pressed = 0;
       g_idle_rel_btn_pressed_new[0]=0;
       g_idle_rel_btn_pressed_new[1]=0;
-      g_tl_idle_rel_btn_pressed[0] = 01;
+      g_idle_rel_btn_pressed_new[2]=0;
+      g_tl_idle_rel_btn_pressed[0] = 0;
       g_tl_idle_rel_btn_pressed[1] = 0;
       return JOYSTICK_HATSWITCH_RELEASE;   
     }

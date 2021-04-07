@@ -159,6 +159,7 @@ void coll_head_extract_modesw_val( bool *arr) {
       g_tl_idle_rel_btn_pressed[1] = pba[g_struct_coll_head_attr.btn_idle_stop];
       g_idle_rel_btn_pressed_new[0] = pba[g_struct_coll_head_attr.btn_idle_stop];
       g_idle_rel_btn_pressed_new[1] = pba[g_struct_coll_head_attr.btn_idle_stop];
+      g_idle_rel_btn_pressed_new[2] = pba[g_struct_coll_head_attr.btn_idle_stop];
     }
     // switches with middle buttons, we fill the special buttons array
     for (byte i=0;i<sizeof(g_struct_coll_head_attr.switches_w_middle_btn);i++) {

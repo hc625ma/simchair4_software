@@ -26,9 +26,9 @@
   uint8_t g_coll_modesw_pos_decimal = 0;
   uint8_t g_coll_modesw_thr_pos_decimal = 0;
 
-  bool g_coll_evo_thr_direct_control[2] = {0,0};
-  uint16_t g_coll_evo_thr_buf[] = {0,0};
-  int16_t g_coll_evo_diff[2] = {0,0};
+  bool g_coll_evo_thr_direct_control[3] = {0,0,0};
+  uint16_t g_coll_evo_thr_buf[3] = {0,0,0};
+  int16_t g_coll_evo_diff[3] = {0,0,0};
 
   // <FORCE_TRIM>
     #if ((defined PEDALS) || (defined B8_GRIP) || (defined CYCLIC_BASE))
@@ -60,8 +60,8 @@
 
   //<COLLECTIVE THR LATCH>
     bool g_idle_rel_btn_pressed = 0; // because button and the latch can have different states
-    bool g_idle_rel_btn_pressed_new[2] = {0,0};
-    bool g_tl_idle_rel_btn_pressed[2] = {0,0}; // because button and the latch can have different states  
+    bool g_idle_rel_btn_pressed_new[3] = {0,0,0};
+    bool g_tl_idle_rel_btn_pressed[3] = {0,0,0}; // because button and the latch can have different states  
   //</COLLECTIVE_THR_LATCH>
 
   //<MASTER_UART>

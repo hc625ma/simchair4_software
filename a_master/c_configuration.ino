@@ -95,6 +95,7 @@
 
     #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_1 5 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
     #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_2 6
+    #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_3 7
     
   // </SINGLE_COLLECTIVE_EVO_USB>
 
@@ -123,10 +124,11 @@
     #define SIMPLE_COLLECTIVE_SE_USB_THR_MAX 576
 
     #define SIMPLE_COLLECTIVE_SE_USB_IDLE_DETENT_AXIS_VAL 100 // throttle axis value at the detent mark
-    #define SIMPLE_COLLECTIVE_SE_USB_IDLE_REL_BTN 7
+    #define SIMPLE_COLLECTIVE_SE_USB_IDLE_REL_BTN 8
     
-    #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_1 5 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
-    #define SINGLE_COLLECTIVE_EVO_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_2 6
+    #define SIMPLE_COLLECTIVE_SE_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_1 5 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
+    #define SIMPLE_COLLECTIVE_SE_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_2 6
+    #define SIMPLE_COLLECTIVE_SE_USB_PHYSICAL_LATCH_MOD_JOY_BUTTON_3 7
     
   // </SIMPLE_COLLECTIVE_SE_>
 
