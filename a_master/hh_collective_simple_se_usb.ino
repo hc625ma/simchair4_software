@@ -153,9 +153,9 @@ void parse_button_array_sc_se(uint8_t hb, uint8_t modifier) {
     //hat switch mode 2 parsed to buttons below
     for (byte i = 0; i < 8; i++) {
       bool v = (hb >> i) & 1;
-      if (v != g_scoll_se_lastButtonState[i + 1 + 8]) {
-        j_scoll.setButton(i + 1 + 8, v);
-        g_scoll_se_lastButtonState[i + 1 + 8] = v;
+      if (v != g_scoll_se_lastButtonState[i + 1 + 9]) {
+        j_scoll.setButton(i + 1 + 9, v);
+        g_scoll_se_lastButtonState[i + 1 + 9] = v;
       }
     }
   }
@@ -181,22 +181,43 @@ void parse_button_array_sc_se(uint8_t hb, uint8_t modifier) {
       j_scoll.setButton(7 + hs,1);
       if (g_coll_modesw_pos_decimal == MODESW_POS_MIDDLE_DECIMAL_VAL) {
         g_idle_rel_btn_pressed = 1;
-        g_idle_rel_btn_pressed_new[0]=1;
-        g_idle_rel_btn_pressed_new[1]=1;
-        g_idle_rel_btn_pressed_new[2]=1;
-        g_tl_idle_rel_btn_pressed[0] = 1;
-        g_tl_idle_rel_btn_pressed[1] = 1;
+        //g_tl_idle_rel_btn_pressed[0] = 1;
+        //g_tl_idle_rel_btn_pressed[1] = 1;
+        if (COLLECTIVE_EVO_MODE_SWITCH_THR_ENABLED == 1) {
+          if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_UP_DECIMAL_VAL) {
+            g_idle_rel_btn_pressed_new[0] = 1;           
+          } else if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_MIDDLE_DECIMAL_VAL) {
+            g_idle_rel_btn_pressed_new[2] = 1;
+          } else if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_DOWN_DECIMAL_VAL) {
+            g_idle_rel_btn_pressed_new[1] = 1;
+          }
+        } else {
+          g_idle_rel_btn_pressed_new[0] = 1;
+        }
       }
     } else {
       j_scoll.setButton(7 + hs,0);
       g_idle_rel_btn_pressed = 0;
-      g_idle_rel_btn_pressed_new[0]=0;
-      g_idle_rel_btn_pressed_new[1]=0;
-      g_idle_rel_btn_pressed_new[2]=0;
-      g_tl_idle_rel_btn_pressed[0] = 0;
-      g_tl_idle_rel_btn_pressed[1] = 0;
+//      g_tl_idle_rel_btn_pressed[0] = 0;
+//      g_tl_idle_rel_btn_pressed[1] = 0;
+      if (COLLECTIVE_EVO_MODE_SWITCH_THR_ENABLED == 1) {
+          if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_UP_DECIMAL_VAL) {
+            g_idle_rel_btn_pressed_new[0] = 0;
+          } else if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_MIDDLE_DECIMAL_VAL) {
+            g_idle_rel_btn_pressed_new[2] = 0;
+          } else if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_DOWN_DECIMAL_VAL) {
+            g_idle_rel_btn_pressed_new[1] = 0;
+          }
+        } else {
+          g_idle_rel_btn_pressed_new[0] = 0;
+        }
+//      g_idle_rel_btn_pressed_new[0]=0;
+//      g_idle_rel_btn_pressed_new[1]=0;
+//      g_idle_rel_btn_pressed_new[2]=0;
+//      g_tl_idle_rel_btn_pressed[0] = 0;
+//      g_tl_idle_rel_btn_pressed[1] = 0;
       return JOYSTICK_HATSWITCH_RELEASE;   
-    }
+    }  
   }
 
 #endif

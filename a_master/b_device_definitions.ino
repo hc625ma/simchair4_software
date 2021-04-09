@@ -5,10 +5,10 @@
 //CYCLIC
 
   //BASE
-    //#define CYCLIC_BASE
+    #define CYCLIC_BASE
 
   //GRIPS
-    //#define B8_GRIP
+    #define B8_GRIP
     
 
 
@@ -49,4 +49,4 @@
 
 
 //PEDALS
-  //#define PEDALS
+  #define PEDALS
