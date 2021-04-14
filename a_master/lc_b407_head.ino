@@ -117,13 +117,20 @@
       }
     }
     //2nd byte
-    for (byte i = 8; i < 10; i++) {
+    for (byte i = 9; i < 10; i++) {
+      // we exclude floats switch
       bool v = (b >> i) & 1;
       if (v != g_b407h_lastButtonState[i - 2 + 1 + 6 + modifier]) {
         j_b407h.setButton(i - 2 + 1 + 6 + modifier, v);
         g_b407h_lastButtonState[i - 2 + 1 + 6 + modifier] = v;
-      }
+      }   
     }
+    // floats switch
+    bool v_fl = (b >> 8) & 1;
+      if (v_fl != g_b407h_lastButtonState[13]) {
+        j_b407h.setButton(13, v_fl);
+        g_b407h_lastButtonState[13] = v_fl;
+      }
     //hat switch mode 2 parsed to buttons below
     for (byte i = 0; i < 8; i++) {
       bool v = (hb >> i) & 1;
