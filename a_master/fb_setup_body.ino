@@ -90,8 +90,13 @@ if (g_operating_mode == 1) {
     delay(DEVICE_INIT_DELAY);
     setup_single_collective_evo_usb();
   #endif
+  #if (defined COLLECTIVE_STHR_EVO) 
+    delay(DEVICE_INIT_DELAY);
+    setup_single_collective_evo();
+  #endif
   #if (defined SIMPLE_COLLECTIVE_SE_USB) 
     delay(DEVICE_INIT_DELAY);
     setup_simple_collective_se_usb();
   #endif
+  
 }

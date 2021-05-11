@@ -27,13 +27,13 @@
       }
 
 // CALIBRATION
-//    Serial.print(x);
-//    Serial.print(" ");
-//    Serial.print(y);
-//    Serial.print(" ");
-//    Serial.print(ba0);
-//    Serial.print(" ");
-//    Serial.println(ba1);
+    Serial.print(x);
+    Serial.print(" ");
+    Serial.print(y);
+    Serial.print(" ");
+    Serial.print(ba0);
+    Serial.print(" ");
+    Serial.println(ba1);
 
     
 

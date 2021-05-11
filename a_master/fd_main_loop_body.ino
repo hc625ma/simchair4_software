@@ -70,6 +70,9 @@ if (g_operating_mode == 1) {
 #if (defined COLLECTIVE_STHR_EVO_USB) 
   poll_single_collective_evo_usb();
 #endif
+#if (defined COLLECTIVE_STHR_EVO) 
+  poll_single_collective_evo();
+#endif
 #if (defined SIMPLE_COLLECTIVE_SE_USB) 
   poll_simple_collective_se_usb();
 #endif

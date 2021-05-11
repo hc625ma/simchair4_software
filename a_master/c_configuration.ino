@@ -99,16 +99,33 @@
     
   // </SINGLE_COLLECTIVE_EVO_USB>
 
+   // <SINGLE_COLLECTIVE_EVO_I2C>
+    #define  SINGLE_COLLECTIVE_EVO_PHYSICAL_THROTTLE_LATCH 1 // if your collective has a physical idle stop latch, set this to 1, otherwise set it to 0 for advanced throttle related functions to work
+
+    #define SINGLE_COLLECTIVE_EVO_MIN 1023
+    #define SINGLE_COLLECTIVE_EVO_MAX 0
+
+    #define SINGLE_COLLECTIVE_EVO_THR_MIN 1023
+    #define SINGLE_COLLECTIVE_EVO_THR_MAX 0
+
+    #define SINGLE_COLLECTIVE_EVO_IDLE_DETENT_AXIS_VAL 680 // throttle axis value at the detent mark
+
+    #define SINGLE_COLLECTIVE_EVO_PHYSICAL_LATCH_MOD_JOY_BUTTON_1 5 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
+    #define SINGLE_COLLECTIVE_EVO_PHYSICAL_LATCH_MOD_JOY_BUTTON_2 6
+    #define SINGLE_COLLECTIVE_EVO_PHYSICAL_LATCH_MOD_JOY_BUTTON_3 7
+    
+  // </SINGLE_COLLECTIVE_EVO_I2C>
+
   // <SIMPLE_COLLECTIVE>
 
     #define SIMPLE_COLLECTIVE_MIN 1022
     #define SIMPLE_COLLECTIVE_MAX 0
 
     #define SIMPLE_COLLECTIVE_THR_MIN 0
-    #define SIMPLE_COLLECTIVE_THR_MAX 1023
+    #define SIMPLE_COLLECTIVE_THR_MAX 1020
 
     #define SIMPLE_COLLECTIVE_IDLE_REL_BTN 5 // IDLE RELEASE joystick button number as seen in joy.cpl, 0 to disable. This button allows moving virtual throttle grip past the detent to close the throttle.
-    #define SIMPLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 286 // throttle axis value at the detent mark
+    #define SIMPLE_COLLECTIVE_IDLE_DETENT_AXIS_VAL 680 // throttle axis value at the detent mark
     
     #define SIMPLE_COLLECTIVE_PHYSICAL_LATCH_MOD_JOY_BUTTON 3 // this button will be pressed on throttle cutoff, if IDLE REL button was pressed
     
