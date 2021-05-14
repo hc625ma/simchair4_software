@@ -1,0 +1,16 @@
+// <HELI QUADRANT>
+
+  #define HQ_AXIS_STABILIZER_ENABLED 1
+  #define HQ_AXIS_STABILIZER_STEP 10
+
+  #define HQ_AXIS1_DT_MIN 230
+  #define HQ_AXIS1_DT_MAX 790
+  #define HQ_AXIS2_DT_MIN 230
+  #define HQ_AXIS2_DT_MAX 786
+
+  #define HQ_AXIS1_MIN 304
+  #define HQ_AXIS1_MAX 704
+  #define HQ_AXIS2_MIN 300
+  #define HQ_AXIS2_MAX 700
+
+// </HELI QUADRANT>
