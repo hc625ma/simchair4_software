@@ -204,6 +204,28 @@
     uint8_t g_ab412h_rpot_val = 0;
     bool g_ab412h_lastButtonState[85];
   #endif
+  #if (defined VRMAX_AB412_COLL_HEAD_EXTENSION)
+    t_struct_enc_state e_state[7]; 
+    bool g_obs_rate = 0;
+    bool g_dg_rate = 0;
+
+    byte g_radio_device;
+    bool g_radio0_unchecked = 0;
+    bool g_radio2_unchecked = 0;
+    byte g_radio_mode = 1;
+    bool g_radio_mode0_unchecked = 0;
+    bool g_radio_mode2_unchecked = 0;
+    byte g_alt_mode = 0;
+    bool g_alt_mode0_unchecked = 0;
+    bool g_alt_mode2_unchecked = 0;
+    byte g_nav_mode = 0;
+    bool g_nav_mode0_unchecked = 0;
+    bool g_nav_mode2_unchecked = 0;
+    bool g_xpdr_mode0_unchecked = 0;
+    bool g_xpdr_mode2_unchecked = 0;
+    bool g_xpdr_val = 0;
+    t_struct_r_matrix radio_matrix[24];
+  #endif
 //</AB412_COLL_HEAD>
 
 // <HUEY_COLL_HEAD>

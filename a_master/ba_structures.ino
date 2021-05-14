@@ -43,3 +43,107 @@ typedef struct __attribute__((__packed__)) {
   bool thr_latch_pressed[3] = {1,1,1};
    bool phys_thr_latch = 0;
 } t_struct_coll_attr;
+
+
+#if defined (VRMAX_AB412_COLL_HEAD_EXTENSION)
+typedef struct __attribute__((__packed__)) 
+{
+   uint8_t sw_id;
+   uint8_t sw_type;
+   uint8_t sw_middle_b;
+   bool sw_val;
+   long sw_ts;
+   bool sw_tr_state;
+}  t_struct_sw_matrix;
+
+typedef struct __attribute__((__packed__)) 
+{
+  bool sw_val;
+  uint8_t c1f;
+  uint8_t c1c;
+  uint8_t n1f;
+  uint8_t n1c;
+  uint8_t c2f;
+  uint8_t c2c;
+  uint8_t n2f;
+  uint8_t n2c;
+  uint8_t x1;
+  uint8_t x2;
+  uint8_t x3;
+  uint8_t x4;
+}  t_struct_r_matrix;
+
+typedef struct __attribute__((__packed__)) 
+{
+   uint8_t enc_id;
+   uint8_t val;
+   uint8_t last_val;
+   long enc_ts;
+   byte button_id;
+   bool button_val;
+   byte press_counter;
+   bool last_dir;
+}  t_struct_enc_state;
+typedef struct __attribute__((__packed__)) 
+{
+  uint8_t e; // encoder id
+  uint8_t r0l; // radio stack selector pos 0 left
+  uint8_t r0r; // radio stack selector pos 0 right
+  uint8_t r1l; // radio stack selector pos 1 left
+  uint8_t r1r; // radio stack selector pos 1 right
+  uint8_t r2l; // radio stack selector pos 2 left
+  uint8_t r2r; // radio stack selector pos 2 right
+  
+  uint8_t m0l; // panel mode switch pos 0 left
+  uint8_t m0r; // panel mode switch pos 0 right
+  uint8_t m1l; // panel mode switch pos 1 left
+  uint8_t m1r; // panel mode switch pos 1 right
+  uint8_t m2l; // panel mode switch pos 2 left
+  uint8_t m2r; // panel mode switch pos 2 right
+  uint8_t adfl; // nav mode switch pos middle + radio stack selector pos 2 (xpdr) - adf mode left
+  uint8_t adfr; // nav mode switch pos middle + radio stack selector pos 2 (xpdr) - adf mode right
+
+  uint8_t r0lpm1; // radio stack selector pos 0 left panel mode sw in pos 1
+  uint8_t r0rpm1; // radio stack selector pos 0 right panel mode sw in pos 1
+  uint8_t r1lpm1; // radio stack selector pos 1 left panel mode sw in pos 1
+  uint8_t r1rpm1; // radio stack selector pos 1 right panel mode sw in pos 1
+  uint8_t r2lpm1; // radio stack selector pos 2 left panel mode sw in pos 1
+  uint8_t r2rpm1; // radio stack selector pos 2 right panel mode sw in pos 1
+
+  uint8_t r0lpm2; // radio stack selector pos 0 left panel mode sw in pos 2
+  uint8_t r0rpm2; // radio stack selector pos 0 right panel mode sw in pos 2
+  uint8_t r1lpm2; // radio stack selector pos 1 left panel mode sw in pos 2
+  uint8_t r1rpm2; // radio stack selector pos 1 right panel mode sw in pos 2
+  uint8_t r2lpm2; // radio stack selector pos 2 left panel mode sw in pos 2
+  uint8_t r2rpm2; // radio stack selector pos 2 right panel mode sw in pos 2
+} t_struct_rp_e_matrix;
+
+typedef struct __attribute__((__packed__)) 
+{
+  uint8_t e; // encoder id
+  uint8_t l; // MAG left
+  uint8_t r; // MAG right
+} t_struct_mag_conf;
+
+typedef struct __attribute__((__packed__)) // e  n0l n0r n1l n1r n2l n2r
+{
+  uint8_t e;
+  uint8_t n0l; // VOR 1 OBS left
+  uint8_t n0r; // VOR 1 OBS right
+  uint8_t n1l; // ADF HDG left
+  uint8_t n1r; // ADF HDG right
+  uint8_t n2l; // VOR 2 OBS left
+  uint8_t n2r; // VOR 2 OBS right
+} t_struct_nav_conf;
+
+typedef struct __attribute__((__packed__)) // e  n0l n0r n1l n1r n2l n2r
+{
+  uint8_t e;
+  uint8_t a0l;
+  uint8_t a0r;
+  uint8_t a1l;
+  uint8_t a1r;
+  uint8_t a2l;
+  uint8_t a2r;
+} t_struct_alt_conf;
+#endif

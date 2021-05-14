@@ -70,6 +70,10 @@ if (g_operating_mode == 1) {
     delay(DEVICE_INIT_DELAY);
     setup_ab412_coll_head();
   #endif
+  #if (defined VRMAX_AB412_COLL_HEAD_EXTENSION) 
+    delay(DEVICE_INIT_DELAY);
+    setup_vrmax_coll_head_extension();
+  #endif
   #if (defined HUEY_COLL_SWITCH_PANEL) 
     delay(DEVICE_INIT_DELAY);
     setup_huey_coll_head();
@@ -98,5 +102,6 @@ if (g_operating_mode == 1) {
     delay(DEVICE_INIT_DELAY);
     setup_simple_collective_se_usb();
   #endif
+  
   
 }
