@@ -1,5 +1,6 @@
 #if defined (VRMAX_AB412_COLL_HEAD_EXTENSION)
   Joystick_ j_vrmpnl(0x21, 0x04, 154, 0, false, false, false, false,false, false, false, false, false, false, false);
+  //Joystick_ j_vrmpnl_b(0x22, 0x04, 100, 0, false, false, false, false,false, false, false, false, false, false, false);
   
 void setup_vrmax_coll_head_extension(){
   j_vrmpnl.begin();  
@@ -83,9 +84,8 @@ void poll_vrmax_coll_head_extension(){
     if (((millis() - e_state[i].enc_ts) > 20) && (e_state[i].button_val == 1)){
         e_state[i].button_val = 0;
         j_vrmpnl.setButton(e_state[i].button_id, 0);
-    }
-    else if ((e_state[i].last_val != e_state[i].val) && (e_state[i].press_counter == 0)){
-      if ((e_diff > 1) && (e_diff < 100)){ // fast left turn         
+    } else if ((e_state[i].last_val != e_state[i].val) && (e_state[i].press_counter == 0)){
+      if ((e_diff > 2) && (e_diff < 100)){ // fast left turn         
         set_button_mode_and_radio_switch_aware(i,1,0);
         e_state[i].enc_ts = millis();
         if (((g_obs_rate == 1) && (i == 4))|| ((i == 6) && (g_dg_rate == 1))){  // OBS knob
@@ -97,7 +97,7 @@ void poll_vrmax_coll_head_extension(){
         //e_state[i].button_id = i;
         e_state[i].button_val = 1;
         e_state[i].last_val = e_state[i].val;
-      } else if ((e_diff < -1) && (e_diff > - 100)) {// fast right turn
+      } else if ((e_diff < -2) && (e_diff > - 100)) {// fast right turn
         set_button_mode_and_radio_switch_aware(i,1,1);
         e_state[i].enc_ts = millis();
         if (((g_obs_rate == 1) && (i == 4))|| ((i == 6) && (g_dg_rate == 1))) { // OBS knob
@@ -336,12 +336,12 @@ void parse_radio_panel_switches (byte b, byte start_pos) {
     }
     if ((g_xpdr_mode0_unchecked == 1) && (g_xpdr_mode2_unchecked == 1)) {
       if (g_xpdr_val != 1) {
-        j_vrmpnl.setButton(XPDR_MODE_C_JOY_BUTTON, 1);
+        j_vrmpnl.setButton(XPDR_MODE_C_JOY_BUTTON - 1, 1);
         g_xpdr_val = 1;
       }
     } else {
       if (g_xpdr_val != 0) {
-        j_vrmpnl.setButton(XPDR_MODE_C_JOY_BUTTON, 0);
+        j_vrmpnl.setButton(XPDR_MODE_C_JOY_BUTTON - 1, 0);
         g_xpdr_val = 0;
       }
     }
@@ -478,10 +478,9 @@ void parse_radio_panel_switches (byte b, byte start_pos) {
           radio_matrix[i].sw_val = v;
         }
       }
-    }
-#endif
-
-    else if (v != radio_matrix[i].sw_val) { // regular joy button
+    } else 
+    #endif 
+    if (v != radio_matrix[i].sw_val) { // regular joy button
       j_vrmpnl.setButton(i, v);
       radio_matrix[i].sw_val = v;
     }

@@ -1,5 +1,7 @@
 //<VRMAX_AB412_COLL_HEAD_EXTENSION>//
 
+#if (defined VRMAX_AB412_COLL_HEAD_EXTENSION)
+
     //#define RADIO_PANEL_SETUP // <--- UNCOMMENT TO SEE BUTTON NUMBERS IN JOY.CPL, COMMENT OUT FOR NORMAL OPERATION!
   
     #define RADIO_DEVICE_SWITCH_XPDR_POSITION_JOY_BUTTON 3 // put the lower button number here
@@ -17,7 +19,16 @@
     #define RP_NAV_FINE_PB_JOY_BUTTON 5 // top right
     #define RP_NAV_COARSE_PB_JOY_BUTTON 2 // bottom right
 
-    const t_struct_rp_e_matrix radio_panel_knob_matrix[] =
+//    const t_struct_rp_e_matrix radio_panel_knob_matrix[] =
+//    {
+//    // e  r0l r0r r1l r1r r2l r2r  m0l m0r  m1l m1r  m2l m2r adfl adfr  r0lpm1 r0rpm1 r1lpm1 r1rpm1 r2lpm1 r2rpm1 r0lpm2 r0rpm2 r1lpm2 r1rpm2 r2lpm2 r2rpm2
+//      {0, 25, 26, 33, 34, 41, 42,  49, 50,  57, 58,  65, 66, 87, 88,    95,    96,    103,   104,   111,   112,   119,   120,   127,   128,   135,   136, },
+//      {1, 27, 28, 35, 36, 43, 44,  51, 52,  59, 60,  67, 68, 89, 90,    97,    98,    105,   106,   113,   114,   121,   122,   129,   130,   137,   138, },      
+//      {2, 29, 30, 37, 38, 45, 46,  53, 54,  61, 62,  69, 70, 91, 92,    99,    100,   107,   108,   115,   116,   123,   124,   131,   132,   139,   140, },
+//      {3, 31, 32, 39, 40, 47, 48,  55, 56,  63, 64,  71, 72, 93, 94,    101,   102,   109,   110,   117,   118,   125,   126,   133,   134,   141,   142, },
+//    };
+
+const t_struct_rp_e_matrix radio_panel_knob_matrix[] =
     {
     // e  r0l r0r r1l r1r r2l r2r  m0l m0r  m1l m1r  m2l m2r adfl adfr  r0lpm1 r0rpm1 r1lpm1 r1rpm1 r2lpm1 r2rpm1 r0lpm2 r0rpm2 r1lpm2 r1rpm2 r2lpm2 r2rpm2
       {0, 25, 26, 33, 34, 41, 42,  49, 50,  57, 58,  65, 66, 87, 88,    95,    96,    103,   104,   111,   112,   119,   120,   127,   128,   135,   136, },
@@ -49,4 +60,6 @@
     // e  a0l a0r a1l a1r a2l a2r
       {5, 81, 82, 83, 84, 85, 86, },
     };
+
+#endif
 //</VRMAX_AB412_COLL_HEAD_EXTENSION>

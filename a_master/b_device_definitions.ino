@@ -4,10 +4,10 @@
 
   //CYCLIC
     //BASE
-      //#define CYCLIC_BASE
+      #define CYCLIC_BASE
 
     //GRIPS
-      //#define B8_GRIP
+      #define B8_GRIP
 
   //COLLECTIVE
     //LEVER
@@ -18,14 +18,14 @@
         //#define COLLECTIVE_STHR_EVO_USB
         
       // I2C EVO LEVERS
-        #define COLLECTIVE_STHR_EVO
+        //#define COLLECTIVE_STHR_EVO
 
     //PEDESTAL
       //#define SIMPLE_PEDESTAL
       //#define VRMAXII_PEDESTAL
     // COLLECTIVE SWITCH PANELS
-      #define AB412_COLL_SWITCH_PANEL
-      #define VRMAX_AB412_COLL_HEAD_EXTENSION
+      //#define AB412_COLL_SWITCH_PANEL
+      //#define VRMAX_AB412_COLL_HEAD_EXTENSION
       //#define HUEY_COLL_SWITCH_PANEL
       //#define B407_COLL_SWITCH_PANEL
       
@@ -33,7 +33,7 @@
       //#define HELI_QUADRANT
 
   //PEDALS
-    //#define PEDALS
+    #define PEDALS
         
 //</ACTUAL HARDWARE VERSIONS>
 
