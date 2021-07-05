@@ -10,7 +10,7 @@
   #define PSEUDO_FORCE_TRIM 1
   #define FORCE_TRIM_BUTTON_MODE "HOLD"// "MOMENTARY" or "HOLD" - use "MOMENTARY" for non-centering cyclic
   
-  #define RATES_POTS_ENABLED 0 //set to 0 to use RATES knobs as axes
+  #define RATES_POTS_ENABLED 1 //set to 0 to use RATES knobs as axes
 
   // CYCLIC/PEDALS RATES
   // You can adjust sensitivity of your stick and pedals with knobs on the rates control panel.

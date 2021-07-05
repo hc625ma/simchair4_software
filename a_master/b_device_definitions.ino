@@ -4,10 +4,10 @@
 
   //CYCLIC
     //BASE
-      #define CYCLIC_BASE
+      //#define CYCLIC_BASE
 
     //GRIPS
-      #define B8_GRIP
+      //#define B8_GRIP
 
   //COLLECTIVE
     //LEVER
@@ -25,7 +25,7 @@
       //#define VRMAXII_PEDESTAL
     // COLLECTIVE SWITCH PANELS
       //#define AB412_COLL_SWITCH_PANEL
-      //#define VRMAX_AB412_COLL_HEAD_EXTENSION
+      //#define VRMAX_AB412_COLL_HEAD_EXTENSION // WARNING! COLLECTIVE WITH VRMAX HEAD REQUIRES A SEPARATE MASTER CONTROLLER! 
       //#define HUEY_COLL_SWITCH_PANEL
       //#define B407_COLL_SWITCH_PANEL
       
@@ -33,7 +33,7 @@
       //#define HELI_QUADRANT
 
   //PEDALS
-    #define PEDALS
+    //#define PEDALS
         
 //</ACTUAL HARDWARE VERSIONS>
 
@@ -53,7 +53,7 @@
         //#define COLLECTIVE_TTHR
 
       //I2C MKIII LEVERS
-        //#define COLLECTIVE_STHR_MKIII
+       // #define COLLECTIVE_STHR_MKIII
         //#define COLLECTIVE_TTHR_MKIII
 
 //</LEGACY HARDWARE VERSIONS>

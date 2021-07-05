@@ -29,6 +29,7 @@
   bool g_coll_evo_thr_direct_control[3] = {0,0,0};
   uint16_t g_coll_evo_thr_buf[3] = {0,0,0};
   int16_t g_coll_evo_diff[3] = {0,0,0};
+  uint16_t g_coll_evo_usb_raw_thr = 0;
 
   // <FORCE_TRIM>
     #if ((defined PEDALS) || (defined B8_GRIP) || (defined CYCLIC_BASE))
@@ -273,6 +274,8 @@
     #define COLL_EVO_USB_PHYS_THR1_MIN 0
     #define COLL_EVO_USB_PHYS_THR1_MAX 0
     #define COLL_EVO_USB_PHYS_THR1_MAX_MINUS_PHYS_THR1_MIN 0
+    
+    
   #endif
 // </SIMPLE_COLLECTIVE_SE>
 

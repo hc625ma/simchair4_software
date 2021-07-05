@@ -3,19 +3,7 @@
   Joystick_ j_scoll(0x20, 0x05, 18, 2, false, false, true, true, false, true, false, true, false, false, false);
   t_struct_coll_attr g_struct_coll_attr;
 
-  //UNCOMMENT THE NEXT LINE TO SET UP CONFIGURATION VALUES
-  //#define CALIBRATE_SIMPLE_COLL_SE_USB
-
-  // ADJUST THESE VALUES FOR CALIBRATION
-    #define COLL_EVO_USB_ENABLE_MAP_FUNCTION 1 // SET TO 0 TO SEE RAW VALUES
-    #define COLL_EVO_USB_PHYS_Z_MIN 0
-    #define COLL_EVO_USB_PHYS_Z_MAX 838
-    #define COLL_EVO_USB_PHYS_THR0_MIN 800
-    #define COLL_EVO_USB_PHYS_THR0_MAX 224
-    #define COLL_EVO_USB_PHYS_THR0_MAX_MINUS_PHYS_THR0_MIN 576 //  PHYSICAL THR MAX MINUS THR MIN
-
   void setup_simple_collective_se_usb() {
-
     //POPULATE THE GLOBAL STRUCT WITH VALUES FROM CONFIGURATION HERE
     g_struct_coll_attr.i2c_addr = SINGLE_COLLECTIVE_I2C_ADDRESS;
     g_struct_coll_attr.i2c_bytes = 7; // we will read them locally but still need that here for compatibility
@@ -68,6 +56,7 @@
     uint8_t hs = 0;
 
     coll_lever_evo_usb_poll(lvr,thr,ms,ms_thr); // POLL THE LEVER
+
     hb = read_hat_scoll_se_usb(8);
 
     if (COLLECTIVE_MODE_SWITCH_ENABLED == 1) {
@@ -99,16 +88,17 @@
       Serial.print(" ");
       Serial.print(lvr);
       Serial.print(" ");
-      Serial.print("Throttles:");
-      Serial.print(" ");
+      Serial.print("Throttles: r ");
+      Serial.print(g_coll_evo_usb_raw_thr);
+      Serial.print(" t1 ");
       Serial.print(thr[0]);
-      Serial.print(" ");
+      Serial.print(" t2 ");
       Serial.print(thr[1]);
-      Serial.print(" ");
+      Serial.print(" t3 ");
       Serial.print(thr[2]);
-      Serial.print(" ");
+      Serial.print(" ms ");
       Serial.print(ms);
-      Serial.print(" ");
+      Serial.print(" ms_thr ");
       Serial.print(ms_thr);
       Serial.print(" hat byte ");
       printBits(hb);

@@ -3,16 +3,6 @@
   Joystick_ j_scoll(0x20, 0x05, 7, 0, false, false, true, true, false, true, false, true, false, false, false);
   t_struct_coll_attr g_struct_coll_attr;
 
-  //UNCOMMENT THE NEXT LINE TO SET UP CONFIGURATION VALUES
-  //#define CALIBRATE_SCOLL_EVO_USB
-
-  // ADJUST THESE VALUES FOR CALIBRATION
-    #define COLL_EVO_USB_ENABLE_MAP_FUNCTION 1 // SET TO 0 TO SEE RAW VALUES
-    #define COLL_EVO_USB_PHYS_Z_MIN 0
-    #define COLL_EVO_USB_PHYS_Z_MAX 1000
-    #define COLL_EVO_USB_PHYS_THR0_MIN 149
-    #define COLL_EVO_USB_PHYS_THR0_MAX 703
-    #define COLL_EVO_USB_PHYS_THR0_MAX_MINUS_PHYS_THR0_MIN 559 //  PHYSICAL THR MAX MINUS THR MIN
 
   void setup_single_collective_evo_usb() {
 
