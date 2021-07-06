@@ -51,12 +51,17 @@
       Serial.print(" ");
       Serial.print(lvr);
       Serial.print(" ");
-      Serial.print("Throttle:");
-      Serial.print(" ");
+      Serial.print("Throttles: r ");
+      Serial.print(g_coll_evo_usb_raw_thr);
+      Serial.print(" t1 ");
       Serial.print(thr[0]);
-      Serial.print(" ");
+      Serial.print(" t2 ");
+      Serial.print(thr[1]);
+      Serial.print(" t3 ");
+      Serial.print(thr[2]);
+      Serial.print(" ms ");
       Serial.print(ms);
-      Serial.print(" ");
+      Serial.print(" ms_thr ");
       Serial.print(ms_thr);
       Serial.println(" ");
     #endif
