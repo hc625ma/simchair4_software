@@ -16,7 +16,7 @@
     j_cyclic.setRxAxisRange(0, RATE_POTS_ADC_RANGE);
     j_cyclic.setRyAxisRange(0, RATE_POTS_ADC_RANGE);
     cyclic.begin();
-    cyclic.setSPS(ADS1115_DR_64SPS);
+    cyclic.setSPS(ADS1115_DR_128SPS);
     cyclic.setGain(GAIN_ONE);
     
     g_physical_cyclic_center_x = cyclic.readADC_SingleEnded(0) >> (15 - ADS1115_RESOLUTION);
