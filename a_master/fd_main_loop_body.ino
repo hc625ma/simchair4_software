@@ -79,3 +79,6 @@ if (g_operating_mode == 1) {
 #if (defined SIMPLE_COLLECTIVE_SE_USB) 
   poll_simple_collective_se_usb();
 #endif
+#if (defined SIMPLE_COLLECTIVE_SE_I2C) 
+  poll_simple_collective_se_i2c();
+#endif

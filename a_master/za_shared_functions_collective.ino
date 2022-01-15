@@ -1,4 +1,4 @@
-#if ((defined COLLECTIVE_STHR_MKIII) || (defined COLLECTIVE_TTHR) || (defined COLLECTIVE_STHR_EVO_USB) || (defined COLLECTIVE_STHR_EVO) || (defined SIMPLE_COLLECTIVE_SE_USB))
+#if ((defined COLLECTIVE_STHR_MKIII) || (defined COLLECTIVE_TTHR) || (defined COLLECTIVE_STHR_EVO_USB) || (defined COLLECTIVE_STHR_EVO) || (defined SIMPLE_COLLECTIVE_SE_USB) || (defined SIMPLE_COLLECTIVE_SE_I2C))
 
   void coll_lever_process_poll_results (uint16_t &lvr, uint16_t *thr, uint8_t &ms, class Joystick_ &joy) {
 
@@ -274,7 +274,7 @@
   }
 #endif
 
-#if ((defined COLLECTIVE_STHR_EVO) || (defined SIMPLE_COLLECTIVE_SE))
+#if ((defined COLLECTIVE_STHR_EVO) || (defined SIMPLE_COLLECTIVE_SE) || (defined SIMPLE_COLLECTIVE_SE_I2C))
 
   uint8_t coll_evo_read_modeswitch(uint8_t b) {
     
@@ -302,12 +302,6 @@
     lvr = generic_read_16bit_axis_from_bytes(i2c_bytes[0],i2c_bytes[1]);
     ms = coll_evo_read_modeswitch(i2c_bytes[4]);
     ms_thr = coll_evo_read_modeswitch_thr(i2c_bytes[4]);
-//    Serial.print (" ");
-//    Serial.print(ms);
-//    Serial.print (" ");
-//    Serial.print(ms_thr);
-//    Serial.println();
-     
     if ((COLLECTIVE_EVO_MODE_SWITCH_THR_ENABLED == 1)) {
       //g_struct_coll_attr.throttles = 2;
       if (g_coll_modesw_thr_pos_decimal == MODESW_THR_POS_UP_DECIMAL_VAL) {
@@ -316,17 +310,6 @@
           raw_thr0 = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
           g_coll_evo_diff[0] = raw_thr0 - g_coll_evo_thr_buf[0];
           g_coll_evo_diff[0] = abs(g_coll_evo_diff[0]);
-//          Serial.print("diff ");
-//          Serial.print(g_coll_evo_diff[0]);
-//          Serial.print(" raw ");
-//          Serial.println(raw_thr0);
-//          Serial.print(" buf ");
-//          Serial.print(g_struct_coll_attr.thr_buf[0]);
-//          Serial.print(" dc ");
-//          Serial.print(g_coll_evo_thr_direct_control[0]);
-//          Serial.print(" THR_STEP ");
-//          Serial.print(THR_STEP);
-//          Serial.println();
           if (g_coll_evo_diff[0] < (THR_STEP)) {
             thr[0] = raw_thr0;
             g_coll_evo_thr_buf[0] = thr[0];
@@ -348,17 +331,6 @@
           raw_thr2 = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
           g_coll_evo_diff[2] = raw_thr2 - g_coll_evo_thr_buf[2];
           g_coll_evo_diff[2] = abs(g_coll_evo_diff[2]);
-//          Serial.print("diff ");
-//          Serial.print(g_coll_evo_diff[0]);
-//          Serial.print(" raw ");
-//          Serial.println(raw_thr2);
-//          Serial.print(" buf ");
-//          Serial.print(g_struct_coll_attr.thr_buf[0]);
-//          Serial.print(" dc ");
-//          Serial.print(g_coll_evo_thr_direct_control[0]);
-//          Serial.print(" THR_STEP ");
-//          Serial.print(THR_STEP);
-//          Serial.println();
           if (g_coll_evo_diff[2] < (THR_STEP)) {
             thr[2] = raw_thr2;
             g_coll_evo_thr_buf[2] = thr[2];
@@ -379,17 +351,6 @@
           raw_thr1 = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
           g_coll_evo_diff[1] = raw_thr1 - g_coll_evo_thr_buf[1];
           g_coll_evo_diff[1] = abs(g_coll_evo_diff[1]);
-//          Serial.print("diff ");
-//          Serial.print(g_coll_evo_diff[1]);
-//          Serial.print(" raw ");
-//          Serial.print(raw_thr1);
-//          Serial.print(" buf ");
-//          Serial.print(g_coll_evo_thr_buf[1]);
-//          Serial.print(" dc ");
-//          Serial.print(g_coll_evo_thr_direct_control[1]);
-//          Serial.print(" THR_STEP ");
-//          Serial.print(THR_STEP);
-//          Serial.println();
           if (g_coll_evo_diff[1] < (THR_STEP)) {
             //Serial.println("DC UP");
             thr[1] = raw_thr1;
@@ -414,14 +375,7 @@
         thr[0] = generic_read_16bit_axis_from_bytes(i2c_bytes[2],i2c_bytes[3]);
         generic_check_16_bit_axis_val(thr[0]);
       }
-    }
-//    if (g_struct_coll_attr.throttles == 1) {
-//      ms = i2c_bytes[4];
-//      ms_thr = i2c_bytes[5];
-//    } else {
-//      ms = i2c_bytes[6];
-//      ms_thr = i2c_bytes[7];
-//    }        
+    }       
   }
 
 //  void coll_evo_fill_i2c_bytes_arr (uint8_t *bytes) {
