@@ -257,7 +257,7 @@
 // </407_COLL_HEAD>
 
 // <SIMPLE_COLLECTIVE_SE>
-  #if ((defined SIMPLE_COLLECTIVE_SE_USB) || (defined SIMPLE_COLLECTIVE_SE))
+  #if ((defined SIMPLE_COLLECTIVE_SE_USB) || (defined SIMPLE_COLLECTIVE_SE) || (defined SIMPLE_COLLECTIVE_SE_I2C))
     bool g_scoll_se_lastButtonState[18];
     #define SCOLL_SE_HAT_LEFT 4
     #define SCOLL_SE_HAT_LEFT_UP 5

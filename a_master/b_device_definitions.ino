@@ -4,15 +4,16 @@
 
   //CYCLIC
     //BASE
-      //#define CYCLIC_BASE
+      #define CYCLIC_BASE
 
     //GRIPS
-      //#define B8_GRIP
+      #define B8_GRIP
 
   //COLLECTIVE
     //LEVER
       // USB EVO COMBO LEVERS   
         //#define SIMPLE_COLLECTIVE_SE_USB
+        #define SIMPLE_COLLECTIVE_SE_I2C
         
       // USB EVO LEVERS
         //#define COLLECTIVE_STHR_EVO_USB
@@ -33,7 +34,7 @@
       //#define HELI_QUADRANT
 
   //PEDALS
-    //#define PEDALS
+    #define PEDALS
         
 //</ACTUAL HARDWARE VERSIONS>
 

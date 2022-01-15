@@ -102,6 +102,10 @@ if (g_operating_mode == 1) {
     delay(DEVICE_INIT_DELAY);
     setup_simple_collective_se_usb();
   #endif
+  #if (defined SIMPLE_COLLECTIVE_SE_I2C) 
+    delay(DEVICE_INIT_DELAY);
+    setup_simple_collective_se_i2c();
+  #endif
   
   
 }
